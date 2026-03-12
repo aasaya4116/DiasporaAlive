@@ -1,0 +1,542 @@
+/* Absolute edge-to-edge map container */
+.map-container {
+  width: 100%;
+  height: 100vh;
+  position: relative;
+  overflow: hidden;
+  background: linear-gradient(135deg, #2d2419 0%, #3d3025 100%);
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+.mapboxgl-map {
+  width: 100%;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  border: none;
+}
+
+/* Add pulsing animation for selected points */
+@keyframes pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+  50% {
+    transform: scale(1.3);
+    opacity: 0.2;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 0.6;
+  }
+}
+
+/* Warm gold glow animation for markers */
+@keyframes goldGlow {
+  0% {
+    box-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37, 0 0 15px #D4AF37;
+  }
+  50% {
+    box-shadow: 0 0 10px #D4AF37, 0 0 20px #D4AF37, 0 0 30px #D4AF37;
+  }
+  100% {
+    box-shadow: 0 0 5px #D4AF37, 0 0 10px #D4AF37, 0 0 15px #D4AF37;
+  }
+}
+
+/* Apply pulsing to Mapbox circle layers */
+.mapboxgl-map .mapboxgl-canvas-container canvas {
+  animation: none; /* Reset any default animations */
+}
+
+/* Ensure Mapbox canvas is properly sized */
+.mapboxgl-canvas-container,
+.mapboxgl-canvas {
+  width: 100% !important;
+  height: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  border: none !important;
+}
+
+/* Custom Mapbox control styling */
+.mapboxgl-ctrl-group {
+  background: var(--bg-glass) !important;
+  backdrop-filter: blur(20px) !important;
+  -webkit-backdrop-filter: blur(20px) !important;
+  border: 1px solid var(--border-primary) !important;
+  border-radius: 12px !important;
+  box-shadow: var(--shadow-card) !important;
+}
+
+.mapboxgl-ctrl-group button {
+  background: transparent !important;
+  color: var(--text-primary) !important;
+  border: none !important;
+  width: 40px !important;
+  height: 40px !important;
+}
+
+.mapboxgl-ctrl-group button:hover {
+  background: var(--accent-glow) !important;
+  color: var(--accent-primary) !important;
+}
+
+.mapboxgl-ctrl-group button:not(:last-child) {
+  border-bottom: 1px solid var(--border-primary) !important;
+}
+
+/* Hide Mapbox logo and attribution for cleaner look */
+.mapboxgl-ctrl-logo {
+  display: none !important;
+}
+
+/* Minimal Mapbox attribution for cinematic experience */
+.mapboxgl-ctrl-attrib {
+  background: rgba(45, 36, 25, 0.3) !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 6px !important;
+  border: 1px solid rgba(212, 175, 55, 0.1) !important;
+  color: var(--text-muted) !important;
+  font-size: 9px !important;
+  padding: 2px 6px !important;
+  opacity: 0.6 !important;
+  transition: opacity 0.3s ease !important;
+}
+
+.mapboxgl-ctrl-attrib:hover {
+  opacity: 0.9 !important;
+}
+
+.mapboxgl-ctrl-attrib a {
+  color: var(--accent-secondary) !important;
+  text-decoration: none !important;
+}
+
+.mapboxgl-ctrl-attrib a:hover {
+  color: var(--accent-primary) !important;
+}
+
+/* Enhanced media card tooltip with cultural storytelling design */
+.map-tooltip {
+  position: absolute;
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(61, 48, 37, 0.98) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  color: var(--text-primary);
+  padding: 0;
+  border-radius: 16px;
+  font-size: 14px;
+  pointer-events: none;
+  z-index: 1000;
+  width: 320px;
+  border: 1px solid var(--border-primary);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.6), 0 0 0 1px var(--accent-glow);
+  transform: translate(-50%, -100%);
+  margin-top: -25px;
+  opacity: 0;
+  transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow: hidden;
+}
+
+.map-tooltip.tooltip-visible {
+  opacity: 1;
+  transform: translate(-50%, -100%) scale(1);
+}
+
+.tooltip-media {
+  width: 100%;
+  height: 160px;
+  background: linear-gradient(135deg, var(--accent-earth) 0%, var(--accent-teal) 100%);
+  position: relative;
+  overflow: hidden;
+}
+
+.tooltip-media::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(180deg, transparent 0%, rgba(26, 22, 18, 0.8) 100%);
+  z-index: 2;
+}
+
+.tooltip-media-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+.tooltip-media:hover .tooltip-media-image {
+  transform: scale(1.05);
+}
+
+.tooltip-content {
+  padding: 20px 24px 24px;
+  position: relative;
+}
+
+.tooltip-arrow {
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 0;
+  height: 0;
+  border-left: 12px solid transparent;
+  border-right: 12px solid transparent;
+  border-top: 12px solid var(--bg-card);
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
+.map-tooltip .country-name {
+  font-family: 'Crimson Text', serif;
+  font-weight: 600;
+  margin-bottom: 8px;
+  color: var(--accent-primary);
+  font-size: 22px;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+}
+
+.map-tooltip .country-teaser {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text-secondary);
+  font-weight: 400;
+  margin-bottom: 12px;
+}
+
+.tooltip-cultural-preview {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.cultural-tag {
+  background: linear-gradient(135deg, var(--accent-primary) 0%, var(--accent-secondary) 100%);
+  color: var(--bg-primary);
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 11px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.tooltip-explore-hint {
+  margin-top: 16px;
+  padding-top: 16px;
+  border-top: 1px solid var(--border-secondary);
+  font-size: 12px;
+  color: var(--text-muted);
+  text-align: center;
+  font-style: italic;
+}
+
+/* Enhanced loading state with warm earth tones */
+.map-loading {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: linear-gradient(135deg, var(--bg-card) 0%, rgba(212, 175, 55, 0.05) 100%);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  padding: 40px;
+  border-radius: 20px;
+  text-align: center;
+  border: 1px solid var(--border-primary);
+  box-shadow: 0 8px 32px rgba(212, 175, 55, 0.2), 0 0 0 1px var(--accent-glow);
+  z-index: 1000;
+  min-width: 320px;
+  color: var(--text-primary);
+}
+
+.loading-spinner {
+  width: 48px;
+  height: 48px;
+  border: 3px solid var(--border-secondary);
+  border-top: 3px solid var(--accent-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin: 0 auto 24px;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.map-loading h3 {
+  margin: 0 0 12px 0;
+  color: var(--text-primary);
+  font-size: 20px;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--accent-primary) 0%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.map-loading p {
+  margin: 8px 0 24px 0;
+  color: var(--text-secondary);
+  font-size: 14px;
+  font-weight: 400;
+}
+
+.loading-progress {
+  width: 100%;
+  height: 6px;
+  background: var(--bg-secondary);
+  border-radius: 3px;
+  overflow: hidden;
+  border: 1px solid var(--border-primary);
+}
+
+.progress-bar {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent-primary), var(--accent-secondary));
+  border-radius: 3px;
+  animation: progress 2s ease-in-out infinite;
+  box-shadow: 0 0 10px var(--accent-glow);
+}
+
+@keyframes progress {
+  0% { width: 0%; }
+  50% { width: 70%; }
+  100% { width: 100%; }
+}
+
+/* Responsive adjustments for mobile */
+@media (max-width: 768px) {
+  .map-tooltip {
+    font-size: 12px;
+    max-width: 200px;
+    margin-top: -12px;
+  }
+  
+  .tooltip-content {
+    padding: 10px 12px;
+  }
+  
+  .map-tooltip .country-name {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  
+  .map-tooltip .country-teaser {
+    font-size: 11px;
+    line-height: 1.3;
+  }
+  
+  .tooltip-arrow {
+    border-left-width: 6px;
+    border-right-width: 6px;
+    border-top-width: 6px;
+  }
+  
+  .map-loading {
+    padding: 20px;
+    min-width: 240px;
+  }
+  
+  .loading-spinner {
+    width: 30px;
+    height: 30px;
+    border-width: 3px;
+    margin-bottom: 15px;
+  }
+  
+  .map-loading h3 {
+    font-size: 16px;
+  }
+  
+  .map-loading p {
+    font-size: 13px;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .map-tooltip {
+    /* Slightly larger touch targets on mobile */
+    padding: 2px;
+    font-size: 13px;
+    max-width: 220px;
+  }
+  
+  .tooltip-content {
+    padding: 14px 16px;
+  }
+  
+  .map-tooltip .country-name {
+    font-size: 14px;
+    margin-bottom: 6px;
+  }
+  
+  .map-tooltip .country-teaser {
+    font-size: 12px;
+    line-height: 1.4;
+  }
+  
+  /* Prevent tooltip from appearing too close to edges on mobile */
+  .map-tooltip {
+    margin-top: -20px;
+  }
+  
+  /* Optimize map container for touch */
+  .map-container {
+    touch-action: pan-x pan-y;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .mapboxgl-map {
+    /* Improve touch responsiveness */
+    touch-action: manipulation;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .map-tooltip {
+    background: #000000;
+    border: 2px solid #ffffff;
+  }
+  
+  .tooltip-arrow {
+    border-top-color: #000000;
+  }
+  
+  .map-tooltip .country-name {
+    color: #ffff00;
+  }
+  
+  .map-tooltip .country-teaser {
+    color: #ffffff;
+  }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  .map-tooltip,
+  .loading-spinner,
+  .progress-bar {
+    animation: none;
+    transition: none;
+  }
+  
+  .map-tooltip.tooltip-visible {
+    transform: translate(-50%, -100%);
+  }
+}/* En
+hanced responsive breakpoints */
+@media (max-width: 480px) {
+  .map-tooltip {
+    font-size: 11px;
+    max-width: 180px;
+    margin-top: -10px;
+  }
+  
+  .tooltip-content {
+    padding: 8px 10px;
+  }
+  
+  .map-tooltip .country-name {
+    font-size: 12px;
+    margin-bottom: 3px;
+  }
+  
+  .map-tooltip .country-teaser {
+    font-size: 10px;
+    line-height: 1.2;
+  }
+  
+  .tooltip-arrow {
+    border-left-width: 5px;
+    border-right-width: 5px;
+    border-top-width: 5px;
+  }
+  
+  .map-loading {
+    padding: 16px;
+    min-width: 200px;
+  }
+  
+  .loading-spinner {
+    width: 24px;
+    height: 24px;
+    border-width: 2px;
+    margin-bottom: 12px;
+  }
+  
+  .map-loading h3 {
+    font-size: 14px;
+  }
+  
+  .map-loading p {
+    font-size: 12px;
+  }
+}
+
+/* Tablet landscape optimizations */
+@media (min-width: 769px) and (max-width: 1024px) and (orientation: landscape) {
+  .map-tooltip {
+    font-size: 13px;
+    max-width: 240px;
+  }
+  
+  .tooltip-content {
+    padding: 12px 14px;
+  }
+}
+
+/* Ultra-wide screen optimizations */
+@media (min-width: 1920px) {
+  .map-tooltip {
+    font-size: 15px;
+    max-width: 300px;
+  }
+  
+  .tooltip-content {
+    padding: 16px 20px;
+  }
+  
+  .map-tooltip .country-name {
+    font-size: 16px;
+    margin-bottom: 8px;
+  }
+  
+  .map-tooltip .country-teaser {
+    font-size: 14px;
+    line-height: 1.5;
+  }
+}
+
+/* Focus management for keyboard navigation */
+.map-container:focus {
+  outline: 3px solid #F4A261;
+  outline-offset: 2px;
+}
+
+.map-container:focus-visible {
+  outline: 3px solid #F4A261;
+  outline-offset: 2px;
+}
+
+/* Loading state improvements for slow connections */
+@media (max-width: 768px) {
+  .map-loading {
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": "haiti",
+  "name": "Haiti",
+  "region": "Caribbean",
+  "coordinates": [18.9712, -72.2852],
+  "overview": {
+    "summary": "Haiti holds the distinction of being the first independent Black republic and the first country to permanently abolish slavery. Its culture is a powerful testament to African resilience and the preservation of ancestral traditions.",
+    "historicalContext": "The Haitian Revolution (1791-1804) was the most successful slave rebellion in history, led by Toussaint Louverture and Jean-Jacques Dessalines. This victory created a beacon of hope for enslaved people throughout the Americas and established Haiti as a symbol of Black liberation.",
+    "populationStats": {
+      "population": "11+ million",
+      "percentage": "95% of African descent",
+      "historicalPeriod": "1697-1804",
+      "keyFacts": [
+        "First independent Black nation in the world (1804)",
+        "Only successful slave revolution in history",
+        "Forced to pay reparations to France until 1947",
+        "Preserved more African cultural elements than most Caribbean islands"
+      ]
+    }
+  },
+  "culturalElements": {
+    "music": [
+      {
+        "name": "Kompa",
+        "description": "Haiti's national music, blending African rhythms with Caribbean and Latin influences.",
+        "africanRoots": "Based on West African polyrhythmic patterns and call-and-response vocals",
+        "examples": ["Kompa dirèk", "Mini-jazz bands", "Carnival music"],
+        "significance": "Expresses Haitian identity and cultural pride through music"
+      },
+      {
+        "name": "Rara",
+        "description": "Traditional Haitian street music performed during Easter season with bamboo trumpets and drums.",
+        "africanRoots": "Derives from West African processional music and spiritual ceremonies",
+        "examples": ["Easter processions", "Vaksin bamboo trumpets", "Community celebrations"],
+        "significance": "Maintains African communal music traditions and spiritual expression"
+      },
+      {
+        "name": "Vodou Drumming",
+        "description": "Sacred percussion music used in Vodou ceremonies to invoke spirits and ancestors.",
+        "africanRoots": "Direct continuation of West African ritual drumming traditions",
+        "examples": ["Rada rhythms", "Petwo ceremonies", "Spiritual possession music"],
+        "significance": "Preserves African spiritual communication through rhythm and sound"
+      }
+    ],
+    "food": [
+      {
+        "name": "Griot",
+        "description": "Seasoned fried pork served with rice and beans, Haiti's national dish.",
+        "africanRoots": "Cooking technique and spice combinations derived from West African cuisine",
+        "examples": ["Sunday family meals", "Festival celebrations", "Restaurant staple"],
+        "significance": "Represents adaptation of African cooking methods to available ingredients"
+      },
+      {
+        "name": "Banann Boukannen",
+        "description": "Fried plantains served as a side dish or snack throughout Haiti.",
+        "africanRoots": "Plantain preparation methods brought from West and Central Africa",
+        "examples": ["Street food", "Breakfast accompaniment", "Festival treats"],
+        "significance": "Shows continuity of African agricultural and culinary knowledge"
+      },
+      {
+        "name": "Soup Joumou",
+        "description": "Pumpkin soup traditionally eaten on New Year's Day to celebrate independence.",
+        "africanRoots": "One-pot cooking method and vegetable-based nutrition from African traditions",
+        "examples": ["Independence Day tradition", "Family gatherings", "Cultural celebration"],
+        "significance": "Symbolizes freedom and the transformation from forbidden food to celebration"
+      }
+    ],
+    "religion": [
+      {
+        "name": "Vodou",
+        "description": "Haiti's indigenous religion that syncretizes West African spiritual traditions with Catholicism.",
+        "africanRoots": "Combines Yoruba, Fon, and Kongo spiritual practices and deities",
+        "examples": ["Lwa spirits", "Voodoo ceremonies", "Spiritual healing practices"],
+        "significance": "Provided spiritual resistance during slavery and maintains African cosmology"
+      },
+      {
+        "name": "Ancestor Veneration",
+        "description": "Deep respect and communication with deceased family members and African ancestors.",
+        "africanRoots": "Direct continuation of West and Central African ancestral worship practices",
+        "examples": ["Family altars", "Ancestral offerings", "Spiritual guidance seeking"],
+        "significance": "Maintains connection to African spiritual worldview and family continuity"
+      }
+    ],
+    "language": [
+      {
+        "name": "Haitian Creole (Kreyòl)",
+        "description": "A creole language that developed from French colonial language mixed with African linguistic structures.",
+        "africanRoots": "Grammar and syntax heavily influenced by West African languages, particularly Fon and Yoruba",
+        "examples": ["Official language alongside French", "Oral tradition preservation", "Proverbs and storytelling"],
+        "significance": "Represents linguistic independence and African cultural continuity"
+      },
+      {
+        "name": "African Proverbs and Sayings",
+        "description": "Rich oral tradition of wisdom sayings that preserve African philosophical concepts.",
+        "africanRoots": "Direct translations and adaptations of West African proverbs and moral teachings",
+        "examples": ["Depi nan Ginen (Since Guinea)", "Storytelling traditions", "Moral instruction"],
+        "significance": "Maintains African wisdom traditions and cultural values across generations"
+      }
+    ],
+    "festivals": [
+      {
+        "name": "Carnival (Kanaval)",
+        "description": "Haiti's vibrant pre-Lenten celebration featuring music, dance, and elaborate costumes.",
+        "africanRoots": "Incorporates African masquerade traditions and community celebration patterns",
+        "examples": ["Port-au-Prince parades", "Traditional masks", "Rara music"],
+        "significance": "Celebrates Haitian culture while maintaining African festival traditions"
+      },
+      {
+        "name": "Fet Gede",
+        "description": "Festival honoring the spirits of the dead, celebrated around All Saints' Day.",
+        "africanRoots": "Based on West African festivals honoring ancestors and death spirits",
+        "examples": ["Cemetery visits", "Spiritual offerings", "Baron Samedi celebrations"],
+        "significance": "Maintains African spiritual calendar and ancestor reverence practices"
+      }
+    ]
+  },
+  "media": {
+    "featuredImage": {
+      "id": "haiti-featured",
+      "url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "alt": "Haitian art and cultural symbols",
+      "caption": "Haitian culture preserves strong connections to African ancestral traditions",
+      "type": "image"
+    },
+    "gallery": [
+      {
+        "id": "haiti-vodou",
+        "url": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Vodou ceremony with traditional drums and spiritual symbols",
+        "caption": "Vodou ceremonies maintain direct connections to West African spiritual practices",
+        "type": "image"
+      },
+      {
+        "id": "haiti-art",
+        "url": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Colorful Haitian folk art depicting cultural scenes",
+        "caption": "Haitian art reflects the vibrant fusion of African and Caribbean influences",
+        "type": "image"
+      }
+    ]
+  },
+  "connections": {
+    "africanOrigins": ["Benin", "Nigeria", "Ghana", "Senegal", "Congo", "Mali"],
+    "relatedLocations": ["brazil", "jamaica", "cuba", "colombia"]
+  }
+}

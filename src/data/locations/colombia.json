@@ -1,0 +1,125 @@
+{
+  "id": "colombia",
+  "name": "Colombia",
+  "region": "South America",
+  "coordinates": [4.5709, -74.2973],
+  "overview": {
+    "summary": "Colombia is home to one of the largest Afro-descendant populations in Latin America, with rich cultural traditions concentrated along the Pacific and Caribbean coasts. Afro-Colombian communities have preserved unique musical, culinary, and spiritual practices that reflect their African heritage.",
+    "historicalContext": "Between the 16th and 19th centuries, Colombia received hundreds of thousands of enslaved Africans, primarily through the port of Cartagena. Many escaped to form palenques (maroon communities), with San Basilio de Palenque being recognized as the first free African town in the Americas.",
+    "populationStats": {
+      "population": "4.3 million",
+      "percentage": "9.3% of total population",
+      "historicalPeriod": "1533-1851",
+      "keyFacts": [
+        "Home to San Basilio de Palenque, first free African town in Americas",
+        "Strong Afro-Colombian presence on Pacific and Caribbean coasts",
+        "Birthplace of cumbia and vallenato music genres",
+        "Rich tradition of oral literature and storytelling"
+      ]
+    }
+  },
+  "culturalElements": {
+    "music": [
+      {
+        "name": "Cumbia",
+        "description": "Traditional Colombian music and dance that originated from African, Indigenous, and Spanish influences.",
+        "africanRoots": "African drumming patterns and dance movements form the foundation of cumbia rhythm",
+        "examples": ["Traditional cumbia", "Modern cumbia fusion", "Carnival celebrations"],
+        "significance": "Represents the multicultural fusion that defines Colombian identity"
+      },
+      {
+        "name": "Champeta",
+        "description": "Urban music genre from Cartagena that blends African rhythms with Caribbean and electronic influences.",
+        "africanRoots": "Direct influence from contemporary African music, particularly from West and Central Africa",
+        "examples": ["Cartagena street parties", "Sound system culture", "Dance competitions"],
+        "significance": "Maintains contemporary connections between Colombia and Africa"
+      },
+      {
+        "name": "Marimba Music",
+        "description": "Traditional Pacific coast music featuring the marimba de chonta and African-derived rhythms.",
+        "africanRoots": "Marimba instrument and polyrhythmic patterns brought from Central Africa",
+        "examples": ["Currulao rhythms", "Religious ceremonies", "Cultural festivals"],
+        "significance": "Preserves African musical instruments and ceremonial traditions"
+      }
+    ],
+    "food": [
+      {
+        "name": "Sancocho",
+        "description": "Hearty stew popular throughout Colombia, with regional variations reflecting African cooking techniques.",
+        "africanRoots": "One-pot cooking method and use of root vegetables from African culinary traditions",
+        "examples": ["Sancocho de gallina", "Sancocho de pescado", "Family gatherings"],
+        "significance": "Demonstrates African influence on Colombian comfort food and family traditions"
+      },
+      {
+        "name": "Coconut Rice",
+        "description": "Rice cooked in coconut milk, popular on the Caribbean coast.",
+        "africanRoots": "Coconut-based cooking techniques brought from West African cuisine",
+        "examples": ["Coastal cuisine", "Festival meals", "Restaurant staple"],
+        "significance": "Shows African adaptation to tropical ingredients and cooking methods"
+      }
+    ],
+    "religion": [
+      {
+        "name": "Palenquero Spirituality",
+        "description": "Syncretic religious practices in San Basilio de Palenque combining African and Catholic elements.",
+        "africanRoots": "Maintains Central African spiritual practices and ancestor veneration",
+        "examples": ["Ancestral ceremonies", "Healing rituals", "Community gatherings"],
+        "significance": "Preserves African spiritual traditions in the oldest free African community"
+      }
+    ],
+    "language": [
+      {
+        "name": "Palenquero Language",
+        "description": "Creole language spoken in San Basilio de Palenque, mixing Spanish with African linguistic structures.",
+        "africanRoots": "Grammar and vocabulary influenced by Bantu languages from Central Africa",
+        "examples": ["Community communication", "Oral traditions", "Cultural preservation"],
+        "significance": "Only Spanish-based creole with African substrate in South America"
+      }
+    ],
+    "festivals": [
+      {
+        "name": "Festival de Tambores",
+        "description": "Drumming festival celebrating Afro-Colombian musical heritage.",
+        "africanRoots": "Continues African tradition of community drumming and musical celebration",
+        "examples": ["Palenque celebrations", "Cultural competitions", "Educational workshops"],
+        "significance": "Promotes Afro-Colombian cultural pride and musical preservation"
+      },
+      {
+        "name": "Carnaval de Barranquilla",
+        "description": "Major carnival celebration featuring Afro-Colombian music, dance, and cultural expressions.",
+        "africanRoots": "Incorporates African carnival traditions and community celebration patterns",
+        "examples": ["Cumbia performances", "Traditional masks", "Street celebrations"],
+        "significance": "Showcases Afro-Colombian culture within Colombia's national identity"
+      }
+    ]
+  },
+  "media": {
+    "featuredImage": {
+      "id": "colombia-featured",
+      "url": "https://images.unsplash.com/photo-1544551763-46a013bb70d5?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "alt": "Colombian cumbia dancers in traditional colorful costumes",
+      "caption": "Colombian cumbia reflects the beautiful fusion of African, Indigenous, and Spanish cultures",
+      "type": "image"
+    },
+    "gallery": [
+      {
+        "id": "colombia-palenque",
+        "url": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "San Basilio de Palenque community members in traditional dress",
+        "caption": "San Basilio de Palenque preserves the heritage of the first free African town in the Americas",
+        "type": "image"
+      },
+      {
+        "id": "colombia-marimba",
+        "url": "https://images.unsplash.com/photo-1604909052743-94e838986d24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Traditional marimba de chonta being played in Pacific coast ceremony",
+        "caption": "The marimba de chonta maintains Central African musical traditions on Colombia's Pacific coast",
+        "type": "image"
+      }
+    ]
+  },
+  "connections": {
+    "africanOrigins": ["Angola", "Congo", "Nigeria", "Ghana", "Senegal"],
+    "relatedLocations": ["brazil", "venezuela", "panama", "ecuador", "cuba"]
+  }
+}

@@ -1,0 +1,146 @@
+{
+  "id": "brazil",
+  "name": "Brazil",
+  "region": "South America",
+  "coordinates": [-14.2350, -51.9253],
+  "overview": {
+    "summary": "Brazil is home to the largest African diaspora population outside of Africa, with over 100 million people of African descent. The country's rich cultural tapestry is deeply woven with African traditions, from music and dance to cuisine and religious practices.",
+    "historicalContext": "Between the 16th and 19th centuries, Brazil received approximately 4.9 million enslaved Africans - more than any other country in the Americas. This massive forced migration brought diverse African cultures, languages, and traditions that have profoundly shaped Brazilian society.",
+    "populationStats": {
+      "population": "100+ million",
+      "percentage": "54% of total population",
+      "historicalPeriod": "1538-1888",
+      "keyFacts": [
+        "Last country in the Americas to abolish slavery (1888)",
+        "Received 40% of all enslaved Africans brought to the Americas",
+        "Home to the largest Carnival celebration in the world",
+        "Portuguese colonial language mixed with African linguistic influences"
+      ]
+    }
+  },
+  "culturalElements": {
+    "music": [
+      {
+        "name": "Samba",
+        "description": "Brazil's most iconic music and dance form, born in the favelas of Rio de Janeiro from African rhythms and Portuguese melodies.",
+        "africanRoots": "Derived from Angolan semba dance and West African polyrhythmic traditions",
+        "examples": ["Carnival parades", "Samba schools", "Bossa Nova evolution"],
+        "significance": "Became a symbol of Brazilian national identity and cultural resistance"
+      },
+      {
+        "name": "Capoeira",
+        "description": "A martial art that combines elements of dance, acrobatics, and music, developed by enslaved Africans in Brazil.",
+        "africanRoots": "Combines fighting techniques from Angola with spiritual and musical elements",
+        "examples": ["Roda de capoeira", "Berimbau music", "Regional and Angola styles"],
+        "significance": "Represents resistance, freedom, and the preservation of African warrior traditions"
+      },
+      {
+        "name": "Axé Music",
+        "description": "Popular music genre from Bahia that blends African rhythms with Caribbean and Brazilian influences.",
+        "africanRoots": "Based on Yoruba religious music and West African percussion patterns",
+        "examples": ["Salvador Carnival", "Olodum band", "Timbalada"],
+        "significance": "Celebrates Afro-Brazilian identity and spiritual connection to African ancestors"
+      }
+    ],
+    "food": [
+      {
+        "name": "Feijoada",
+        "description": "Brazil's national dish, a hearty black bean stew with pork and beef, reflecting African cooking techniques.",
+        "africanRoots": "Based on African one-pot cooking methods and use of beans as protein source",
+        "examples": ["Traditional Wednesday and Saturday meals", "Regional variations", "Accompaniments like farofa"],
+        "significance": "Represents the fusion of African, Portuguese, and indigenous culinary traditions"
+      },
+      {
+        "name": "Acarajé",
+        "description": "Deep-fried balls of black-eyed pea dough filled with shrimp, popular in Bahia.",
+        "africanRoots": "Direct descendant of West African akara, brought by Yoruba people",
+        "examples": ["Street food in Salvador", "Candomblé religious offerings", "Bahian cuisine staple"],
+        "significance": "Sacred food in Afro-Brazilian religions and symbol of cultural continuity"
+      },
+      {
+        "name": "Moqueca",
+        "description": "Traditional Brazilian seafood stew cooked in coconut milk and palm oil.",
+        "africanRoots": "Cooking technique and use of dendê (palm oil) brought from West Africa",
+        "examples": ["Bahian moqueca", "Capixaba style", "Fish and shrimp variations"],
+        "significance": "Demonstrates African influence on Brazilian coastal cuisine"
+      }
+    ],
+    "religion": [
+      {
+        "name": "Candomblé",
+        "description": "Afro-Brazilian religious tradition that preserves West and Central African spiritual practices.",
+        "africanRoots": "Combines Yoruba, Fon, and Bantu religious traditions from West and Central Africa",
+        "examples": ["Terreiros (temples)", "Orixá worship", "Ritual drumming and dance"],
+        "significance": "Maintained African spiritual connections and provided community strength during slavery"
+      },
+      {
+        "name": "Umbanda",
+        "description": "Syncretic religion blending African, Indigenous, and Catholic elements.",
+        "africanRoots": "Incorporates African spirit possession and ancestor veneration practices",
+        "examples": ["Mediumship ceremonies", "Preto Velho spirits", "Caboclo entities"],
+        "significance": "Represents Brazilian religious syncretism and African spiritual resilience"
+      }
+    ],
+    "language": [
+      {
+        "name": "African Linguistic Influence",
+        "description": "Hundreds of African words have been incorporated into Brazilian Portuguese, especially in Bahia.",
+        "africanRoots": "Primarily from Yoruba, Kikongo, and Kimbundu languages",
+        "examples": ["Axé (spiritual energy)", "Moleque (boy)", "Quitanda (small market)", "Senzala (slave quarters)"],
+        "significance": "Demonstrates the deep linguistic impact of African cultures on Brazilian Portuguese"
+      }
+    ],
+    "festivals": [
+      {
+        "name": "Carnival",
+        "description": "Brazil's most famous festival, heavily influenced by African rhythms, dance, and celebration traditions.",
+        "africanRoots": "Incorporates African drumming, call-and-response singing, and circular dance patterns",
+        "examples": ["Rio Carnival", "Salvador Carnival", "Samba schools competitions"],
+        "significance": "Showcases African cultural resilience and creativity on a global stage"
+      },
+      {
+        "name": "Festa de Iemanjá",
+        "description": "Annual celebration honoring the Yoruba goddess of the sea, celebrated on February 2nd.",
+        "africanRoots": "Direct continuation of Yoruba religious festivals honoring Yemoja",
+        "examples": ["Rio Vermelho beach ceremony", "Flower offerings to the sea", "White clothing tradition"],
+        "significance": "Maintains direct connection to African spiritual traditions and oceanic reverence"
+      }
+    ]
+  },
+  "media": {
+    "featuredImage": {
+      "id": "brazil-featured",
+      "url": "https://images.unsplash.com/photo-1483729558449-99ef09a8c325?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+      "alt": "Colorful Brazilian Carnival dancers in traditional costumes",
+      "caption": "Brazilian Carnival showcases the vibrant fusion of African and Brazilian cultures",
+      "type": "image"
+    },
+    "gallery": [
+      {
+        "id": "brazil-capoeira",
+        "url": "https://images.unsplash.com/photo-1578662996442-48f60103fc96?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Capoeira practitioners performing in a roda circle",
+        "caption": "Capoeira combines martial arts, dance, and music in African tradition",
+        "type": "image"
+      },
+      {
+        "id": "brazil-food",
+        "url": "https://images.unsplash.com/photo-1604909052743-94e838986d24?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Traditional Brazilian feijoada dish with black beans and meat",
+        "caption": "Feijoada represents the fusion of African cooking techniques with local ingredients",
+        "type": "image"
+      },
+      {
+        "id": "brazil-candomble",
+        "url": "https://images.unsplash.com/photo-1516975080664-ed2fc6a32937?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80",
+        "alt": "Candomblé ceremony with traditional white clothing and offerings",
+        "caption": "Candomblé preserves West African spiritual traditions in Brazil",
+        "type": "image"
+      }
+    ]
+  },
+  "connections": {
+    "africanOrigins": ["Angola", "Nigeria", "Ghana", "Benin", "Congo", "Senegal"],
+    "relatedLocations": ["haiti", "jamaica", "colombia", "cuba", "venezuela"]
+  }
+}

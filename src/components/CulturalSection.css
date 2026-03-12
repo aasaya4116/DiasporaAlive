@@ -1,0 +1,233 @@
+/* Cultural Section Component Styles */
+
+.cultural-section {
+  margin-bottom: 1rem;
+  border: 1px solid #E5E5E5;
+  border-radius: 0.5rem;
+  overflow: hidden;
+  background-color: #FFFFFF;
+}
+
+.section-header {
+  width: 100%;
+  background-color: #F8F6F0;
+  border: none;
+  padding: 1rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  transition: background-color 0.2s ease;
+  text-align: left;
+}
+
+.section-header:hover {
+  background-color: #F4F2EC;
+}
+
+.section-header:focus {
+  outline: 2px solid #F4A261;
+  outline-offset: -2px;
+}
+
+.section-header.expanded {
+  background-color: #264653;
+  color: #F8F6F0;
+}
+
+.section-header.expanded:hover {
+  background-color: #1e3a42;
+}
+
+.header-content {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  flex: 1;
+}
+
+.category-icon {
+  font-size: 1.5rem;
+  line-height: 1;
+}
+
+.category-title {
+  font-size: 1.1rem;
+  font-weight: 600;
+  margin: 0;
+  color: inherit;
+}
+
+.element-count {
+  font-size: 0.9rem;
+  opacity: 0.7;
+  font-weight: 400;
+}
+
+.expand-icon {
+  transition: transform 0.2s ease;
+  flex-shrink: 0;
+}
+
+.section-header.expanded .expand-icon {
+  transform: rotate(180deg);
+}
+
+/* Section Content */
+.section-content {
+  padding: 0;
+  background-color: #FFFFFF;
+}
+
+.cultural-element {
+  padding: 1.5rem;
+  border-bottom: 1px solid #F0F0F0;
+}
+
+.cultural-element:last-child {
+  border-bottom: none;
+}
+
+.element-name {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #264653;
+  margin: 0 0 0.75rem 0;
+}
+
+.element-description {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: #2A2A2A;
+  margin: 0 0 1rem 0;
+}
+
+.african-roots,
+.examples,
+.significance {
+  margin-bottom: 1rem;
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.african-roots strong,
+.examples strong,
+.significance strong {
+  color: #8B4513;
+  font-weight: 600;
+}
+
+.examples ul {
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+}
+
+.examples li {
+  margin-bottom: 0.25rem;
+  color: #2A2A2A;
+}
+
+.significance {
+  margin-bottom: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .section-header {
+    padding: 0.875rem;
+  }
+
+  .category-title {
+    font-size: 1rem;
+  }
+
+  .cultural-element {
+    padding: 1.25rem;
+  }
+
+  .element-name {
+    font-size: 1rem;
+  }
+
+  .element-description,
+  .african-roots,
+  .examples,
+  .significance {
+    font-size: 0.9rem;
+  }
+}
+
+/* Accessibility improvements */
+@media (prefers-reduced-motion: reduce) {
+  .section-header,
+  .expand-icon {
+    transition: none;
+  }
+}
+
+/* High contrast mode support */
+@media (prefers-contrast: high) {
+  .cultural-section {
+    border-color: #000;
+  }
+
+  .section-header {
+    border-bottom: 1px solid #000;
+  }
+
+  .cultural-element {
+    border-bottom-color: #000;
+  }
+}/* Filter st
+ates */
+.cultural-section.filtered {
+  opacity: 0.4;
+  transition: opacity 0.3s ease;
+}
+
+.cultural-section.highlighted {
+  border-color: #B85450;
+  box-shadow: 0 0 0 2px rgba(184, 84, 80, 0.2);
+  background: rgba(184, 84, 80, 0.02);
+}
+
+.cultural-section.highlighted .section-header {
+  background-color: rgba(184, 84, 80, 0.1);
+  border-bottom: 1px solid rgba(184, 84, 80, 0.2);
+}
+
+.cultural-section.highlighted .section-header:hover {
+  background-color: rgba(184, 84, 80, 0.15);
+}
+
+.cultural-section.highlighted .section-header.expanded {
+  background-color: #B85450;
+  color: white;
+}
+
+.cultural-section.highlighted .section-header.expanded:hover {
+  background-color: #a04a46;
+}
+
+.highlight-indicator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #B85450;
+  margin-left: 0.5rem;
+}
+
+.cultural-section.highlighted .highlight-indicator {
+  color: #B85450;
+}
+
+.cultural-section.highlighted .section-header.expanded .highlight-indicator {
+  color: rgba(255, 255, 255, 0.8);
+}
+
+/* Animation for filter transitions */
+@media (prefers-reduced-motion: no-preference) {
+  .cultural-section {
+    transition: opacity 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+  }
+}
