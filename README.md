@@ -1,73 +1,51 @@
-# React + TypeScript + Vite
+# Diaspora Alive
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A platform that documents and amplifies African cultural customs that dispersed globally through the transatlantic slave trade. Built for writers, academics, and travel curators who want to map and explore living cultural connections across geographies.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## The Problem
 
-## React Compiler
+The transatlantic slave trade severed millions of people from their cultural origins — but it did not erase those cultures. Customs, languages, food traditions, spiritual practices, and artistic forms survived and evolved across the Americas, Caribbean, and beyond. That living cultural record has no central home. It exists in academic papers, oral histories, and travel blogs that never talk to each other.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+Diaspora Alive is the connective layer.
 
-## Expanding the ESLint configuration
+---
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## What It Does
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- Maps African cultural customs to their geographic origins and diaspora destinations
+- Provides a writing and documentation platform for contributors
+- Gives travel curators a research tool for culturally grounded itineraries
+- Surfaces connections between practices that share a common African root
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+---
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+## Tech Stack
+
+| Layer | Technology |
+|---|---|
+| Frontend | React · TypeScript · Vite |
+| Styling | CSS |
+| Build | Vite · ESLint · Vitest |
+| Prototyping | v0 (Vercel) · Claude Code |
+
+---
+
+## Setup
+
+```bash
+git clone https://github.com/aasaya4116/DiasporaAlive.git
+cd DiasporaAlive
+
+npm install
+npm run dev
 ```
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+Open `http://localhost:5173`.
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+---
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+## Why I Built This
+
+This is a personal project rooted in identity and history. The technical goal was to prototype a culturally meaningful platform fast — using v0 for initial UI generation and Claude Code to refine components — and prove that a PM can move from idea to working product without a full engineering team.
