@@ -3,9 +3,16 @@ import type { Metadata } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import { Analytics } from "@vercel/analytics/next"
 import "./globals.css"
+import { CustomCursor } from "@/components/custom-cursor"
 
-const _geist = Geist({ subsets: ["latin"] })
-const _geistMono = Geist_Mono({ subsets: ["latin"] })
+const geistSans = Geist({
+  variable: "--font-sans",
+  subsets: ["latin"],
+})
+const geistMono = Geist_Mono({
+  variable: "--font-mono",
+  subsets: ["latin"],
+})
 
 export const metadata: Metadata = {
   title: "Diaspora Alive - Interactive African Diaspora Culture Map",
@@ -38,7 +45,8 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`font-sans antialiased`}>
+      <body className={`${geistSans.variable} ${geistMono.variable} font-sans antialiased`}>
+        <CustomCursor />
         {children}
         <Analytics />
       </body>

@@ -86,18 +86,28 @@ export function StoriesPreview() {
           {previewStories.map((story, index) => (
             <div
               key={story.id}
-              className="group relative p-6 rounded-lg border border-emerald-500/20 bg-card/30 backdrop-blur-sm hover:border-emerald-500/40 transition-all hover:scale-105"
+              className="group relative p-6 rounded-xl glass-panel hover-lift hover:border-emerald-500/40 transition-all"
               style={{
                 animation: isVisible ? `fadeIn 0.6s ease-out ${index * 0.1}s both` : "none",
               }}
             >
-              <div className="absolute top-4 right-4 text-emerald-500/20">
-                <Quote className="w-8 h-8" />
+              {/* Decorative Quote icon — large, top-right, faint */}
+              <div className="absolute top-4 right-4 text-emerald-500/10">
+                <Quote className="w-16 h-16" />
               </div>
 
-              <div className="flex items-center gap-3 mb-4">
-                <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
-                  <User className="w-6 h-6 text-white" />
+              <div className="flex items-center gap-4 mb-5">
+                {/* Avatar with gradient ring (green → gold) */}
+                <div
+                  className="rounded-full p-[2.5px] shrink-0"
+                  style={{
+                    background:
+                      "linear-gradient(135deg, #10b981, oklch(0.75 0.15 85))",
+                  }}
+                >
+                  <div className="w-12 h-12 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
+                    <User className="w-6 h-6 text-white" />
+                  </div>
                 </div>
                 <div>
                   <h3 className="font-bold text-foreground">{story.name}</h3>
@@ -105,11 +115,20 @@ export function StoriesPreview() {
                 </div>
               </div>
 
-              <div className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 mb-4">
+              {/* Heritage badge with subtle glow */}
+              <div
+                className="inline-block px-3 py-1 rounded-full bg-emerald-500/10 border border-emerald-500/20 text-xs text-emerald-400 mb-4 font-medium"
+                style={{
+                  boxShadow: "0 0 12px oklch(0.6 0.18 145 / 0.25)",
+                }}
+              >
                 {story.heritage}
               </div>
 
-              <p className="text-muted-foreground leading-relaxed mb-4 italic">{story.excerpt}</p>
+              {/* Pull-quote excerpt with emerald left border */}
+              <p className="text-muted-foreground leading-relaxed mb-5 italic border-l-[3px] border-l-emerald-500/50 pl-4">
+                {story.excerpt}
+              </p>
 
               <Link
                 href={`/stories/${story.id}`}

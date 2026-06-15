@@ -20,7 +20,7 @@ function PageContent() {
   const [searchQuery, setSearchQuery] = useState("")
 
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
+    <div className="min-h-screen bg-background text-foreground">
       <Sidebar
         activeSection={activeSection}
         onSectionChange={setActiveSection}
@@ -28,7 +28,7 @@ function PageContent() {
         onSearch={setSearchQuery}
       />
 
-      <div className="flex-1 overflow-y-auto">
+      <main>
         <HeroSection
           selectedFilters={selectedFilters}
           onFiltersChange={setSelectedFilters}
@@ -44,8 +44,8 @@ function PageContent() {
         <StoriesPreview />
         <ResourcesPreview />
         <WhySection />
-        <Footer />
-      </div>
+      </main>
+      <Footer />
     </div>
   )
 }

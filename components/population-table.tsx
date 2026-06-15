@@ -25,6 +25,108 @@ const populationData = [
   { place: "T&T", population: "607,472", percentage: "44.50%" },
 ]
 
+/** Short display labels for top-4 hero cards */
+const shortPopulationLabels: Record<string, string> = {
+  Brazil: "55.9M",
+  USA: "46.3M",
+  Haiti: "10.3M",
+  Colombia: "4.9M",
+}
+
+/** Mock history sparkline coordinates */
+const sparklines: Record<string, number[]> = {
+  Brazil: [30, 45, 35, 55, 60, 80],
+  USA: [20, 30, 42, 50, 48, 70],
+  Haiti: [50, 60, 55, 65, 75, 95],
+  Colombia: [15, 25, 20, 35, 45, 55],
+}
+
+function generateSparklinePath(points: number[]) {
+  const width = 100
+  const height = 30
+  const max = Math.max(...points)
+  const min = Math.min(...points)
+  const range = max - min
+
+  return points
+    .map((p, i) => {
+      const x = (i / (points.length - 1)) * width
+      const y = height - ((p - min) / range) * (height - 4) - 2
+      return `${i === 0 ? "M" : "L"} ${x} ${y}`
+    })
+    .join(" ")
+}
+
+function TiltCard({
+  children,
+  className,
+  style,
+}: {
+  children: React.ReactNode
+  className?: string
+  style?: React.CSSProperties
+}) {
+  const cardRef = useRef<HTMLDivElement>(null)
+
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    const card = cardRef.current
+    if (!card) return
+    const rect = card.getBoundingClientRect()
+    const x = e.clientX - rect.left - rect.width / 2
+    const y = e.clientY - rect.top - rect.height / 2
+
+    // Max rotation 8 degrees
+    const rotateX = -(y / (rect.height / 2)) * 8
+    const rotateY = (x / (rect.width / 2)) * 8
+
+    card.style.transform = `perspective(1000px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`
+
+    // Set custom properties for glare effect
+    const glareX = ((e.clientX - rect.left) / rect.width) * 100
+    const glareY = ((e.clientY - rect.top) / rect.height) * 100
+    card.style.setProperty("--glare-x", `${glareX}%`)
+    card.style.setProperty("--glare-y", `${glareY}%`)
+    card.style.setProperty("--glare-opacity", "0.15")
+  }
+
+  const handleMouseLeave = () => {
+    const card = cardRef.current
+    if (!card) return
+    card.style.transform = "perspective(1000px) rotateX(0deg) rotateY(0deg) scale3d(1, 1, 1)"
+    card.style.setProperty("--glare-opacity", "0")
+  }
+
+  return (
+    <div
+      ref={cardRef}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      className={cn(
+        "transition-all duration-200 ease-out relative overflow-hidden",
+        className
+      )}
+      style={{
+        ...style,
+        transformStyle: "preserve-3d",
+      }}
+    >
+      {/* Glare effect overlay */}
+      <div
+        className="absolute inset-0 pointer-events-none transition-opacity duration-300 z-10"
+        style={{
+          background:
+            "radial-gradient(circle at var(--glare-x, 50%) var(--glare-y, 50%), rgba(255,255,255,0.15) 0%, transparent 60%)",
+          opacity: "var(--glare-opacity, 0)",
+        }}
+      />
+      {children}
+    </div>
+  )
+}
+
+const topCountries = populationData.slice(0, 4)
+const remainingCountries = populationData.slice(4)
+
 export function PopulationTable() {
   const [isVisible, setIsVisible] = useState(false)
   const tableRef = useRef<HTMLDivElement>(null)
@@ -55,38 +157,88 @@ export function PopulationTable() {
       )}
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl font-bold text-center mb-2 bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
+        <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
           Diaspora Population by Country
         </h2>
-        <p className="text-center text-muted-foreground mb-8">
+        <p className="text-center text-muted-foreground mb-10">
           African diaspora communities across the Americas and Caribbean
         </p>
 
-        <div className="overflow-x-auto rounded-lg border border-emerald-500/20 shadow-[0_0_20px_rgba(16,185,129,0.15)]">
-          <table className="w-full">
-            <thead>
-              <tr className="border-b border-emerald-500/30 bg-emerald-500/5">
-                <th className="px-6 py-4 text-left text-sm font-semibold text-emerald-400">Place</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-emerald-400">Population</th>
-                <th className="px-6 py-4 text-right text-sm font-semibold text-emerald-400">Percentage (% of total)</th>
-              </tr>
-            </thead>
-            <tbody>
-              {populationData.map((row, index) => (
-                <tr
-                  key={row.place}
-                  className={cn(
-                    "border-b border-border/50 transition-colors hover:bg-emerald-500/5",
-                    index % 2 === 0 ? "bg-background" : "bg-card/30",
-                  )}
-                >
-                  <td className="px-6 py-4 text-sm font-medium">{row.place}</td>
-                  <td className="px-6 py-4 text-sm text-right text-muted-foreground">{row.population}</td>
-                  <td className="px-6 py-4 text-sm text-right text-muted-foreground">{row.percentage}</td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Top 4 — large interactive feature cards with 3D tilt and sparklines */}
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+          {topCountries.map((row, index) => (
+            <TiltCard
+              key={row.place}
+              className="glass-panel hover-lift relative rounded-xl p-6 border-l-[3px] border-l-emerald-500/60"
+              style={{
+                animation: isVisible
+                  ? `countUp 0.7s ease-out ${index * 0.12}s both`
+                  : "none",
+              }}
+            >
+              <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-1 font-semibold">
+                {row.place}
+              </p>
+              <p className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent leading-tight">
+                {shortPopulationLabels[row.place]}
+              </p>
+              <p className="text-sm text-muted-foreground mt-1 mb-3">
+                {row.percentage} of population
+              </p>
+
+              {/* Mini Sparkline Graph */}
+              <div className="h-8 w-full mt-4 flex items-end opacity-70">
+                <svg className="w-full h-full text-emerald-400 overflow-visible" viewBox="0 0 100 30">
+                  <path
+                    d={generateSparklinePath(sparklines[row.place])}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                  <path
+                    d={`${generateSparklinePath(sparklines[row.place])} L 100 30 L 0 30 Z`}
+                    fill="url(#sparkline-grad)"
+                    opacity="0.1"
+                  />
+                  <defs>
+                    <linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1">
+                      <stop offset="0%" stopColor="#10b981" />
+                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                    </linearGradient>
+                  </defs>
+                </svg>
+              </div>
+            </TiltCard>
+          ))}
+        </div>
+
+        {/* Remaining countries — compact 2-column card grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
+          {remainingCountries.map((row, index) => (
+            <div
+              key={row.place}
+              className="glass-panel hover-lift rounded-lg px-5 py-3 flex items-center justify-between border-l-2 border-l-emerald-500/30"
+              style={{
+                animation: isVisible
+                  ? `countUp 0.5s ease-out ${0.5 + index * 0.06}s both`
+                  : "none",
+              }}
+            >
+              <span className="font-medium text-sm text-foreground">
+                {row.place}
+              </span>
+              <div className="flex items-center gap-4">
+                <span className="text-sm text-muted-foreground tabular-nums">
+                  {row.population}
+                </span>
+                <span className="text-xs text-emerald-400/80 font-semibold tabular-nums min-w-[52px] text-right">
+                  {row.percentage}
+                </span>
+              </div>
+            </div>
+          ))}
         </div>
       </div>
     </section>

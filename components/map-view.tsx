@@ -231,15 +231,20 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
           const isSelected = selectedCountry === country.id
 
           const iconHtml = `
-            <div class="relative flex items-center justify-center transition-all duration-200 ${
+            <div class="relative flex items-center justify-center transition-all duration-300 ${
               isHighlighted ? "scale-125" : "scale-100"
             }">
-              <div class="${
+              <!-- Pulsing outer ring -->
+              <span class="absolute w-8 h-8 rounded-full bg-emerald-500/25 animate-ping pointer-events-none"></span>
+              <!-- Outer glowing outline -->
+              <span class="absolute w-6 h-6 rounded-full border border-emerald-500/30 animate-pulse pointer-events-none"></span>
+              
+              <div class="relative rounded-full transition-all duration-300 ${
                 isSelected
-                  ? "w-6 h-6 bg-[#10b981] rounded-full shadow-[0_0_25px_rgba(16,185,129,0.9)] border-2 border-[#10b981]"
+                  ? "w-5 h-5 bg-amber-400 border-2 border-amber-500 shadow-[0_0_25px_rgba(245,158,11,0.95)] z-10"
                   : isHighlighted
-                    ? "w-5 h-5 bg-[#10b981] rounded-full shadow-[0_0_20px_rgba(16,185,129,0.7)] border border-[#10b981]"
-                    : "w-4 h-4 bg-[#10b981] rounded-full shadow-[0_0_15px_rgba(16,185,129,0.5)]"
+                    ? "w-4.5 h-4.5 bg-emerald-300 border border-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.8)] z-10"
+                    : "w-3.5 h-3.5 bg-emerald-500 border border-[#0a0e1a] shadow-[0_0_12px_rgba(16,185,129,0.5)] z-10"
               }"></div>
             </div>
           `
@@ -411,12 +416,6 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
 
   return (
     <div className="relative flex-1 bg-[#0a0e1a] overflow-hidden">
-      <link
-        rel="stylesheet"
-        href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
-        integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
-        crossOrigin=""
-      />
       <div ref={mapRef} className="w-full h-full" />
     </div>
   )

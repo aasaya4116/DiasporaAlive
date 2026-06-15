@@ -82,7 +82,7 @@ export function NewsPreview() {
           <div>
             <h2 className="text-3xl md:text-4xl font-bold mb-2">
               <span className="bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
-                Latest News & Events
+                Latest News &amp; Events
               </span>
             </h2>
             <p className="text-muted-foreground">Stay connected to diaspora culture worldwide</p>
@@ -101,24 +101,29 @@ export function NewsPreview() {
             <Link
               key={item.id}
               href={`/news/${item.id}`}
-              className="group rounded-lg border border-emerald-500/20 bg-card/30 backdrop-blur-sm hover:border-emerald-500/40 transition-all hover:scale-105 overflow-hidden"
+              className="group hover-lift rounded-xl border border-emerald-500/10 hover:border-emerald-500/30 bg-card/30 backdrop-blur-sm transition-all overflow-hidden border-l-2 border-l-emerald-500/60"
               style={{
-                animation: isVisible ? `fadeIn 0.6s ease-out ${index * 0.1}s both` : "none",
+                animation: isVisible ? `fadeInUp 0.6s ease-out ${index * 0.15}s both` : "none",
               }}
             >
-              <div className="relative h-40 overflow-hidden">
+              {/* Image area — taller with gradient overlay */}
+              <div className="relative h-48 overflow-hidden">
                 <Image
                   src={item.image || "/placeholder.svg"}
                   alt={item.title}
                   fill
-                  className="object-cover group-hover:scale-110 transition-transform duration-300"
+                  className="object-cover group-hover:scale-110 transition-transform duration-500"
                 />
-                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-600/90 backdrop-blur-sm text-xs text-white font-medium">
+                {/* Gradient overlay from transparent to dark */}
+                <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+
+                {/* Glass-effect category badge */}
+                <div className="absolute top-3 left-3 px-3 py-1 rounded-full bg-emerald-600/60 backdrop-blur-md border border-emerald-400/20 text-xs text-white font-medium shadow-lg">
                   {item.category}
                 </div>
               </div>
 
-              <div className="p-4">
+              <div className="p-5">
                 <div className="flex items-center gap-4 text-xs text-muted-foreground mb-2">
                   <div className="flex items-center gap-1">
                     <Calendar className="w-3 h-3" />

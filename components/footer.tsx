@@ -3,7 +3,11 @@ import { Globe, Mail, Twitter, Instagram, Linkedin, Github } from "lucide-react"
 
 export function Footer() {
   return (
-    <footer className="relative border-t border-emerald-500/20 bg-background">
+    <footer className="relative bg-background">
+      {/* Animated gradient line */}
+      <div className="h-[2px] w-full animate-gradient-line bg-[length:200%_auto] bg-gradient-to-r from-emerald-500 via-[oklch(0.75_0.15_85)] to-purple-500" />
+      {/* Gradient divider */}
+      <div className="gradient-divider" />
       <div className="max-w-6xl mx-auto px-8 py-16">
         <div className="grid md:grid-cols-4 gap-12 mb-12">
           {/* Brand */}
@@ -25,7 +29,7 @@ export function Footer() {
                 href="https://twitter.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all"
+                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
               >
                 <Twitter className="w-5 h-5 text-emerald-400" />
               </a>
@@ -33,7 +37,7 @@ export function Footer() {
                 href="https://instagram.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all"
+                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
               >
                 <Instagram className="w-5 h-5 text-emerald-400" />
               </a>
@@ -41,7 +45,7 @@ export function Footer() {
                 href="https://linkedin.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all"
+                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
               >
                 <Linkedin className="w-5 h-5 text-emerald-400" />
               </a>
@@ -49,7 +53,7 @@ export function Footer() {
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 transition-all"
+                className="w-10 h-10 rounded-full border border-emerald-500/20 bg-card/30 flex items-center justify-center hover:border-emerald-500/40 hover:bg-emerald-500/10 hover:-translate-y-1 hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300"
               >
                 <Github className="w-5 h-5 text-emerald-400" />
               </a>
@@ -117,7 +121,7 @@ export function Footer() {
         </div>
 
         {/* Newsletter Signup */}
-        <div className="mb-12 p-6 rounded-lg border border-emerald-500/20 bg-card/30 backdrop-blur-sm">
+        <div className="glass-panel mb-12 p-6 rounded-lg">
           <div className="flex flex-col md:flex-row items-center justify-between gap-4">
             <div className="flex items-center gap-3">
               <Mail className="w-6 h-6 text-emerald-400" />
@@ -132,7 +136,7 @@ export function Footer() {
                 placeholder="Enter your email"
                 className="flex-1 md:w-64 px-4 py-2 rounded-lg bg-background border border-emerald-500/20 focus:border-emerald-500/40 outline-none text-foreground placeholder:text-muted-foreground"
               />
-              <button className="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 text-white rounded-lg font-medium transition-colors whitespace-nowrap">
+              <button className="px-6 py-2 bg-emerald-600 hover:bg-emerald-700 hover:shadow-[0_0_20px_rgba(16,185,129,0.4)] text-white rounded-lg font-medium transition-all duration-300 whitespace-nowrap">
                 Subscribe
               </button>
             </div>
@@ -141,7 +145,7 @@ export function Footer() {
 
         {/* Bottom Bar */}
         <div className="pt-8 border-t border-emerald-500/20 flex flex-col md:flex-row justify-between items-center gap-4 text-sm text-muted-foreground">
-          <p>© 2025 Diaspora Alive. All rights reserved.</p>
+          <p>© 2026 Diaspora Alive. All rights reserved.</p>
           <div className="flex gap-6">
             <Link href="/privacy" className="hover:text-emerald-400 transition-colors">
               Privacy Policy
