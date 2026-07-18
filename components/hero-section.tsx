@@ -1,17 +1,9 @@
-﻿"use client"
+"use client"
 
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 import { ChevronDown, Globe, Users, MapPin } from "lucide-react"
 import { AuroraBackground } from "@/components/aurora-background"
-
-interface HeroSectionProps {
-  selectedFilters: string[]
-  onFiltersChange: (filters: string[]) => void
-  highlightedCountry: string | null
-  searchQuery: string
-  onSearchChange: (query: string) => void
-}
 
 const floatingStats = [
   { icon: Globe, value: "19", label: "Countries", delay: "0.8s" },
@@ -19,13 +11,7 @@ const floatingStats = [
   { icon: MapPin, value: "500+", label: "Cultural Sites", delay: "1.2s" },
 ]
 
-export function HeroSection({
-  selectedFilters,
-  onFiltersChange,
-  highlightedCountry,
-  searchQuery,
-  onSearchChange,
-}: HeroSectionProps) {
+export function HeroSection() {
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
@@ -56,7 +42,7 @@ export function HeroSection({
         className="absolute inset-0 z-[3] animate-grid-pulse pointer-events-none"
         style={{
           backgroundImage:
-            "linear-gradient(oklch(0.55 0.15 150 / 0.1) 1px, transparent 1px), linear-gradient(90deg, oklch(0.55 0.15 150 / 0.1) 1px, transparent 1px)",
+            "linear-gradient(rgba(200,169,110,0.08) 1px, transparent 1px), linear-gradient(90deg, rgba(200,169,110,0.08) 1px, transparent 1px)",
           backgroundSize: "60px 60px",
         }}
       />
@@ -66,18 +52,18 @@ export function HeroSection({
         {/* Tagline badge */}
         <div
           className={cn(
-            "inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-sm transition-[opacity,transform] duration-700",
+            "inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-gold/30 bg-gold/10 backdrop-blur-sm transition-[opacity,transform] duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: "0.2s" }}
         >
-          <Globe className="h-4 w-4 text-emerald-400" />
-          <span className="text-sm font-medium text-emerald-300 tracking-wide">
+          <Globe className="h-4 w-4 text-gold" />
+          <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">
             Interactive Cultural Heritage Map
           </span>
         </div>
 
-        {/* Main heading â€” massive bold typography */}
+        {/* Main heading */}
         <h1
           className={cn(
             "transition-[opacity,transform] duration-700",
@@ -89,11 +75,9 @@ export function HeroSection({
             Trace the African
           </span>
           <span
-            className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none animate-shimmer"
+            className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none"
             style={{
-              backgroundImage:
-                "linear-gradient(90deg, #10b981 0%, #34d399 25%, #fbbf24 50%, #34d399 75%, #10b981 100%)",
-              backgroundSize: "200% auto",
+              backgroundImage: "linear-gradient(90deg, #ffffff 0%, #9a9cae 100%)",
               WebkitBackgroundClip: "text",
               WebkitTextFillColor: "transparent",
               backgroundClip: "text",
@@ -111,7 +95,7 @@ export function HeroSection({
           )}
           style={{ transitionDelay: "0.6s" }}
         >
-          From music and language to food, faith, and tradition â€” explore the
+          From music and language to food, faith, and tradition — explore the
           global influence of African culture across the Americas and Caribbean.
         </p>
 
@@ -129,7 +113,7 @@ export function HeroSection({
                 .getElementById("map-section")
                 ?.scrollIntoView({ behavior: "smooth" })
             }}
-            className="group inline-flex items-center gap-3 px-10 py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-500 text-white font-semibold text-lg transition-all duration-300 hover:scale-[1.03] hover:shadow-[0_0_40px_oklch(0.6_0.18_145/0.4)] shadow-lg shadow-emerald-900/30"
+            className="group inline-flex items-center gap-3 px-10 py-4 rounded-full bg-gold text-background font-semibold text-lg transition hover:opacity-90 hover:-translate-y-px"
           >
             Explore the Map
             <svg
@@ -158,7 +142,7 @@ export function HeroSection({
               <div
                 key={stat.label}
                 className={cn(
-                  "glass-panel rounded-2xl px-6 py-4 flex items-center gap-4 transition-[opacity,transform] duration-700",
+                  "glass-panel rounded-xl px-6 py-4 flex items-center gap-4 transition-[opacity,transform] duration-700",
                   i === 1 ? "animate-float-delayed" : "animate-float",
                   isVisible
                     ? "opacity-100 translate-y-0"
@@ -169,8 +153,8 @@ export function HeroSection({
                   animationDelay: `${i * 0.5}s`,
                 }}
               >
-                <div className="w-10 h-10 rounded-xl bg-emerald-500/15 flex items-center justify-center">
-                  <Icon className="w-5 h-5 text-emerald-400" />
+                <div className="w-10 h-10 rounded-lg bg-gold/15 flex items-center justify-center">
+                  <Icon className="w-5 h-5 text-gold" />
                 </div>
                 <div className="text-left">
                   <p className="text-2xl font-bold text-foreground tracking-tight">
@@ -197,7 +181,7 @@ export function HeroSection({
         <span className="text-xs text-muted-foreground/60 uppercase tracking-[0.2em] font-medium">
           Explore
         </span>
-        <ChevronDown className="w-5 h-5 text-emerald-400/60 animate-scroll-pulse" />
+        <ChevronDown className="w-5 h-5 text-gold/60 animate-scroll-pulse" />
       </div>
     </section>
   )

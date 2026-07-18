@@ -24,7 +24,7 @@ const sampleMessages = [
           location: "San Juan, Puerto Rico",
           activities: [
             "Bomba workshop at Don Rafael Cepeda School",
-            "Lunch at El BurÃ©n de Lula for authentic African-influenced dishes",
+            "Lunch at El Burén de Lula for authentic African-influenced dishes",
             "Evening visit to Loiza's Samuel Lind Studio",
           ],
         },
@@ -40,7 +40,7 @@ const sampleMessages = [
         {
           day: 3,
           location: "Port-au-Prince, Haiti",
-          activities: ["Visit MusÃ©e Colonial Ogier-Fombrun", "Explore local markets", "Attend evening Vodou ceremony"],
+          activities: ["Visit Musée Colonial Ogier-Fombrun", "Explore local markets", "Attend evening Vodou ceremony"],
         },
       ],
     },
@@ -60,7 +60,6 @@ export function ItineraryAgent() {
   const handleSend = () => {
     if (!inputValue.trim()) return
     // Placeholder - will integrate AI SDK later
-    console.log("[v0] User message:", inputValue)
     setInputValue("")
   }
 
@@ -77,15 +76,14 @@ export function ItineraryAgent() {
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
-          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full text-sm text-primary mb-6">
-            <Sparkles className="h-4 w-4" />
-            AI-Powered Travel Planning
-          </div>
-          <h2 className="text-4xl md:text-5xl font-bold text-foreground mb-4">
-            Your Personal{" "}
-            <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-green-500">
-              Cultural Guide
+          <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
+            <Sparkles className="h-4 w-4 text-gold" />
+            <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">
+              AI-Powered Travel Planning
             </span>
+          </div>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
+            Your Personal Cultural Guide
           </h2>
           <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
             Let our AI agent help you discover and plan immersive cultural experiences across the African diaspora
@@ -95,7 +93,7 @@ export function ItineraryAgent() {
         {/* Chat interface */}
         <div
           className={cn(
-            "bg-card/50 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden transition-[opacity,transform] duration-700 delay-200 transform",
+            "bg-card border border-border rounded-xl shadow-[0_8px_32px_rgba(0,0,0,0.3)] overflow-hidden transition-[opacity,transform] duration-700 delay-200 transform",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
@@ -115,10 +113,10 @@ export function ItineraryAgent() {
                 <div className={cn("max-w-[80%]", message.role === "user" ? "order-first" : "")}>
                   <div
                     className={cn(
-                      "rounded-2xl p-4",
+                      "rounded-lg p-4",
                       message.role === "user"
                         ? "bg-primary text-primary-foreground ml-auto"
-                        : "bg-background/50 border border-border/50",
+                        : "bg-secondary border border-border",
                     )}
                   >
                     <p className="text-sm leading-relaxed">{message.content}</p>
@@ -126,7 +124,7 @@ export function ItineraryAgent() {
 
                   {/* Itinerary card */}
                   {message.itinerary && (
-                    <div className="mt-4 bg-background/80 backdrop-blur-sm border border-primary/30 rounded-2xl p-6 shadow-lg">
+                    <div className="mt-4 bg-background border border-primary/30 rounded-lg p-6">
                       <h3 className="text-xl font-semibold text-foreground mb-2 flex items-center gap-2">
                         <Calendar className="h-5 w-5 text-primary" />
                         {message.itinerary.title}
@@ -156,7 +154,7 @@ export function ItineraryAgent() {
                         ))}
                       </div>
 
-                      <button className="mt-6 w-full px-4 py-3 bg-primary text-primary-foreground rounded-xl font-medium hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center gap-2">
+                      <button className="mt-6 w-full px-4 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-200 flex items-center justify-center gap-2">
                         Customize this itinerary
                         <Sparkles className="h-4 w-4" />
                       </button>
@@ -182,19 +180,16 @@ export function ItineraryAgent() {
                 onChange={(e) => setInputValue(e.target.value)}
                 onKeyPress={(e) => e.key === "Enter" && handleSend()}
                 placeholder="Ask me to plan your cultural journey..."
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-xl focus:outline-none focus:ring-2 focus:ring-primary/50 transition-all text-sm"
+                className="flex-1 px-4 py-3 bg-background border border-border rounded-full focus:outline-none focus:border-gold transition-colors text-sm"
               />
               <button
                 onClick={handleSend}
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-xl font-medium hover:bg-primary/90 transition-colors duration-200 flex items-center gap-2"
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-200 flex items-center gap-2"
               >
                 <Send className="h-4 w-4" />
                 Send
               </button>
             </div>
-            <p className="text-xs text-muted-foreground mt-2 text-center">
-              Framework Ready: AI SDK integration pending
-            </p>
           </div>
         </div>
       </div>

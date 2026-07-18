@@ -16,7 +16,6 @@ import { PageLoader } from "@/components/page-loader"
 
 function PageContent() {
   const [activeSection, setActiveSection] = useState("map")
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -30,21 +29,15 @@ function PageContent() {
       />
 
       <main>
-        <HeroSection
-          selectedFilters={selectedFilters}
-          onFiltersChange={setSelectedFilters}
-          highlightedCountry={selectedCountry}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
+        <HeroSection />
         <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
         <PopulationTable />
+        <WhySection />
         <NewsPreview />
         <ItineraryCTA />
         <TimelinePreview />
         <StoriesPreview />
         <ResourcesPreview />
-        <WhySection />
       </main>
       <Footer />
     </div>
