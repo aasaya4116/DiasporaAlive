@@ -2,17 +2,16 @@
 
 import { ResourcesSection } from "@/components/resources-section"
 import { Sidebar } from "@/components/sidebar"
+import { Footer } from "@/components/footer"
 
 export default function ResourcesPage() {
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar activeSection="resources" onSectionChange={() => {}} onCountryHover={() => {}} onSearch={() => {}} />
-
-      <div className="flex-1 overflow-y-auto">
-        <div className="py-24 px-8">
-          <ResourcesSection />
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Sidebar activeSection="resources" onSectionChange={() => {}} />
+      <main className="pt-16">
+        <ResourcesSection />
+      </main>
+      <Footer />
     </div>
   )
 }

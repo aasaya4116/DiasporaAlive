@@ -2,17 +2,16 @@
 
 import { ItineraryAgent } from "@/components/itinerary-agent"
 import { Sidebar } from "@/components/sidebar"
+import { Footer } from "@/components/footer"
 
 export default function PlanPage() {
   return (
-    <div className="flex h-screen overflow-hidden bg-background">
-      <Sidebar activeSection="plan" onSectionChange={() => {}} onCountryHover={() => {}} onSearch={() => {}} />
-
-      <div className="flex-1 overflow-y-auto">
-        <div className="h-full">
-          <ItineraryAgent />
-        </div>
-      </div>
+    <div className="min-h-screen bg-background">
+      <Sidebar activeSection="plan" onSectionChange={() => {}} />
+      <main className="pt-16">
+        <ItineraryAgent />
+      </main>
+      <Footer />
     </div>
   )
 }
