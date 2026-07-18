@@ -4,14 +4,14 @@ import { useReveal } from "@/hooks/use-reveal"
 import { BookOpen, Video, FileText, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
+const categories = [
+  { icon: BookOpen, title: "Books & Literature", description: "Foundational texts and new voices" },
+  { icon: Video, title: "Documentaries", description: "Stories told on screen" },
+  { icon: FileText, title: "Academic Papers", description: "Research on diaspora communities" },
+]
+
 export function ResourcesPreview() {
   const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
-
-  const categories = [
-    { icon: BookOpen, title: "Books & Literature", count: "150+" },
-    { icon: Video, title: "Documentaries", count: "75+" },
-    { icon: FileText, title: "Academic Papers", count: "200+" },
-  ]
 
   return (
     <section
@@ -21,21 +21,20 @@ export function ResourcesPreview() {
       }`}
     >
       <div className="max-w-6xl mx-auto">
-        <div className="flex items-center justify-between mb-12">
+        <div className="flex flex-wrap items-end justify-between gap-4 mb-12">
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold mb-2">
-              <span className="bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
-                Educational Resources
-              </span>
+            <span className="overline block mb-3">Learn</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
+              Educational Resources
             </h2>
             <p className="text-muted-foreground">Curated materials for learning and teaching</p>
           </div>
           <Link
             href="/resources"
-            className="flex items-center gap-2 px-4 py-2 rounded-lg border border-emerald-500/20 bg-card/30 hover:bg-emerald-500/10 hover:border-emerald-500/40 transition-all group"
+            className="group flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-foreground transition hover:border-gold hover:text-gold"
           >
-            <span className="text-emerald-400 font-medium">Explore resources</span>
-            <ArrowRight className="w-4 h-4 text-emerald-400 group-hover:translate-x-1 transition-transform" />
+            Explore resources
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
@@ -44,17 +43,17 @@ export function ResourcesPreview() {
             const Icon = category.icon
             return (
               <div
-                key={index}
-                className="p-6 rounded-lg border border-emerald-500/20 bg-card/30 backdrop-blur-sm hover:border-emerald-500/40 transition-all hover:scale-105 text-center"
+                key={category.title}
+                className="p-6 rounded-lg border border-border bg-card text-center transition hover:border-gold hover:-translate-y-0.5"
                 style={{
-                  animation: isVisible ? `fadeIn 0.6s ease-out ${index * 0.1}s both` : "none",
+                  animation: isVisible ? `fadeInUp 0.6s ease-out ${index * 0.1}s both` : "none",
                 }}
               >
-                <div className="w-16 h-16 mx-auto mb-4 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center">
-                  <Icon className="w-8 h-8 text-white" />
+                <div className="w-14 h-14 mx-auto mb-4 rounded-full bg-gold/10 border border-gold/25 flex items-center justify-center">
+                  <Icon className="w-7 h-7 text-gold" />
                 </div>
-                <h3 className="text-lg font-bold text-foreground mb-2">{category.title}</h3>
-                <p className="text-3xl font-bold text-emerald-400">{category.count}</p>
+                <h3 className="text-lg font-bold text-foreground mb-1">{category.title}</h3>
+                <p className="text-sm text-muted-foreground">{category.description}</p>
               </div>
             )
           })}
