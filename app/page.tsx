@@ -12,6 +12,7 @@ import { NewsPreview } from "@/components/news-preview"
 import { ResourcesPreview } from "@/components/resources-preview"
 import { ItineraryCTA } from "@/components/itinerary-cta"
 import { Footer } from "@/components/footer"
+import { PageLoader } from "@/components/page-loader"
 
 function PageContent() {
   const [activeSection, setActiveSection] = useState("map")
@@ -52,7 +53,7 @@ function PageContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageLoader />}>
       <PageContent />
     </Suspense>
   )
