@@ -12,10 +12,10 @@ import { NewsPreview } from "@/components/news-preview"
 import { ResourcesPreview } from "@/components/resources-preview"
 import { ItineraryCTA } from "@/components/itinerary-cta"
 import { Footer } from "@/components/footer"
+import { PageLoader } from "@/components/page-loader"
 
 function PageContent() {
   const [activeSection, setActiveSection] = useState("map")
-  const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [selectedCountry, setSelectedCountry] = useState<string | null>(null)
   const [searchQuery, setSearchQuery] = useState("")
 
@@ -29,21 +29,15 @@ function PageContent() {
       />
 
       <main>
-        <HeroSection
-          selectedFilters={selectedFilters}
-          onFiltersChange={setSelectedFilters}
-          highlightedCountry={selectedCountry}
-          searchQuery={searchQuery}
-          onSearchChange={setSearchQuery}
-        />
-        <MapSection searchQuery={searchQuery} />
+        <HeroSection />
+        <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
         <PopulationTable />
+        <WhySection />
         <NewsPreview />
         <ItineraryCTA />
         <TimelinePreview />
         <StoriesPreview />
         <ResourcesPreview />
-        <WhySection />
       </main>
       <Footer />
     </div>
@@ -52,7 +46,7 @@ function PageContent() {
 
 export default function Home() {
   return (
-    <Suspense fallback={null}>
+    <Suspense fallback={<PageLoader />}>
       <PageContent />
     </Suspense>
   )

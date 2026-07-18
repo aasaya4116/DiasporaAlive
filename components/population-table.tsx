@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
+import { useReveal } from "@/hooks/use-reveal"
 import { cn } from "@/lib/utils"
 
 const populationData = [
@@ -128,58 +129,41 @@ const topCountries = populationData.slice(0, 4)
 const remainingCountries = populationData.slice(4)
 
 export function PopulationTable() {
-  const [isVisible, setIsVisible] = useState(false)
-  const tableRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (tableRef.current) {
-      observer.observe(tableRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  const { ref: tableRef, visible: isVisible } = useReveal<HTMLElement>()
 
   return (
     <section
       ref={tableRef}
       className={cn(
-        "px-6 py-16 transition-all duration-1000 ease-out",
+        "px-6 py-16 transition-[opacity,transform] duration-700 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
       )}
     >
       <div className="max-w-5xl mx-auto">
-        <h2 className="text-3xl md:text-4xl font-bold text-center mb-2 bg-gradient-to-r from-emerald-400 to-green-500 bg-clip-text text-transparent">
-          Diaspora Population by Country
-        </h2>
-        <p className="text-center text-muted-foreground mb-10">
-          African diaspora communities across the Americas and Caribbean
-        </p>
+        <div className="text-center mb-10">
+          <span className="overline block mb-3">By the Numbers</span>
+          <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-2">
+            Diaspora Population by Country
+          </h2>
+          <p className="text-muted-foreground">
+            African diaspora communities across the Americas and Caribbean
+          </p>
+        </div>
 
         {/* Top 4 — large interactive feature cards with 3D tilt and sparklines */}
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
           {topCountries.map((row, index) => (
             <TiltCard
               key={row.place}
-              className="glass-panel hover-lift relative rounded-xl p-6 border-l-[3px] border-l-emerald-500/60"
+              className="glass-panel hover-lift relative rounded-xl p-6 border-l-2 border-l-gold/60"
               style={{
                 animation: isVisible
                   ? `countUp 0.7s ease-out ${index * 0.12}s both`
                   : "none",
               }}
             >
-              <p className="text-xs uppercase tracking-widest text-emerald-400/70 mb-1 font-semibold">
-                {row.place}
-              </p>
-              <p className="text-3xl md:text-4xl font-extrabold bg-gradient-to-r from-emerald-300 to-green-400 bg-clip-text text-transparent leading-tight">
+              <p className="overline mb-1">{row.place}</p>
+              <p className="text-3xl md:text-4xl font-bold font-mono text-foreground leading-tight tracking-tight">
                 {shortPopulationLabels[row.place]}
               </p>
               <p className="text-sm text-muted-foreground mt-1 mb-3">
@@ -188,7 +172,7 @@ export function PopulationTable() {
 
               {/* Mini Sparkline Graph */}
               <div className="h-8 w-full mt-4 flex items-end opacity-70">
-                <svg className="w-full h-full text-emerald-400 overflow-visible" viewBox="0 0 100 30">
+                <svg className="w-full h-full text-gold overflow-visible" viewBox="0 0 100 30">
                   <path
                     d={generateSparklinePath(sparklines[row.place])}
                     fill="none"
@@ -204,8 +188,8 @@ export function PopulationTable() {
                   />
                   <defs>
                     <linearGradient id="sparkline-grad" x1="0" y1="0" x2="0" y2="1">
-                      <stop offset="0%" stopColor="#10b981" />
-                      <stop offset="100%" stopColor="#10b981" stopOpacity="0" />
+                      <stop offset="0%" stopColor="#c8a96e" />
+                      <stop offset="100%" stopColor="#c8a96e" stopOpacity="0" />
                     </linearGradient>
                   </defs>
                 </svg>
@@ -219,7 +203,7 @@ export function PopulationTable() {
           {remainingCountries.map((row, index) => (
             <div
               key={row.place}
-              className="glass-panel hover-lift rounded-lg px-5 py-3 flex items-center justify-between border-l-2 border-l-emerald-500/30"
+              className="glass-panel hover-lift rounded-lg px-5 py-3 flex items-center justify-between border-l-2 border-l-gold/30"
               style={{
                 animation: isVisible
                   ? `countUp 0.5s ease-out ${0.5 + index * 0.06}s both`
@@ -233,7 +217,7 @@ export function PopulationTable() {
                 <span className="text-sm text-muted-foreground tabular-nums">
                   {row.population}
                 </span>
-                <span className="text-xs text-emerald-400/80 font-semibold tabular-nums min-w-[52px] text-right">
+                <span className="text-xs text-gold/80 font-semibold tabular-nums min-w-[52px] text-right">
                   {row.percentage}
                 </span>
               </div>

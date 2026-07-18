@@ -58,12 +58,10 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
         <div className="max-w-7xl mx-auto px-6 h-16 flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center gap-2.5 group">
-            <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center group-hover:shadow-[0_0_20px_oklch(0.6_0.18_145/0.4)] transition-shadow">
-              <Globe className="w-4 h-4 text-white" />
+            <div className="w-8 h-8 rounded-lg bg-gold flex items-center justify-center group-hover:shadow-[0_0_20px_rgba(200,169,110,0.4)] transition-shadow">
+              <Globe className="w-4 h-4 text-background" />
             </div>
-            <span className="text-lg font-bold bg-gradient-to-r from-emerald-400 to-green-500 text-transparent bg-clip-text">
-              Diaspora Alive
-            </span>
+            <span className="text-lg font-bold text-foreground">Diaspora Alive</span>
           </Link>
 
           {/* Desktop Nav Links */}
@@ -79,7 +77,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                     className={cn(
                       "px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                       activeSection === link.id
-                        ? "text-emerald-400 bg-emerald-500/10"
+                        ? "text-gold bg-gold/10"
                         : "text-muted-foreground hover:text-foreground hover:bg-white/5"
                     )}
                   >
@@ -118,9 +116,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                 <div className="absolute top-full mt-2 right-0 w-64 glass-panel rounded-2xl p-4 shadow-2xl">
                   {Object.entries(regionGroups).map(([region, countryIds]) => (
                     <div key={region} className="mb-3 last:mb-0">
-                      <p className="text-xs font-semibold text-emerald-400/70 uppercase tracking-wider mb-1.5 px-2">
-                        {region}
-                      </p>
+                      <p className="overline mb-1.5 px-2">{region}</p>
                       <div className="space-y-0.5">
                         {countryIds
                           .map((id) => countryProfiles.find((c) => c.id === id))
@@ -132,7 +128,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                               onMouseEnter={() => onCountryHover?.(country!.id)}
                               onMouseLeave={() => onCountryHover?.(null)}
                               onClick={() => setIsCountriesOpen(false)}
-                              className="block px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/10 transition-all duration-200"
+                              className="block px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-gold hover:bg-gold/10 transition-all duration-200"
                             >
                               {country!.name}
                             </Link>
@@ -155,7 +151,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                 placeholder="Search..."
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-48 pl-9 pr-4 py-2 text-sm bg-white/5 border border-white/10 rounded-xl focus:outline-none focus:ring-1 focus:ring-emerald-500/50 focus:border-emerald-500/30 text-foreground placeholder:text-muted-foreground/40 transition-all"
+                className="w-48 pl-9 pr-4 py-2 text-sm bg-white/5 border border-white/10 rounded-full focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/40 text-foreground placeholder:text-muted-foreground/40 transition-all"
               />
             </div>
 
@@ -184,7 +180,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                 placeholder="Search countries, cultures..."
                 value={searchQuery}
                 onChange={(e) => handleSearchChange(e.target.value)}
-                className="w-full pl-12 pr-4 py-3 text-sm bg-white/5 border border-white/10 rounded-2xl focus:outline-none focus:ring-1 focus:ring-emerald-500/50 text-foreground placeholder:text-muted-foreground/40"
+                className="w-full pl-12 pr-4 py-3 text-sm bg-white/5 border border-white/10 rounded-full focus:outline-none focus:ring-1 focus:ring-gold/50 focus:border-gold/40 text-foreground placeholder:text-muted-foreground/40"
               />
             </div>
 
@@ -201,7 +197,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                       setIsMobileOpen(false)
                       document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" })
                     }}
-                    className="text-2xl font-semibold text-foreground hover:text-emerald-400 transition-colors"
+                    className="text-2xl font-semibold text-foreground hover:text-gold transition-colors"
                   >
                     {link.label}
                   </button>
@@ -209,7 +205,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                   <Link
                     href={link.href}
                     onClick={() => setIsMobileOpen(false)}
-                    className="text-2xl font-semibold text-foreground hover:text-emerald-400 transition-colors"
+                    className="text-2xl font-semibold text-foreground hover:text-gold transition-colors"
                   >
                     {link.label}
                   </Link>
@@ -222,9 +218,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
               className="w-full max-w-sm mt-4"
               style={{ animation: `fadeInUp 0.4s ease-out ${navLinks.length * 0.08}s both` }}
             >
-              <p className="text-xs font-semibold text-emerald-400/70 uppercase tracking-wider mb-3 text-center">
-                Country Profiles
-              </p>
+              <p className="overline mb-3 text-center">Country Profiles</p>
               <div className="grid grid-cols-2 gap-2">
                 {Object.values(regionGroups)
                   .flat()
@@ -235,7 +229,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                       key={country!.id}
                       href={`/country/${country!.id}`}
                       onClick={() => setIsMobileOpen(false)}
-                      className="px-3 py-2 rounded-lg text-sm text-center text-muted-foreground hover:text-emerald-400 hover:bg-emerald-500/10 border border-white/5 transition-all"
+                      className="px-3 py-2 rounded-lg text-sm text-center text-muted-foreground hover:text-gold hover:bg-gold/10 border border-white/5 transition-all"
                     >
                       {country!.name}
                     </Link>

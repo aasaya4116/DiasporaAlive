@@ -1,6 +1,8 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useEffect, useMemo, useRef, useState } from "react"
+import { useRouter } from "next/navigation"
+import type * as Leaflet from "leaflet"
 import { countryProfiles } from "@/lib/country-profiles"
 
 interface MapViewProps {
@@ -29,8 +31,6 @@ const AFRICAN_ORIGINS: Record<string, { lat: number; lng: number }> = {
   "East Africa": { lat: -6.369, lng: 34.8888 }, // Tanzania center
 }
 
-const AFRICA_CENTER = { lat: 0, lng: 20 }
-
 const countryFlags: Record<string, string> = {
   germany: "de",
   brazil: "br",
@@ -43,379 +43,362 @@ const countryFlags: Record<string, string> = {
   france: "fr",
   cuba: "cu",
   uk: "gb",
-  "dominican republic": "do",
+  "dominican-republic": "do",
   italy: "it",
-  "puerto rico": "pr",
+  "puerto-rico": "pr",
   peru: "pe",
   canada: "ca",
   spain: "es",
   ecuador: "ec",
-  "trinidad and tobago": "tt",
+  "trinidad-tobago": "tt",
+}
+
+const FILTER_KEYWORDS: Record<string, string[]> = {
+  music: ["music", "dance", "rhythm", "samba", "song", "drum", "instrument", "jazz", "tempo", "bomba", "rumba"],
+  food: ["food", "cuisine", "dish", "cook", "recipe", "bean", "cacao", "sugar", "coffee", "taste", "pastry"],
+  religion: ["religion", "spiritual", "deity", "church", "god", "catholic", "candomble", "vodou", "santeria", "faith", "shaman"],
+  language: ["language", "speech", "creole", "patois", "french", "spanish", "english", "speak", "dialect"],
+  festivals: ["festival", "carnival", "celebration", "parade", "holiday", "event", "commemorating", "gathering"],
+  sites: ["site", "monument", "fortress", "museum", "historical", "building", "cemetery", "landmark", "park"],
+}
+
+function markerIconHtml() {
+  return `
+    <div class="marker-inner">
+      <span class="absolute w-8 h-8 rounded-full bg-emerald-500/25 animate-ping pointer-events-none"></span>
+      <span class="absolute w-6 h-6 rounded-full border border-emerald-500/30 animate-pulse pointer-events-none"></span>
+      <div class="marker-core"></div>
+    </div>
+  `
+}
+
+function popupHtml(country: (typeof countryProfiles)[number]) {
+  const origins = Array.isArray(country.africanOrigins)
+    ? country.africanOrigins.slice(0, 3).join(", ")
+    : "Various African regions"
+  const historicSites = country.culturalHighlights?.length || 0
+  const flagCode = countryFlags[country.id] || "world"
+
+  return `
+    <div class="p-5 w-80">
+      <button data-popup-close class="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors">
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="18" y1="6" x2="6" y2="18"></line>
+          <line x1="6" y1="6" x2="18" y2="18"></line>
+        </svg>
+      </button>
+
+      <div class="flex items-center gap-3 mb-3">
+        <div class="w-10 h-10 rounded-full bg-surface-2 border border-line flex items-center justify-center overflow-hidden">
+          <img src="https://flagcdn.com/w40/${flagCode}.png" alt="${country.name} flag" class="w-full h-full object-cover" />
+        </div>
+        <div>
+          <h3 class="text-xl font-bold text-foreground">${country.name}</h3>
+          <p class="text-xs text-muted-foreground">African diaspora population</p>
+        </div>
+      </div>
+
+      <div class="mb-4">
+        <div class="text-4xl font-bold text-foreground mb-1">
+          ${(country.population / 1000000).toFixed(1)}M
+          <span class="text-lg font-normal text-muted-foreground">people</span>
+        </div>
+        <p class="text-xs text-muted-foreground">(of African descent)</p>
+      </div>
+
+      <div class="border-t border-line pt-4 space-y-3 mb-4">
+        <div class="flex items-start gap-2">
+          <svg class="w-4 h-4 text-emerald mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="2" y1="12" x2="22" y2="12"></line>
+            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
+          </svg>
+          <div class="flex-1">
+            <p class="text-xs text-muted-foreground mb-0.5">Top origins:</p>
+            <p class="text-sm text-foreground font-medium">${origins}</p>
+          </div>
+        </div>
+
+        <div class="flex items-start gap-2">
+          <svg class="w-4 h-4 text-emerald mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          <div class="flex-1">
+            <p class="text-xs text-muted-foreground mb-0.5">Historic sites:</p>
+            <p class="text-sm text-foreground font-medium">${historicSites} locations</p>
+          </div>
+        </div>
+      </div>
+
+      <button
+        data-country-id="${country.id}"
+        class="w-full py-3 px-4 bg-primary hover:bg-gold-strong text-primary-foreground font-semibold rounded-full transition-colors duration-200 flex items-center justify-center gap-2"
+      >
+        Explore country
+        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <line x1="5" y1="12" x2="19" y2="12"></line>
+          <polyline points="12 5 19 12 12 19"></polyline>
+        </svg>
+      </button>
+    </div>
+  `
 }
 
 export function MapView({ selectedLocation, onLocationSelect, filters, searchQuery, highlightedCountry }: MapViewProps) {
-  const mapRef = useRef<any>(null)
-  const mapInstanceRef = useRef<any>(null)
-  const markersRef = useRef<any[]>([])
-  const arcsRef = useRef<any[]>([])
-  const africaLayerRef = useRef<any>(null)
-  const africanMarkersRef = useRef<any[]>([])
+  const router = useRouter()
+  const mapRef = useRef<HTMLDivElement | null>(null)
+  const mapInstanceRef = useRef<Leaflet.Map | null>(null)
+  const leafletRef = useRef<typeof Leaflet | null>(null)
+  const markersRef = useRef<Map<string, Leaflet.Marker>>(new Map())
+  const arcsRef = useRef<Leaflet.Polyline[]>([])
+  const africanMarkersRef = useRef<Leaflet.Marker[]>([])
+  const popupTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const [isMapLoaded, setIsMapLoaded] = useState(false)
-  const selectedCountry = selectedLocation === "new-orleans" ? "usa" : selectedLocation
+  const selectedCountry = selectedLocation
 
-  const filteredCountries = countryProfiles.filter((country) => {
-    // Search query filter
-    if (searchQuery) {
-      const q = searchQuery.toLowerCase()
-      const nameMatches = country.name.toLowerCase().includes(q)
-      const historyMatches = country.history.toLowerCase().includes(q)
-      const highlightMatches = country.culturalHighlights.some(
-        (h) => h.title.toLowerCase().includes(q) || h.description.toLowerCase().includes(q)
-      )
-      const originMatches = country.africanOrigins?.some((o) => o.toLowerCase().includes(q))
-      if (!nameMatches && !historyMatches && !highlightMatches && !originMatches) {
-        return false
-      }
-    }
+  // Refs mirror the stateful props so the marker-build effect can re-apply
+  // classes without depending on (and re-running for) every hover change.
+  const highlightedRef = useRef<string | null | undefined>(highlightedCountry)
+  highlightedRef.current = highlightedCountry
+  const selectedRef = useRef<string | null>(selectedCountry)
+  selectedRef.current = selectedCountry
 
-    // Filter bar category filter
-    if (filters && filters.length > 0) {
-      const matchesFilter = filters.some((filterId) => {
-        const keywords: Record<string, string[]> = {
-          music: ["music", "dance", "rhythm", "samba", "song", "drum", "instrument", "jazz", "tempo", "bomba", "rumba"],
-          food: ["food", "cuisine", "dish", "cook", "recipe", "bean", "cacao", "sugar", "coffee", "taste", "pastry"],
-          religion: ["religion", "spiritual", "deity", "church", "god", "catholic", "candomble", "vodou", "santeria", "faith", "shaman"],
-          language: ["language", "speech", "creole", "patois", "french", "spanish", "english", "speak", "dialect"],
-          festivals: ["festival", "carnival", "celebration", "parade", "holiday", "event", "commemorating", "gathering"],
-          sites: ["site", "monument", "fortress", "museum", "historical", "building", "cemetery", "landmark", "park"],
-        }
-        const activeKeywords = keywords[filterId] || [filterId]
-        
-        const inHistory = activeKeywords.some((keyword) => country.history.toLowerCase().includes(keyword))
-        const inHighlights = country.culturalHighlights.some((h) => 
-          activeKeywords.some((keyword) => h.title.toLowerCase().includes(keyword) || h.description.toLowerCase().includes(keyword))
+  const filteredCountries = useMemo(() => {
+    return countryProfiles.filter((country) => {
+      if (searchQuery) {
+        const q = searchQuery.toLowerCase()
+        const nameMatches = country.name.toLowerCase().includes(q)
+        const historyMatches = country.history.toLowerCase().includes(q)
+        const highlightMatches = country.culturalHighlights.some(
+          (h) => h.title.toLowerCase().includes(q) || h.description.toLowerCase().includes(q)
         )
-        return inHistory || inHighlights
-      })
-      if (!matchesFilter) {
-        return false
+        const originMatches = country.africanOrigins?.some((o) => o.toLowerCase().includes(q))
+        if (!nameMatches && !historyMatches && !highlightMatches && !originMatches) {
+          return false
+        }
       }
-    }
 
-    return true
-  })
+      if (filters && filters.length > 0) {
+        const matchesFilter = filters.some((filterId) => {
+          const activeKeywords = FILTER_KEYWORDS[filterId] || [filterId]
+          const inHistory = activeKeywords.some((keyword) => country.history.toLowerCase().includes(keyword))
+          const inHighlights = country.culturalHighlights.some((h) =>
+            activeKeywords.some(
+              (keyword) => h.title.toLowerCase().includes(keyword) || h.description.toLowerCase().includes(keyword)
+            )
+          )
+          return inHistory || inHighlights
+        })
+        if (!matchesFilter) {
+          return false
+        }
+      }
 
+      return true
+    })
+  }, [searchQuery, filters])
+
+  // Init map once
   useEffect(() => {
+    let cancelled = false
+
     if (typeof window !== "undefined" && !mapInstanceRef.current) {
       import("leaflet").then((L) => {
-        if (mapRef.current && !mapInstanceRef.current) {
-          const map = L.map(mapRef.current, {
-            center: [15, -20],
-            zoom: 3,
-            minZoom: 2,
-            maxZoom: 8,
-            zoomControl: true,
-          })
+        if (cancelled || !mapRef.current || mapInstanceRef.current) return
 
-          L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
-            attribution: "© OpenStreetMap contributors © CARTO",
-            subdomains: "abcd",
-            maxZoom: 20,
-          }).addTo(map)
+        const map = L.map(mapRef.current, {
+          center: [15, -20],
+          zoom: 3,
+          minZoom: 2,
+          maxZoom: 8,
+          zoomControl: true,
+        })
 
-          mapInstanceRef.current = map
-          setIsMapLoaded(true)
+        L.tileLayer("https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png", {
+          attribution: "© OpenStreetMap contributors © CARTO",
+          subdomains: "abcd",
+          maxZoom: 20,
+        }).addTo(map)
 
-          const style = document.createElement("style")
-          style.textContent = `
-            .leaflet-container {
-              background: #0a0e1a !important;
-            }
-            .leaflet-popup-content-wrapper {
-              background: rgba(15, 23, 42, 0.95) !important;
-              backdrop-filter: blur(24px);
-              border: 1px solid rgba(16, 185, 129, 0.3) !important;
-              border-radius: 1rem !important;
-              box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4), 0 0 20px rgba(16, 185, 129, 0.2) !important;
-              padding: 0 !important;
-            }
-            .leaflet-popup-content {
-              color: #e2e8f0 !important;
-              margin: 0 !important;
-              min-width: 280px;
-            }
-            .leaflet-popup-tip {
-              background: rgba(15, 23, 42, 0.95) !important;
-              border: 1px solid rgba(16, 185, 129, 0.3) !important;
-            }
-            .leaflet-control-zoom {
-              border: 1px solid rgba(16, 185, 129, 0.3) !important;
-              border-radius: 0.75rem !important;
-              overflow: hidden;
-              box-shadow: 0 0 20px rgba(16, 185, 129, 0.2) !important;
-            }
-            .leaflet-control-zoom a {
-              background: rgba(15, 23, 42, 0.9) !important;
-              color: #10b981 !important;
-              border-bottom: 1px solid rgba(16, 185, 129, 0.2) !important;
-              transition: all 0.2s ease;
-            }
-            .leaflet-control-zoom a:hover {
-              background: rgba(16, 185, 129, 0.2) !important;
-              transform: scale(0.96);
-            }
-            .connection-arc {
-              stroke: #10b981;
-              stroke-width: 2;
-              fill: none;
-              opacity: 0;
-              stroke-dasharray: 1000;
-              stroke-dashoffset: 1000;
-              animation: drawArc 2s ease-out forwards, pulseArc 2s ease-in-out infinite 2s;
-            }
-            @keyframes drawArc {
-              to {
-                stroke-dashoffset: 0;
-                opacity: 0.7;
-              }
-            }
-            @keyframes pulseArc {
-              0%, 100% {
-                opacity: 0.7;
-                stroke-width: 2;
-              }
-              50% {
-                opacity: 1;
-                stroke-width: 3;
-              }
-            }
-            .african-origin-marker {
-              animation: originPulse 2s ease-in-out infinite;
-            }
-            @keyframes originPulse {
-              0%, 100% {
-                transform: scale(1);
-                opacity: 0.6;
-              }
-              50% {
-                transform: scale(1.2);
-                opacity: 1;
-              }
-            }
-          `
-          document.head.appendChild(style)
-        }
+        leafletRef.current = L
+        mapInstanceRef.current = map
+        setIsMapLoaded(true)
       })
     }
 
     return () => {
+      cancelled = true
+      if (popupTimeoutRef.current) {
+        clearTimeout(popupTimeoutRef.current)
+        popupTimeoutRef.current = null
+      }
       if (mapInstanceRef.current) {
         mapInstanceRef.current.remove()
         mapInstanceRef.current = null
       }
+      markersRef.current.clear()
+      arcsRef.current = []
+      africanMarkersRef.current = []
+      leafletRef.current = null
     }
   }, [])
 
+  // Build markers — only when the filtered set changes, never on hover/selection
   useEffect(() => {
-    if (isMapLoaded && mapInstanceRef.current) {
-      import("leaflet").then((L) => {
-        markersRef.current.forEach((marker) => marker.remove())
-        arcsRef.current.forEach((arc) => arc.remove())
-        africanMarkersRef.current.forEach((marker) => marker.remove())
-        markersRef.current = []
-        arcsRef.current = []
-        africanMarkersRef.current = []
+    const L = leafletRef.current
+    const map = mapInstanceRef.current
+    if (!isMapLoaded || !L || !map) return
 
-        filteredCountries.forEach((country) => {
-          const isHighlighted = highlightedCountry === country.id
-          const isSelected = selectedCountry === country.id
+    markersRef.current.forEach((marker) => marker.remove())
+    markersRef.current.clear()
 
-          const iconHtml = `
-            <div class="relative flex items-center justify-center transition-all duration-300 ${
-              isHighlighted ? "scale-125" : "scale-100"
-            }">
-              <!-- Pulsing outer ring -->
-              <span class="absolute w-8 h-8 rounded-full bg-emerald-500/25 animate-ping pointer-events-none"></span>
-              <!-- Outer glowing outline -->
-              <span class="absolute w-6 h-6 rounded-full border border-emerald-500/30 animate-pulse pointer-events-none"></span>
-              
-              <div class="relative rounded-full transition-all duration-300 ${
-                isSelected
-                  ? "w-5 h-5 bg-amber-400 border-2 border-amber-500 shadow-[0_0_25px_rgba(245,158,11,0.95)] z-10"
-                  : isHighlighted
-                    ? "w-4.5 h-4.5 bg-emerald-300 border border-emerald-400 shadow-[0_0_20px_rgba(16,185,129,0.8)] z-10"
-                    : "w-3.5 h-3.5 bg-emerald-500 border border-[#0a0e1a] shadow-[0_0_12px_rgba(16,185,129,0.5)] z-10"
-              }"></div>
-            </div>
-          `
+    filteredCountries.forEach((country) => {
+      if (!country.coordinates || typeof country.coordinates.lat !== "number" || typeof country.coordinates.lng !== "number") {
+        return
+      }
 
-          const customIcon = L.divIcon({
-            html: iconHtml,
-            className: "custom-marker-icon",
-            iconSize: [24, 24],
-            iconAnchor: [12, 12],
-          })
+      const customIcon = L.divIcon({
+        html: markerIconHtml(),
+        className: "custom-marker-icon",
+        iconSize: [24, 24],
+        iconAnchor: [12, 12],
+      })
 
-          if (!country.coordinates || typeof country.coordinates.lat !== 'number' || typeof country.coordinates.lng !== 'number') {
-            return
-          }
+      const marker = L.marker([country.coordinates.lat, country.coordinates.lng], {
+        icon: customIcon,
+      }).addTo(map)
 
-          const marker = L.marker([country.coordinates.lat, country.coordinates.lng], {
-            icon: customIcon,
-          }).addTo(mapInstanceRef.current)
+      marker.bindPopup(popupHtml(country), {
+        maxWidth: 320,
+        className: "country-info-popup",
+        closeButton: false,
+      })
 
-          const origins = Array.isArray(country.africanOrigins)
-            ? country.africanOrigins.slice(0, 3).join(", ")
-            : "Various African regions"
-          const historicSites = country.culturalHighlights?.length || 0
-          const flagCode = countryFlags[country.id] || "world"
+      marker.on("click", () => {
+        onLocationSelect(country.id)
+      })
 
-          const popupContent = `
-            <div class="p-5 w-80">
-              <button class="absolute top-3 right-3 text-slate-400 hover:text-white transition-colors" onclick="this.closest('.leaflet-popup').remove()">
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="18" y1="6" x2="6" y2="18"></line>
-                  <line x1="6" y1="6" x2="18" y2="18"></line>
-                </svg>
-              </button>
-              
-              <div class="flex items-center gap-3 mb-3">
-                <div class="w-10 h-10 rounded-full bg-slate-800 border border-slate-700 flex items-center justify-center overflow-hidden">
-                  <img src="https://flagcdn.com/w40/${flagCode}.png" alt="${country.name} flag" class="w-full h-full object-cover" />
-                </div>
-                <div>
-                  <h3 class="text-xl font-bold text-white">${country.name}</h3>
-                  <p class="text-xs text-slate-400">African diaspora population</p>
-                </div>
-              </div>
-              
-              <div class="mb-4">
-                <div class="text-4xl font-bold text-white mb-1">
-                  ${(country.population / 1000000).toFixed(1)}M
-                  <span class="text-lg font-normal text-slate-400">people</span>
-                </div>
-                <p class="text-xs text-slate-400">(of African descent)</p>
-              </div>
-              
-              <div class="border-t border-slate-700 pt-4 space-y-3 mb-4">
-                <div class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-[#10b981] mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <circle cx="12" cy="12" r="10"></circle>
-                    <line x1="2" y1="12" x2="22" y2="12"></line>
-                    <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-                  </svg>
-                  <div class="flex-1">
-                    <p class="text-xs text-slate-400 mb-0.5">Top origins:</p>
-                    <p class="text-sm text-white font-medium">${origins}</p>
-                  </div>
-                </div>
-                
-                <div class="flex items-start gap-2">
-                  <svg class="w-4 h-4 text-[#10b981] mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                    <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-                    <polyline points="9 22 9 12 15 12 15 22"></polyline>
-                  </svg>
-                  <div class="flex-1">
-                    <p class="text-xs text-slate-400 mb-0.5">Historic sites:</p>
-                    <p class="text-sm text-white font-medium">${historicSites} locations</p>
-                  </div>
-                </div>
-              </div>
-              
-              <button 
-                onclick="window.location.href='/country/${country.id}'"
-                class="w-full py-3 px-4 bg-[#10b981] hover:bg-[#059669] text-white font-semibold rounded-lg transition-all duration-200 flex items-center justify-center gap-2 hover:scale-[1.02]"
-              >
-                Explore country
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="5" y1="12" x2="19" y2="12"></line>
-                  <polyline points="12 5 19 12 12 19"></polyline>
-                </svg>
-              </button>
-            </div>
-          `
-
-          marker.bindPopup(popupContent, {
-            maxWidth: 320,
-            className: "country-info-popup",
-            closeButton: false,
-          })
-
-          marker.on("click", () => {
-            const locId = country.id === "usa" ? "new-orleans" : country.id
-            onLocationSelect(locId)
-          })
-
-          if (isSelected) {
-            const origins = Array.isArray(country.africanOrigins) ? country.africanOrigins : []
-            origins.forEach((origin: string) => {
-              const originCoords = AFRICAN_ORIGINS[origin]
-              if (originCoords) {
-                const originIconHtml = `
-                  <div class="african-origin-marker">
-                    <div class="w-3 h-3 bg-yellow-500 rounded-full shadow-[0_0_15px_rgba(234,179,8,0.8)] border border-yellow-400"></div>
-                  </div>
-                `
-
-                const originIcon = L.divIcon({
-                  html: originIconHtml,
-                  className: "african-origin-icon",
-                  iconSize: [12, 12],
-                  iconAnchor: [6, 6],
-                })
-
-                const originMarker = L.marker([originCoords.lat, originCoords.lng], {
-                  icon: originIcon,
-                }).addTo(mapInstanceRef.current)
-
-                originMarker.bindPopup(`<div class="p-2 text-white font-semibold">${origin}</div>`, {
-                  className: "country-info-popup",
-                })
-
-                africanMarkersRef.current.push(originMarker)
-
-                const midLat = (originCoords.lat + country.coordinates.lat) / 2
-                const midLng = (originCoords.lng + country.coordinates.lng) / 2
-                const curveLat = midLat + (country.coordinates.lng - originCoords.lng) * 0.1
-                const curveLng = midLng - (country.coordinates.lat - originCoords.lat) * 0.1
-
-                const arcPath = L.polyline(
-                  [
-                    [originCoords.lat, originCoords.lng],
-                    [curveLat, curveLng],
-                    [country.coordinates.lat, country.coordinates.lng],
-                  ],
-                  {
-                    color: "#10b981",
-                    weight: 2,
-                    opacity: 0.7,
-                    className: "connection-arc",
-                    smoothFactor: 3,
-                  },
-                ).addTo(mapInstanceRef.current)
-
-                arcsRef.current.push(arcPath)
-              }
-            })
-
-            mapInstanceRef.current.flyTo([country.coordinates.lat, country.coordinates.lng], 4, {
-              animate: true,
-              duration: 1.5,
-            })
-            
-            setTimeout(() => {
-              marker.openPopup()
-            }, 1000)
-          }
-
-          markersRef.current.push(marker)
+      marker.on("popupopen", (e) => {
+        const popupEl = e.popup.getElement()
+        if (!popupEl) return
+        popupEl.querySelector("[data-popup-close]")?.addEventListener("click", () => {
+          map.closePopup()
+        })
+        popupEl.querySelector<HTMLElement>("[data-country-id]")?.addEventListener("click", (evt) => {
+          const id = (evt.currentTarget as HTMLElement).getAttribute("data-country-id")
+          if (id) router.push(`/country/${id}`)
         })
       })
+
+      // Re-apply stateful classes after a rebuild
+      const el = marker.getElement()
+      if (el) {
+        el.classList.toggle("marker-highlighted", highlightedRef.current === country.id)
+        el.classList.toggle("marker-selected", selectedRef.current === country.id)
+      }
+
+      markersRef.current.set(country.id, marker)
+    })
+  }, [isMapLoaded, filteredCountries, onLocationSelect, router])
+
+  // Hover highlight — toggles a class on the affected markers only
+  useEffect(() => {
+    if (!isMapLoaded) return
+    markersRef.current.forEach((marker, id) => {
+      marker.getElement()?.classList.toggle("marker-highlighted", highlightedCountry === id)
+    })
+  }, [isMapLoaded, highlightedCountry])
+
+  // Selection — arcs, origin markers, flyTo, popup
+  useEffect(() => {
+    const L = leafletRef.current
+    const map = mapInstanceRef.current
+    if (!isMapLoaded || !L || !map) return
+
+    arcsRef.current.forEach((arc) => arc.remove())
+    africanMarkersRef.current.forEach((marker) => marker.remove())
+    arcsRef.current = []
+    africanMarkersRef.current = []
+
+    markersRef.current.forEach((marker, id) => {
+      marker.getElement()?.classList.toggle("marker-selected", selectedCountry === id)
+    })
+
+    if (!selectedCountry) return
+
+    const country = filteredCountries.find((c) => c.id === selectedCountry)
+    const marker = markersRef.current.get(selectedCountry)
+    if (!country || !marker) return
+
+    const origins = Array.isArray(country.africanOrigins) ? country.africanOrigins : []
+    origins.forEach((origin) => {
+      const originCoords = AFRICAN_ORIGINS[origin]
+      if (!originCoords) return
+
+      const originIcon = L.divIcon({
+        html: `
+          <div class="african-origin-marker">
+            <div class="w-3 h-3 bg-gold rounded-full shadow-[0_0_15px_rgba(200,169,110,0.8)] border border-gold-strong"></div>
+          </div>
+        `,
+        className: "african-origin-icon",
+        iconSize: [12, 12],
+        iconAnchor: [6, 6],
+      })
+
+      const originMarker = L.marker([originCoords.lat, originCoords.lng], {
+        icon: originIcon,
+      }).addTo(map)
+
+      originMarker.bindPopup(`<div class="p-2 text-foreground font-semibold">${origin}</div>`, {
+        className: "country-info-popup",
+      })
+
+      africanMarkersRef.current.push(originMarker)
+
+      const midLat = (originCoords.lat + country.coordinates.lat) / 2
+      const midLng = (originCoords.lng + country.coordinates.lng) / 2
+      const curveLat = midLat + (country.coordinates.lng - originCoords.lng) * 0.1
+      const curveLng = midLng - (country.coordinates.lat - originCoords.lat) * 0.1
+
+      const arcPath = L.polyline(
+        [
+          [originCoords.lat, originCoords.lng],
+          [curveLat, curveLng],
+          [country.coordinates.lat, country.coordinates.lng],
+        ],
+        {
+          color: "#10b981",
+          weight: 2,
+          opacity: 0.7,
+          className: "connection-arc",
+          smoothFactor: 3,
+        }
+      ).addTo(map)
+
+      arcsRef.current.push(arcPath)
+    })
+
+    map.flyTo([country.coordinates.lat, country.coordinates.lng], 4, {
+      animate: true,
+      duration: 1.5,
+    })
+
+    popupTimeoutRef.current = setTimeout(() => {
+      marker.openPopup()
+    }, 1000)
+
+    return () => {
+      if (popupTimeoutRef.current) {
+        clearTimeout(popupTimeoutRef.current)
+        popupTimeoutRef.current = null
+      }
     }
-  }, [isMapLoaded, filteredCountries, highlightedCountry, selectedCountry])
+  }, [isMapLoaded, selectedCountry, filteredCountries])
 
   return (
-    <div className="relative flex-1 bg-[#0a0e1a] overflow-hidden">
+    <div className="relative flex-1 bg-background overflow-hidden">
       <div ref={mapRef} className="w-full h-full" />
     </div>
   )

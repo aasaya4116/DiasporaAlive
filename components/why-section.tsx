@@ -1,31 +1,9 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useReveal } from "@/hooks/use-reveal"
 
 export function WhySection() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
+  const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
 
   return (
     <>
@@ -34,29 +12,28 @@ export function WhySection() {
 
       <section
         ref={sectionRef}
-        className={`relative py-32 px-8 transition-all duration-1000 overflow-hidden ${
+        className={`relative py-32 px-8 transition-[opacity,transform] duration-700 overflow-hidden ${
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
         }`}
       >
         {/* Subtle radial gradient background */}
         <div className="absolute inset-0 pointer-events-none" aria-hidden="true">
-          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-emerald-500/[0.03] blur-3xl" />
+          <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] rounded-full bg-gold/[0.03] blur-3xl" />
         </div>
 
         <div className="relative max-w-4xl mx-auto">
           {/* Large decorative quote mark */}
           <span
-            className="absolute -top-16 -left-8 text-[12rem] font-serif leading-none text-emerald-500 opacity-5 select-none pointer-events-none"
+            className="absolute -top-16 -left-8 text-[12rem] font-serif leading-none text-gold opacity-5 select-none pointer-events-none"
             aria-hidden="true"
           >
             &ldquo;
           </span>
 
-          <h2 className="text-4xl font-bold mb-10 text-center">
-            <span className="bg-gradient-to-r from-emerald-400 via-green-300 to-emerald-500 text-transparent bg-clip-text">
-              THE WHY
-            </span>
-          </h2>
+          <div className="text-center mb-10">
+            <span className="overline block mb-3">Our Mission</span>
+            <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground">The Why</h2>
+          </div>
 
           <div className="editorial-text space-y-6 text-muted-foreground leading-relaxed text-lg">
             <p>
