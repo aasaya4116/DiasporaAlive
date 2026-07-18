@@ -1,5 +1,5 @@
 import { countryProfiles } from "@/lib/country-profiles"
-import { Globe, Users, TrendingUp, MapPin, ArrowLeft } from "lucide-react"
+import { Globe, Users, TrendingUp, MapPin, ArrowLeft, Calendar } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -91,6 +91,27 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
           </div>
         </section>
 
+        {/* Did You Know — rich stats for flagship countries */}
+        {country.statistics && country.statistics.length > 0 && (
+          <section className="mb-12">
+            <span className="overline block mb-3">Key Facts</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">Did You Know?</h2>
+            <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+              {country.statistics.map((stat, index) => (
+                <div key={index} className="rounded-lg border border-gold/25 bg-gold/5 p-6">
+                  <div className="flex items-center gap-3 mb-2">
+                    {stat.icon === "users" && <Users className="w-5 h-5 text-gold" />}
+                    {stat.icon === "map" && <MapPin className="w-5 h-5 text-gold" />}
+                    {stat.icon === "calendar" && <Calendar className="w-5 h-5 text-gold" />}
+                    <h3 className="text-sm font-medium text-muted-foreground">{stat.label}</h3>
+                  </div>
+                  <p className="text-xl font-semibold text-foreground">{stat.value}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* African Origins */}
         {country.africanOrigins && country.africanOrigins.length > 0 && (
           <section className="mb-12">
@@ -107,6 +128,39 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
                   </span>
                 ))}
               </div>
+            </div>
+          </section>
+        )}
+
+        {/* Cultural Traditions — thematic aspects for flagship countries */}
+        {country.culturalAspects && country.culturalAspects.length > 0 && (
+          <section className="mb-12">
+            <span className="overline block mb-3">Traditions</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">Cultural Traditions</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {country.culturalAspects.map((aspect, index) => (
+                <div key={index} className="rounded-lg border border-border bg-card p-6 transition hover:border-gold">
+                  <div className="mb-3 flex items-center justify-between gap-3">
+                    <h3 className="text-lg font-semibold text-foreground">{aspect.title}</h3>
+                    <span className="shrink-0 rounded-full border border-gold/25 bg-gold/10 px-2.5 py-0.5 text-xs capitalize text-gold">
+                      {aspect.category}
+                    </span>
+                  </div>
+                  <p className="text-sm leading-relaxed text-muted-foreground">{aspect.description}</p>
+                  {aspect.examples && aspect.examples.length > 0 && (
+                    <div className="mt-4 flex flex-wrap gap-2">
+                      {aspect.examples.map((example, i) => (
+                        <span
+                          key={i}
+                          className="rounded-full border border-line px-2.5 py-0.5 text-xs text-muted-foreground"
+                        >
+                          {example}
+                        </span>
+                      ))}
+                    </div>
+                  )}
+                </div>
+              ))}
             </div>
           </section>
         )}

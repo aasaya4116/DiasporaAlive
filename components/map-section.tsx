@@ -3,9 +3,7 @@
 import { useState } from "react"
 import { useReveal } from "@/hooks/use-reveal"
 import { MapView } from "@/components/map-view"
-import { LocationPanel } from "@/components/location-panel"
 import { FilterBar } from "@/components/filter-bar"
-import { countryProfiles } from "@/lib/country-profiles"
 import { cn } from "@/lib/utils"
 
 interface MapSectionProps {
@@ -17,8 +15,6 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
-
-  const country = selectedLocation ? countryProfiles.find((c) => c.id === selectedLocation) : null
 
   return (
     <section
@@ -51,8 +47,6 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
           searchQuery={searchQuery}
           highlightedCountry={highlightedCountry}
         />
-
-        {country && <LocationPanel country={country} onClose={() => setSelectedLocation(null)} />}
       </div>
     </section>
   )
