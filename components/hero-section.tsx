@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
@@ -66,7 +66,7 @@ export function HeroSection({
         {/* Tagline badge */}
         <div
           className={cn(
-            "inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-sm transition-all duration-1000",
+            "inline-flex items-center gap-2 px-5 py-2 mb-8 rounded-full border border-emerald-500/30 bg-emerald-500/10 backdrop-blur-sm transition-[opacity,transform] duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-4"
           )}
           style={{ transitionDelay: "0.2s" }}
@@ -77,10 +77,10 @@ export function HeroSection({
           </span>
         </div>
 
-        {/* Main heading — massive bold typography */}
+        {/* Main heading â€” massive bold typography */}
         <h1
           className={cn(
-            "transition-all duration-1000",
+            "transition-[opacity,transform] duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
           )}
           style={{ transitionDelay: "0.4s" }}
@@ -106,19 +106,19 @@ export function HeroSection({
         {/* Subtitle */}
         <p
           className={cn(
-            "mt-6 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed transition-all duration-1000",
+            "mt-6 text-lg md:text-xl text-muted-foreground/80 max-w-2xl mx-auto leading-relaxed transition-[opacity,transform] duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
           style={{ transitionDelay: "0.6s" }}
         >
-          From music and language to food, faith, and tradition — explore the
+          From music and language to food, faith, and tradition â€” explore the
           global influence of African culture across the Americas and Caribbean.
         </p>
 
         {/* CTA button */}
         <div
           className={cn(
-            "mt-10 transition-all duration-1000",
+            "mt-10 transition-[opacity,transform] duration-700",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-6"
           )}
           style={{ transitionDelay: "0.7s" }}
@@ -158,7 +158,7 @@ export function HeroSection({
               <div
                 key={stat.label}
                 className={cn(
-                  "glass-panel rounded-2xl px-6 py-4 flex items-center gap-4 transition-all duration-1000",
+                  "glass-panel rounded-2xl px-6 py-4 flex items-center gap-4 transition-[opacity,transform] duration-700",
                   i === 1 ? "animate-float-delayed" : "animate-float",
                   isVisible
                     ? "opacity-100 translate-y-0"
@@ -189,7 +189,7 @@ export function HeroSection({
       {/* Scroll indicator */}
       <div
         className={cn(
-          "absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-all duration-1000",
+          "absolute bottom-8 left-1/2 -translate-x-1/2 z-10 flex flex-col items-center gap-2 transition-[opacity,transform] duration-700",
           isVisible ? "opacity-100" : "opacity-0"
         )}
         style={{ transitionDelay: "1.5s" }}

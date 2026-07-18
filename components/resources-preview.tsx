@@ -1,33 +1,11 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useReveal } from "@/hooks/use-reveal"
 import { BookOpen, Video, FileText, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 export function ResourcesPreview() {
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => {
-      if (sectionRef.current) {
-        observer.unobserve(sectionRef.current)
-      }
-    }
-  }, [])
+  const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
 
   const categories = [
     { icon: BookOpen, title: "Books & Literature", count: "150+" },
@@ -38,7 +16,7 @@ export function ResourcesPreview() {
   return (
     <section
       ref={sectionRef}
-      className={`relative py-16 px-8 transition-all duration-1000 ${
+      className={`relative py-16 px-8 transition-[opacity,transform] duration-700 ${
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8"
       }`}
     >

@@ -1,6 +1,7 @@
-"use client"
+﻿"use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useState } from "react"
+import { useReveal } from "@/hooks/use-reveal"
 import { MapView } from "@/components/map-view"
 import { LocationPanel } from "@/components/location-panel"
 import { FilterBar } from "@/components/filter-bar"
@@ -15,40 +16,22 @@ interface MapSectionProps {
 export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps) {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
-  const [isVisible, setIsVisible] = useState(false)
-  const sectionRef = useRef<HTMLDivElement>(null)
+  const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
 
   const country = selectedLocation ? countryProfiles.find((c) => c.id === selectedLocation) : null
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
 
   return (
     <section
       id="map-section"
       ref={sectionRef}
       className={cn(
-        "min-h-screen flex flex-col overflow-hidden transition-all duration-1000 ease-out",
+        "min-h-screen flex flex-col overflow-hidden transition-[opacity,transform] duration-700 ease-out",
         isVisible ? "opacity-100" : "opacity-0",
       )}
     >
       <div
         className={cn(
-          "transition-all duration-1000 delay-300",
+          "transition-[opacity,transform] duration-700 delay-300",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 -translate-y-10",
         )}
       >
@@ -57,7 +40,7 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
 
       <div
         className={cn(
-          "relative flex flex-1 overflow-hidden transition-all duration-1000 delay-500",
+          "relative flex flex-1 overflow-hidden transition-[opacity,transform] duration-700 delay-500",
           isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
         )}
       >

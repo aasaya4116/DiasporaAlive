@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Calendar, MapPin, Tag, ChevronRight } from "lucide-react"
 import { useState, useEffect } from "react"
@@ -65,7 +65,7 @@ export function NewsFeed() {
         {/* Section header */}
         <div
           className={cn(
-            "text-center mb-16 transition-all duration-1000 transform",
+            "text-center mb-16 transition-[opacity,transform] duration-700 transform",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
@@ -83,7 +83,7 @@ export function NewsFeed() {
         {/* Category filters */}
         <div
           className={cn(
-            "flex flex-wrap justify-center gap-3 mb-12 transition-all duration-1000 delay-200 transform",
+            "flex flex-wrap justify-center gap-3 mb-12 transition-[opacity,transform] duration-700 delay-200 transform",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >

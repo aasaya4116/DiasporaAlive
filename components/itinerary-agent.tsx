@@ -1,4 +1,4 @@
-"use client"
+﻿"use client"
 
 import { Send, Sparkles, MapPin, Clock, Calendar, User, Bot } from "lucide-react"
 import { useState, useEffect } from "react"
@@ -24,7 +24,7 @@ const sampleMessages = [
           location: "San Juan, Puerto Rico",
           activities: [
             "Bomba workshop at Don Rafael Cepeda School",
-            "Lunch at El Burén de Lula for authentic African-influenced dishes",
+            "Lunch at El BurÃ©n de Lula for authentic African-influenced dishes",
             "Evening visit to Loiza's Samuel Lind Studio",
           ],
         },
@@ -40,7 +40,7 @@ const sampleMessages = [
         {
           day: 3,
           location: "Port-au-Prince, Haiti",
-          activities: ["Visit Musée Colonial Ogier-Fombrun", "Explore local markets", "Attend evening Vodou ceremony"],
+          activities: ["Visit MusÃ©e Colonial Ogier-Fombrun", "Explore local markets", "Attend evening Vodou ceremony"],
         },
       ],
     },
@@ -73,7 +73,7 @@ export function ItineraryAgent() {
         {/* Section header */}
         <div
           className={cn(
-            "text-center mb-12 transition-all duration-1000 transform",
+            "text-center mb-12 transition-[opacity,transform] duration-700 transform",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >
@@ -95,7 +95,7 @@ export function ItineraryAgent() {
         {/* Chat interface */}
         <div
           className={cn(
-            "bg-card/50 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden transition-all duration-1000 delay-200 transform",
+            "bg-card/50 backdrop-blur-xl border border-border/50 rounded-3xl shadow-2xl overflow-hidden transition-[opacity,transform] duration-700 delay-200 transform",
             isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-8",
           )}
         >

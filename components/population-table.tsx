@@ -1,6 +1,7 @@
 "use client"
 
-import { useEffect, useRef, useState } from "react"
+import { useRef } from "react"
+import { useReveal } from "@/hooks/use-reveal"
 import { cn } from "@/lib/utils"
 
 const populationData = [
@@ -128,31 +129,13 @@ const topCountries = populationData.slice(0, 4)
 const remainingCountries = populationData.slice(4)
 
 export function PopulationTable() {
-  const [isVisible, setIsVisible] = useState(false)
-  const tableRef = useRef<HTMLDivElement>(null)
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) {
-          setIsVisible(true)
-        }
-      },
-      { threshold: 0.1 },
-    )
-
-    if (tableRef.current) {
-      observer.observe(tableRef.current)
-    }
-
-    return () => observer.disconnect()
-  }, [])
+  const { ref: tableRef, visible: isVisible } = useReveal<HTMLElement>()
 
   return (
     <section
       ref={tableRef}
       className={cn(
-        "px-6 py-16 transition-all duration-1000 ease-out",
+        "px-6 py-16 transition-[opacity,transform] duration-700 ease-out",
         isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-10",
       )}
     >
