@@ -1,3 +1,16 @@
+export interface CountryStatistic {
+  label: string
+  value: string
+  icon: "users" | "map" | "calendar"
+}
+
+export interface CulturalAspect {
+  category: "music" | "food" | "religion" | "language" | "festivals" | "sites"
+  title: string
+  description: string
+  examples?: string[]
+}
+
 export interface CountryProfile {
   id: string
   name: string
@@ -11,6 +24,11 @@ export interface CountryProfile {
     description: string
   }>
   africanOrigins?: string[]
+  // Rich panel content (available for select countries)
+  imageUrl?: string
+  overview?: string
+  statistics?: CountryStatistic[]
+  culturalAspects?: CulturalAspect[]
 }
 
 export const countryProfiles: CountryProfile[] = [
@@ -52,6 +70,44 @@ export const countryProfiles: CountryProfile[] = [
     coordinates: { lat: -14.235, lng: -51.9253 },
     population: 55900000,
     percentage: 26.67,
+    imageUrl: "/brazilian-carnival-dancers-colorful-costumes.jpg",
+    overview:
+      "Brazil is home to the largest population of African descent outside of Africa, with profound cultural influences from nearly 5 million enslaved Africans brought during the colonial period. Afro-Brazilian culture has shaped the nation's identity through music, dance, religion, and cuisine.",
+    statistics: [
+      { label: "Afro-Brazilian Population", value: "~56% (120M people)", icon: "users" },
+      { label: "Enslaved Africans Brought", value: "~5 million (1550-1888)", icon: "map" },
+      { label: "Slavery Abolished", value: "May 13, 1888", icon: "calendar" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Samba & Afro-Brazilian Rhythms",
+        description:
+          "Samba originated from Angolan semba dance and Yoruba rhythms, becoming Brazil's national music. The batucada drumming tradition maintains direct African connections.",
+        examples: ["Samba", "Batucada", "Axé", "Forró"],
+      },
+      {
+        category: "food",
+        title: "Afro-Brazilian Cuisine",
+        description:
+          "Feijoada (black bean stew), acarajé (black-eyed pea fritters), and dendê palm oil are central to Brazilian food culture, all with African origins.",
+        examples: ["Feijoada", "Acarajé", "Vatapá", "Moqueca"],
+      },
+      {
+        category: "religion",
+        title: "Candomblé & Umbanda",
+        description:
+          "Afro-Brazilian religions blending Yoruba, Fon, and Bantu spiritual traditions with elements of Catholicism, maintaining African deities (orixás) and practices.",
+        examples: ["Candomblé", "Umbanda", "Batuque"],
+      },
+      {
+        category: "festivals",
+        title: "Carnival",
+        description:
+          "Rio Carnival is the world's largest festival, deeply influenced by African drumming, dance traditions, and spiritual celebrations brought by enslaved peoples.",
+        examples: ["Rio Carnival", "Salvador Carnival", "Festa de Iemanjá"],
+      },
+    ],
     history:
       "With the largest penetration of descendants from the diaspora, the history of Afro Brazilians commences with the massive importation of an estimated 4 million African slaves during the 16th through 19th centuries. Due to the growth of sugar, gold, and coffee industries, Brazil continued their slave trade, even past them obtaining their independence from Portugal, spawning a deep proliferation of African culture throughout Brazil. The Africans brought to Brazil belonged to two major groups: the West African (Yoruba, Igbo, Fon, Ashanti, and others) and the Bantu (Angola, Congo) people. Expectantly, signs of African influence is present and thriving in Brazilian society. Carnival, Samba, Culinary, Baianas: are all products of cultural influence that are viewed as normative pieces of Brazilian culture.",
     culturalHighlights: [
@@ -158,6 +214,44 @@ export const countryProfiles: CountryProfile[] = [
     coordinates: { lat: 18.1096, lng: -77.2975 },
     population: 2731419,
     percentage: 97.43,
+    imageUrl: "/jamaican-reggae-music-performance-rastafari-colors.jpg",
+    overview:
+      "Jamaica's culture is predominantly African in character, with over 90% of the population of African descent. The island became a major hub for Afro-Caribbean culture, influencing global music, spirituality, and language.",
+    statistics: [
+      { label: "Population of African Descent", value: "~92% (2.6M people)", icon: "users" },
+      { label: "Enslaved Africans Brought", value: "~1 million (1655-1834)", icon: "map" },
+      { label: "Independence", value: "August 6, 1962", icon: "calendar" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Reggae & Afro-Jamaican Music",
+        description:
+          "Reggae music, pioneered by Bob Marley, evolved from Jamaican ska and rocksteady, which have roots in African drumming patterns and call-response traditions.",
+        examples: ["Reggae", "Ska", "Dancehall", "Dub"],
+      },
+      {
+        category: "religion",
+        title: "Rastafari Movement",
+        description:
+          "Rastafari emerged in 1930s Jamaica, combining African spiritual concepts with Christianity and reverence for Ethiopian Emperor Haile Selassie I as divine.",
+        examples: ["Rastafari", "Kumina", "Revival Zion"],
+      },
+      {
+        category: "language",
+        title: "Jamaican Patois",
+        description:
+          "Jamaican Patois (Creole) blends English with West African grammatical structures and vocabulary from Akan, Igbo, and Yoruba languages.",
+        examples: ["Irie", "Nyam", "Duppy", "Obeah"],
+      },
+      {
+        category: "food",
+        title: "Jamaican Cuisine",
+        description:
+          "Jamaican cooking techniques and ingredients like ackee, callaloo, and okra have direct African origins, particularly from West Africa.",
+        examples: ["Jerk Seasoning", "Ackee & Saltfish", "Callaloo", "Rice & Peas"],
+      },
+    ],
     history:
       "As one of the larger islands in the Caribbean, Jamaica remains the most deeply penetrated island with citizens of African descent. Labeled with the not-so-common term, Afro Jamaicans, Jamaicans of African descent constitutes approximately 97% of the island's total population. Before it's abolishment of slavery in 1834, the Jamaican slave economy was driven by British enslavement and imperialism which drove sugar plantation workers, cattle herders, and skilled artisans to prop up the island. Through language, religion, and a host of other customs, Jamaica currently has on display African influence that many scholars trace mainly to the western region of Africa. Nigeria, Angola, and the republic of Congo are countries that researchers have noted the origin of many slaves. Jamaica's rich culture is known the world over; and every aspect of this culture has been influenced by Jamaica's African heritage. From speech to dress, and spirituality to dance, from food to folklore and from music to art and religion, African retentions from the time of slavery have become more than preserved aspects of Jamaica's past; African traditions have become part and parcel of Jamaican culture.",
     culturalHighlights: [
@@ -195,6 +289,44 @@ export const countryProfiles: CountryProfile[] = [
     coordinates: { lat: 4.5709, lng: -74.2973 },
     population: 4944400,
     percentage: 10.16,
+    imageUrl: "/colombian-pacific-coast-afro-colombian-dancers-mar.jpg",
+    overview:
+      "Colombia has the second-largest Black population in Latin America, with vibrant Afro-Colombian communities along the Pacific and Caribbean coasts maintaining distinct African cultural traditions.",
+    statistics: [
+      { label: "Afro-Colombian Population", value: "~21% (10.5M people)", icon: "users" },
+      { label: "Enslaved Africans Brought", value: "~200,000 (1533-1851)", icon: "map" },
+      { label: "Slavery Abolished", value: "May 21, 1851", icon: "calendar" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Afro-Colombian Music",
+        description:
+          "Currulao, cumbia, and champeta are musical styles with strong African roots, featuring drums and call-response singing patterns from West and Central Africa.",
+        examples: ["Currulao", "Cumbia", "Champeta", "Bullerengue"],
+      },
+      {
+        category: "festivals",
+        title: "San Pacho Festival",
+        description:
+          "The Festival de San Pacho in Quibdó is Colombia's most important Afro-Colombian celebration, featuring African-derived music, dance, and spiritual expressions.",
+        examples: ["Festival de San Pacho", "Carnival de Barranquilla"],
+      },
+      {
+        category: "food",
+        title: "Pacific Coast Cuisine",
+        description:
+          "Afro-Colombian cuisine features seafood preparations, coconut rice, and plantain dishes influenced by West African cooking traditions.",
+        examples: ["Arroz con coco", "Sancocho", "Pescado frito"],
+      },
+      {
+        category: "sites",
+        title: "Palenque de San Basilio",
+        description:
+          "Founded by escaped enslaved Africans in the 17th century, Palenque is the first free African town in the Americas and a UNESCO World Heritage site.",
+        examples: ["Palenque de San Basilio"],
+      },
+    ],
     history:
       "With its origins in line with most Spanish American nations, 'Afro Colombianism' begins with the slave trade permeating the country in the 16th century. African slaves who were brought over by the Spaniards, and made to work in mining and sugar plantations, established a community for themselves in resistance, at Palenque de San Basillo (Northern Colombia, 50 kilometers from Cartagena). African slaves propped up many regions in Colombia, from the textile industry in the east, to the sugarcane and gold mining operations in the north and west. The resistance of many Afro Colombians was displayed after slavery was abolished in 1851, when they went into exile in the jungle areas to escape the threat of being 'whitened' by the government through the methods of 'mestizaje'. Today, studies estimate a 10% (5M pop.) penetration of people of African descent in Colombia, concentrated in the northwest Caribbean coast and the Pacific coast in such departments as Choco. Between racism, prejudice, conflict and internal strife, Afro Colombians have still managed to impact overall Colombian culture.",
     culturalHighlights: [
@@ -232,6 +364,44 @@ export const countryProfiles: CountryProfile[] = [
     coordinates: { lat: 18.9712, lng: -72.2852 },
     population: 10305766,
     percentage: 95,
+    imageUrl: "/haitian-vodou-ceremony-colorful-spiritual-celebrat.jpg",
+    overview:
+      "Haiti is the world's first Black republic and the site of the only successful slave-led revolution in history. With 95% of its population of African descent, Haiti maintains the strongest African cultural continuity in the Americas.",
+    statistics: [
+      { label: "Population of African Descent", value: "~95% (10.5M people)", icon: "users" },
+      { label: "Revolution Success", value: "January 1, 1804", icon: "calendar" },
+      { label: "Enslaved Africans Brought", value: "~800,000 (1625-1804)", icon: "map" },
+    ],
+    culturalAspects: [
+      {
+        category: "religion",
+        title: "Haitian Vodou",
+        description:
+          "Vodou is a profound African spiritual system combining Fon, Yoruba, and Kongo traditions. It played a crucial role in the Haitian Revolution and remains central to Haitian identity.",
+        examples: ["Vodou Ceremonies", "Lwa Worship", "Voodoo Drums"],
+      },
+      {
+        category: "language",
+        title: "Haitian Creole",
+        description:
+          "Haitian Creole blends French vocabulary with West African grammatical structures, creating a distinct language spoken by all Haitians.",
+        examples: ["Kreyòl ayisyen"],
+      },
+      {
+        category: "music",
+        title: "Afro-Haitian Music",
+        description:
+          "Traditional Haitian music features African drum patterns and spiritual rhythms, including rara street music and konpa dance music.",
+        examples: ["Rara", "Konpa", "Mizik rasin", "Vodou Drumming"],
+      },
+      {
+        category: "sites",
+        title: "Revolutionary Sites",
+        description:
+          "Haiti's independence monuments and historical sites commemorate the world's only successful slave revolution, a monumental achievement in African diaspora history.",
+        examples: ["Citadelle Laferrière", "Bois Caïman", "Sans-Souci Palace"],
+      },
+    ],
     history:
       "95% of Haiti's population is considered Afro-Haitian, with the remaining of mixed race with European ancestry. Haiti is unique in that historians believe slaves that arrived in Haiti came from several African countries instead of deep penetration from one. With the majority from West and Central Africa, Haitian slaves were from all over Africa, the most common being from Congo, Benin, Togo and Nigeria. Haiti has a long history of French colonialism, and its successful slave revolution in 1804 made it the first independent Black republic in the Western Hemisphere.",
     culturalHighlights: [
@@ -307,6 +477,44 @@ At this time, many people from the African Diaspora had set up their lives in Fr
     coordinates: { lat: 21.5218, lng: -77.7812 },
     population: 1126894,
     percentage: 9.89,
+    imageUrl: "/cuban-salsa-dancers-colorful-traditional-costumes-.jpg",
+    overview:
+      "Cuba has one of the richest Afro-Caribbean cultures, with African influences permeating music, dance, religion, and daily life. Over one million enslaved Africans were brought to Cuba, creating a vibrant cultural synthesis.",
+    statistics: [
+      { label: "Population of African Descent", value: "~36% (4M people)", icon: "users" },
+      { label: "Enslaved Africans Brought", value: "~1.3 million (1511-1886)", icon: "map" },
+      { label: "Slavery Abolished", value: "October 7, 1886", icon: "calendar" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Afro-Cuban Music",
+        description:
+          "Cuban music is fundamentally African, with rumba, son, and salsa all rooted in Yoruba and Kongo rhythms and percussion patterns.",
+        examples: ["Rumba", "Son", "Salsa", "Afro-Cuban Jazz"],
+      },
+      {
+        category: "religion",
+        title: "Santería (Regla de Ocha)",
+        description:
+          "Santería is a syncretic religion merging Yoruba orishas (deities) with Catholic saints, maintaining African spiritual traditions under colonial oppression.",
+        examples: ["Santería", "Palo Monte", "Abakuá"],
+      },
+      {
+        category: "festivals",
+        title: "Carnival & Cultural Celebrations",
+        description:
+          "Cuban carnival features comparsas (street dance groups) with African drumming, dance, and elaborate costumes reflecting African heritage.",
+        examples: ["Havana Carnival", "Santiago Carnival"],
+      },
+      {
+        category: "language",
+        title: "Afro-Cuban Spanish",
+        description:
+          "Cuban Spanish incorporates many Yoruba and Bantu words, particularly in religious contexts and everyday expressions.",
+        examples: ["Asere", "Bemba", "Changó"],
+      },
+    ],
     history:
       "Driven by the intense rise of the sugar economy, Cuba's importation of African slaves grew to amount to double the amount brought to the United States during the transatlantic slave trade. A prolonged slave trade, mixed with a thriving sugar and tobacco industry, led to the pervasiveness of evident elements of West African culture. Through social clubs known as 'cabildos', many enslaved Africans and Cuban-born descendants retained their identity. After labor disbandment, the independence wars, and the Cuban revolution, the influence of Africa and its people permeated through Cuban culture, creating a unique mix and blend that lives on today.",
     culturalHighlights: [
@@ -339,6 +547,44 @@ At this time, many people from the African Diaspora had set up their lives in Fr
     coordinates: { lat: 37.0902, lng: -95.7129 },
     population: 46282080,
     percentage: 14.40,
+    imageUrl: "/new-orleans-jazz-musicians-brass-band-french-quart.jpg",
+    overview:
+      "The United States is home to one of the largest African diaspora populations in the world. New Orleans in particular is the birthplace of jazz and a unique melting pot of African, Caribbean, and European cultures, where the African American community created revolutionary art forms that transformed global music.",
+    statistics: [
+      { label: "African American Population (New Orleans)", value: "~59% (220,000 people)", icon: "users" },
+      { label: "Jazz Originated", value: "Early 1900s", icon: "calendar" },
+      { label: "Louisiana Purchase", value: "1803", icon: "map" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Jazz & Blues",
+        description:
+          "Jazz emerged from African American communities blending West African rhythms, work songs, spirituals, and blues. New Orleans jazz became the foundation of American music.",
+        examples: ["Jazz", "Blues", "Second Line", "Brass Bands"],
+      },
+      {
+        category: "festivals",
+        title: "Mardi Gras & Second Lines",
+        description:
+          "New Orleans' Mardi Gras traditions and second line parades incorporate African diaspora music, dance, and spiritual practices, creating a unique cultural expression.",
+        examples: ["Mardi Gras Indians", "Second Line Parades", "Jazz Fest"],
+      },
+      {
+        category: "religion",
+        title: "Voodoo (Louisiana Voudou)",
+        description:
+          "Louisiana Voodoo blends West African, Haitian, and Catholic spiritual traditions, maintaining African spiritual practices in the American South.",
+        examples: ["Voodoo Practices", "Marie Laveau Legacy"],
+      },
+      {
+        category: "food",
+        title: "Creole & Soul Food",
+        description:
+          "New Orleans cuisine combines African cooking techniques with local ingredients, creating dishes like gumbo (from West African okra stews) and jambalaya.",
+        examples: ["Gumbo", "Jambalaya", "Red Beans & Rice", "Beignets"],
+      },
+    ],
     history:
       "Between the 16th and 19th centuries, at least 388,000 enslaved Africans arrived in North America through the trans-Atlantic slave trade. African Americans have profoundly shaped American history through pivotal periods including the abolitionism movement, the Civil War, Reconstruction, the Jim Crow era, the Great Migration, and the Civil Rights Movement. Their cultural contributions span music (jazz, blues, hip-hop), cuisine, literature, and spiritual practices.",
     culturalHighlights: [

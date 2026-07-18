@@ -61,7 +61,7 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
   const africaLayerRef = useRef<any>(null)
   const africanMarkersRef = useRef<any[]>([])
   const [isMapLoaded, setIsMapLoaded] = useState(false)
-  const selectedCountry = selectedLocation === "new-orleans" ? "usa" : selectedLocation
+  const selectedCountry = selectedLocation
 
   const filteredCountries = countryProfiles.filter((country) => {
     // Search query filter
@@ -342,8 +342,7 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
           })
 
           marker.on("click", () => {
-            const locId = country.id === "usa" ? "new-orleans" : country.id
-            onLocationSelect(locId)
+            onLocationSelect(country.id)
           })
 
           if (isSelected) {

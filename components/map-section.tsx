@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react"
 import { MapView } from "@/components/map-view"
 import { LocationPanel } from "@/components/location-panel"
 import { FilterBar } from "@/components/filter-bar"
-import { locations } from "@/lib/location-data"
+import { countryProfiles } from "@/lib/country-profiles"
 import { cn } from "@/lib/utils"
 
 interface MapSectionProps {
@@ -17,7 +17,7 @@ export function MapSection({ searchQuery }: MapSectionProps) {
   const [isVisible, setIsVisible] = useState(false)
   const sectionRef = useRef<HTMLDivElement>(null)
 
-  const location = selectedLocation ? locations.find((l) => l.id === selectedLocation) : null
+  const country = selectedLocation ? countryProfiles.find((c) => c.id === selectedLocation) : null
 
   useEffect(() => {
     const observer = new IntersectionObserver(
@@ -67,7 +67,7 @@ export function MapSection({ searchQuery }: MapSectionProps) {
           searchQuery={searchQuery}
         />
 
-        {location && <LocationPanel location={location} onClose={() => setSelectedLocation(null)} />}
+        {country && <LocationPanel country={country} onClose={() => setSelectedLocation(null)} />}
       </div>
     </section>
   )
