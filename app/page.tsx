@@ -37,7 +37,7 @@ function PageContent() {
           searchQuery={searchQuery}
           onSearchChange={setSearchQuery}
         />
-        <MapSection searchQuery={searchQuery} />
+        <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
         <PopulationTable />
         <NewsPreview />
         <ItineraryCTA />

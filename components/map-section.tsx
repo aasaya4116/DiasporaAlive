@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils"
 
 interface MapSectionProps {
   searchQuery: string
+  highlightedCountry?: string | null
 }
 
-export function MapSection({ searchQuery }: MapSectionProps) {
+export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps) {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
   const [selectedFilters, setSelectedFilters] = useState<string[]>([])
   const [isVisible, setIsVisible] = useState(false)
@@ -65,6 +66,7 @@ export function MapSection({ searchQuery }: MapSectionProps) {
           onLocationSelect={setSelectedLocation}
           filters={selectedFilters}
           searchQuery={searchQuery}
+          highlightedCountry={highlightedCountry}
         />
 
         {country && <LocationPanel country={country} onClose={() => setSelectedLocation(null)} />}
