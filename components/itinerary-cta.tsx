@@ -4,7 +4,7 @@ import { useReveal } from "@/hooks/use-reveal"
 import { Sparkles, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
-const badges = ["Free to use", "Powered by AI", "Cultural database"]
+const badges = ["Free to use", "AI planner in preview", "Cultural database"]
 
 export function ItineraryCTA() {
   const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
@@ -32,7 +32,7 @@ export function ItineraryCTA() {
             </h2>
 
             <p className="text-muted-foreground text-lg mb-8 max-w-2xl mx-auto">
-              Let our AI guide help you create a personalized itinerary exploring African diaspora culture. Get
+              Preview the AI guide that will build personalized itineraries around African diaspora culture —
               recommendations for sites, events, and experiences based on your interests.
             </p>
 
@@ -40,7 +40,7 @@ export function ItineraryCTA() {
               href="/plan"
               className="group inline-flex items-center gap-2 px-10 py-4 rounded-full bg-gold text-background font-semibold text-lg transition hover:opacity-90 hover:-translate-y-px"
             >
-              <span>Start Planning</span>
+              <span>Preview the Planner</span>
               <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
             </Link>
 

@@ -48,20 +48,13 @@ const sampleMessages = [
 ]
 
 export function ItineraryAgent() {
-  const [messages, setMessages] = useState(sampleMessages)
-  const [inputValue, setInputValue] = useState("")
+  const messages = sampleMessages
   const [isVisible, setIsVisible] = useState(false)
 
   useEffect(() => {
     const timer = setTimeout(() => setIsVisible(true), 100)
     return () => clearTimeout(timer)
   }, [])
-
-  const handleSend = () => {
-    if (!inputValue.trim()) return
-    // Placeholder - will integrate AI SDK later
-    setInputValue("")
-  }
 
   return (
     <section className="py-24 px-6 bg-gradient-to-b from-background to-card/20 relative overflow-hidden">
@@ -79,7 +72,7 @@ export function ItineraryAgent() {
           <div className="inline-flex items-center gap-2 px-4 py-2 bg-primary/10 border border-primary/30 rounded-full mb-6">
             <Sparkles className="h-4 w-4 text-gold" />
             <span className="text-[11px] font-semibold uppercase tracking-[0.18em] text-gold">
-              AI-Powered Travel Planning
+              AI Travel Planning — Preview
             </span>
           </div>
           <h2 className="text-3xl md:text-4xl font-bold tracking-tight text-foreground mb-4">
@@ -99,6 +92,11 @@ export function ItineraryAgent() {
         >
           {/* Messages area */}
           <div className="h-[600px] overflow-y-auto p-6 space-y-6">
+            <div className="flex justify-center">
+              <span className="rounded-full border border-line bg-secondary px-3 py-1 text-[11px] font-semibold uppercase tracking-[0.18em] text-muted-foreground">
+                Example Conversation
+              </span>
+            </div>
             {messages.map((message, index) => (
               <div
                 key={message.id}
@@ -171,20 +169,18 @@ export function ItineraryAgent() {
             ))}
           </div>
 
-          {/* Input area */}
+          {/* Input area — disabled until the live AI integration ships */}
           <div className="border-t border-border/50 p-4 bg-background/50">
             <div className="flex gap-3">
               <input
                 type="text"
-                value={inputValue}
-                onChange={(e) => setInputValue(e.target.value)}
-                onKeyPress={(e) => e.key === "Enter" && handleSend()}
-                placeholder="Ask me to plan your cultural journey..."
-                className="flex-1 px-4 py-3 bg-background border border-border rounded-full focus:outline-none focus:border-gold transition-colors text-sm"
+                disabled
+                placeholder="Live AI planning is coming soon — explore the example above"
+                className="flex-1 px-4 py-3 bg-background border border-border rounded-full text-sm opacity-60 cursor-not-allowed"
               />
               <button
-                onClick={handleSend}
-                className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium hover:bg-primary/90 transition-colors duration-200 flex items-center gap-2"
+                disabled
+                className="px-6 py-3 bg-primary text-primary-foreground rounded-full font-medium opacity-50 cursor-not-allowed flex items-center gap-2"
               >
                 <Send className="h-4 w-4" />
                 Send

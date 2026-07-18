@@ -21,7 +21,7 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
       id="map-section"
       ref={sectionRef}
       className={cn(
-        "min-h-screen flex flex-col overflow-hidden transition-[opacity,transform] duration-700 ease-out",
+        "min-h-screen flex flex-col overflow-hidden scroll-mt-16 transition-[opacity,transform] duration-700 ease-out",
         isVisible ? "opacity-100" : "opacity-0",
       )}
     >

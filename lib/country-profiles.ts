@@ -11,9 +11,12 @@ export interface CulturalAspect {
   examples?: string[]
 }
 
+export type CountryRegion = "Americas" | "Caribbean" | "Europe"
+
 export interface CountryProfile {
   id: string
   name: string
+  region: CountryRegion
   flag?: string
   coordinates: { lat: number; lng: number }
   population: number
@@ -34,6 +37,7 @@ export interface CountryProfile {
 export const countryProfiles: CountryProfile[] = [
   {
     id: "germany",
+    region: "Europe",
     name: "Germany",
     coordinates: { lat: 51.1657, lng: 10.4515 },
     population: 817150,
@@ -66,6 +70,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "brazil",
+    region: "Americas",
     name: "Brazil",
     coordinates: { lat: -14.235, lng: -51.9253 },
     population: 55900000,
@@ -141,6 +146,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "mexico",
+    region: "Americas",
     name: "Mexico",
     coordinates: { lat: 23.6345, lng: -102.5528 },
     population: 1386556,
@@ -178,6 +184,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "venezuela",
+    region: "Americas",
     name: "Venezuela",
     coordinates: { lat: 6.4238, lng: -66.5897 },
     population: 2641481,
@@ -210,6 +217,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "jamaica",
+    region: "Caribbean",
     name: "Jamaica",
     coordinates: { lat: 18.1096, lng: -77.2975 },
     population: 2731419,
@@ -285,6 +293,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "colombia",
+    region: "Americas",
     name: "Colombia",
     coordinates: { lat: 4.5709, lng: -74.2973 },
     population: 4944400,
@@ -360,6 +369,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "haiti",
+    region: "Caribbean",
     name: "Haiti",
     coordinates: { lat: 18.9712, lng: -72.2852 },
     population: 10305766,
@@ -435,6 +445,7 @@ export const countryProfiles: CountryProfile[] = [
   },
   {
     id: "france",
+    region: "Europe",
     name: "France",
     coordinates: { lat: 48.8566, lng: 2.3522 }, // Paris
     population: 3800000,
@@ -473,6 +484,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "cuba",
+    region: "Caribbean",
     name: "Cuba",
     coordinates: { lat: 21.5218, lng: -77.7812 },
     population: 1126894,
@@ -543,6 +555,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "usa",
+    region: "Americas",
     name: "USA",
     coordinates: { lat: 37.0902, lng: -95.7129 },
     population: 46282080,
@@ -618,6 +631,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "uk",
+    region: "Europe",
     name: "United Kingdom",
     coordinates: { lat: 55.3781, lng: -3.436 },
     population: 2080000,
@@ -650,6 +664,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "dominican-republic",
+    region: "Caribbean",
     name: "Dominican Republic",
     coordinates: { lat: 18.7357, lng: -70.1627 },
     population: 1985991,
@@ -682,6 +697,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "italy",
+    region: "Europe",
     name: "Italy",
     coordinates: { lat: 41.8719, lng: 12.5674 },
     population: 1100000,
@@ -714,6 +730,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "puerto-rico",
+    region: "Caribbean",
     name: "Puerto Rico",
     coordinates: { lat: 18.2208, lng: -66.5901 },
     population: 979842,
@@ -751,6 +768,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "peru",
+    region: "Americas",
     name: "Peru",
     coordinates: { lat: -9.19, lng: -75.0152 },
     population: 875427,
@@ -783,6 +801,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "canada",
+    region: "Americas",
     name: "Canada",
     coordinates: { lat: 56.1304, lng: -106.3468 },
     population: 783795,
@@ -815,6 +834,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "spain",
+    region: "Europe",
     name: "Spain",
     coordinates: { lat: 40.4637, lng: -3.7492 },
     population: 690291,
@@ -847,6 +867,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "ecuador",
+    region: "Americas",
     name: "Ecuador",
     coordinates: { lat: -1.8312, lng: -78.1834 },
     population: 680000,
@@ -879,6 +900,7 @@ At this time, many people from the African Diaspora had set up their lives in Fr
   },
   {
     id: "trinidad-tobago",
+    region: "Caribbean",
     name: "Trinidad & Tobago",
     coordinates: { lat: 10.6918, lng: -61.2225 },
     population: 607472,

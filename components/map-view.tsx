@@ -400,6 +400,21 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
   return (
     <div className="relative flex-1 bg-background overflow-hidden">
       <div ref={mapRef} className="w-full h-full" />
+
+      {/* Empty state — nothing matches the search/filters */}
+      {isMapLoaded && filteredCountries.length === 0 && (
+        <div className="pointer-events-none absolute inset-0 z-[800] flex items-center justify-center px-6">
+          <div className="glass-panel rounded-xl px-8 py-6 text-center max-w-sm">
+            <p className="overline mb-2">No Matches</p>
+            <p className="text-sm font-medium text-foreground mb-1">
+              {searchQuery ? `No countries match "${searchQuery}"` : "No countries match these filters"}
+            </p>
+            <p className="text-xs text-muted-foreground">
+              Try a different search term or clear the filters above
+            </p>
+          </div>
+        </div>
+      )}
     </div>
   )
 }

@@ -3,8 +3,9 @@
 import { Globe, ChevronDown, Search, Menu, X } from "lucide-react"
 import { cn } from "@/lib/utils"
 import Link from "next/link"
+import { usePathname, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
-import { countryProfiles } from "@/lib/country-profiles"
+import { countryProfiles, type CountryRegion } from "@/lib/country-profiles"
 
 interface SidebarProps {
   activeSection: string
@@ -21,17 +22,30 @@ const navLinks = [
   { id: "plan", label: "Trip Planner", href: "/plan" },
 ]
 
-const regionGroups: Record<string, string[]> = {
-  Americas: ["brazil", "usa", "mexico", "colombia", "venezuela"],
-  Caribbean: ["jamaica", "haiti", "cuba"],
-  Europe: ["france", "germany", "uk"],
-}
+const REGION_ORDER: CountryRegion[] = ["Americas", "Caribbean", "Europe"]
+
+const regionGroups = REGION_ORDER.map((region) => ({
+  region,
+  countries: countryProfiles.filter((c) => c.region === region),
+}))
 
 export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSearch }: SidebarProps) {
+  const pathname = usePathname()
+  const router = useRouter()
   const [isScrolled, setIsScrolled] = useState(false)
   const [isMobileOpen, setIsMobileOpen] = useState(false)
   const [isCountriesOpen, setIsCountriesOpen] = useState(false)
   const [searchQuery, setSearchQuery] = useState("")
+
+  // Works from any page: smooth-scroll on home, navigate home otherwise
+  const goToMap = () => {
+    onSectionChange("map")
+    if (pathname === "/") {
+      document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" })
+    } else {
+      router.push("/#map-section")
+    }
+  }
 
   useEffect(() => {
     const handleScroll = () => {
@@ -70,10 +84,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
               <div key={link.id} className="relative">
                 {link.id === "map" ? (
                   <button
-                    onClick={() => {
-                      onSectionChange(link.id)
-                      document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" })
-                    }}
+                    onClick={goToMap}
                     className={cn(
                       "px-4 py-2 rounded-xl text-sm font-medium transition-all duration-200",
                       activeSection === link.id
@@ -113,26 +124,23 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
               </button>
 
               {isCountriesOpen && (
-                <div className="absolute top-full mt-2 right-0 w-64 glass-panel rounded-2xl p-4 shadow-2xl">
-                  {Object.entries(regionGroups).map(([region, countryIds]) => (
+                <div className="absolute top-full mt-2 right-0 w-64 max-h-[70vh] overflow-y-auto glass-panel rounded-2xl p-4 shadow-2xl">
+                  {regionGroups.map(({ region, countries }) => (
                     <div key={region} className="mb-3 last:mb-0">
                       <p className="overline mb-1.5 px-2">{region}</p>
                       <div className="space-y-0.5">
-                        {countryIds
-                          .map((id) => countryProfiles.find((c) => c.id === id))
-                          .filter(Boolean)
-                          .map((country) => (
-                            <Link
-                              key={country!.id}
-                              href={`/country/${country!.id}`}
-                              onMouseEnter={() => onCountryHover?.(country!.id)}
-                              onMouseLeave={() => onCountryHover?.(null)}
-                              onClick={() => setIsCountriesOpen(false)}
-                              className="block px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-gold hover:bg-gold/10 transition-all duration-200"
-                            >
-                              {country!.name}
-                            </Link>
-                          ))}
+                        {countries.map((country) => (
+                          <Link
+                            key={country.id}
+                            href={`/country/${country.id}`}
+                            onMouseEnter={() => onCountryHover?.(country.id)}
+                            onMouseLeave={() => onCountryHover?.(null)}
+                            onClick={() => setIsCountriesOpen(false)}
+                            className="block px-3 py-1.5 rounded-lg text-sm text-muted-foreground hover:text-gold hover:bg-gold/10 transition-all duration-200"
+                          >
+                            {country.name}
+                          </Link>
+                        ))}
                       </div>
                     </div>
                   ))}
@@ -193,9 +201,8 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                 {link.id === "map" ? (
                   <button
                     onClick={() => {
-                      onSectionChange(link.id)
                       setIsMobileOpen(false)
-                      document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" })
+                      goToMap()
                     }}
                     className="text-2xl font-semibold text-foreground hover:text-gold transition-colors"
                   >
@@ -219,21 +226,17 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
               style={{ animation: `fadeInUp 0.4s ease-out ${navLinks.length * 0.08}s both` }}
             >
               <p className="overline mb-3 text-center">Country Profiles</p>
-              <div className="grid grid-cols-2 gap-2">
-                {Object.values(regionGroups)
-                  .flat()
-                  .map((id) => countryProfiles.find((c) => c.id === id))
-                  .filter(Boolean)
-                  .map((country) => (
-                    <Link
-                      key={country!.id}
-                      href={`/country/${country!.id}`}
-                      onClick={() => setIsMobileOpen(false)}
-                      className="px-3 py-2 rounded-lg text-sm text-center text-muted-foreground hover:text-gold hover:bg-gold/10 border border-white/5 transition-all"
-                    >
-                      {country!.name}
-                    </Link>
-                  ))}
+              <div className="grid max-h-[40vh] grid-cols-2 gap-2 overflow-y-auto">
+                {countryProfiles.map((country) => (
+                  <Link
+                    key={country.id}
+                    href={`/country/${country.id}`}
+                    onClick={() => setIsMobileOpen(false)}
+                    className="px-3 py-2 rounded-lg text-sm text-center text-muted-foreground hover:text-gold hover:bg-gold/10 border border-white/5 transition-all"
+                  >
+                    {country.name}
+                  </Link>
+                ))}
               </div>
             </div>
           </div>

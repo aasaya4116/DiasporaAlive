@@ -21,14 +21,23 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
     <div className="min-h-screen bg-background">
       {/* Header */}
       <header className="glass-nav sticky top-0 z-50">
-        <div className="container mx-auto px-6 py-4">
+        <div className="container mx-auto flex items-center justify-between px-6 py-4">
           <Link
-            href="/"
+            href="/#map-section"
             className="inline-flex items-center gap-2 text-gold hover:text-gold-strong transition-colors"
           >
             <ArrowLeft className="w-4 h-4" />
             Back to Map
           </Link>
+          <nav aria-label="Breadcrumb" className="hidden sm:flex items-center gap-2 text-sm text-muted-foreground">
+            <Link href="/" className="hover:text-gold transition-colors">
+              Home
+            </Link>
+            <span className="text-ink-3">/</span>
+            <span>{country.region}</span>
+            <span className="text-ink-3">/</span>
+            <span className="text-foreground">{country.name}</span>
+          </nav>
         </div>
       </header>
 
