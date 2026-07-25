@@ -76,71 +76,101 @@ function popupHtml(country: (typeof countryProfiles)[number]) {
   const origins = Array.isArray(country.africanOrigins)
     ? country.africanOrigins.slice(0, 3).join(", ")
     : "Various African regions"
-  const historicSites = country.culturalHighlights?.length || 0
+  const highlightCount = country.culturalHighlights?.length || 0
   const flagCode = countryFlags[country.id] || "world"
+  const isInDepth = Boolean(country.statistics?.length || country.culturalAspects?.length)
+  const categories = [...new Set((country.culturalAspects ?? []).map((a) => a.category))]
+
+  const closeButton = `
+    <button data-popup-close class="absolute top-3 right-3 z-10 flex h-7 w-7 items-center justify-center rounded-full bg-background/60 text-white/90 backdrop-blur-sm transition-colors hover:text-white">
+      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <line x1="18" y1="6" x2="6" y2="18"></line>
+        <line x1="6" y1="6" x2="18" y2="18"></line>
+      </svg>
+    </button>`
+
+  const depthBadge = isInDepth
+    ? `<span class="rounded-full border border-emerald/30 bg-emerald/15 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald">In-Depth</span>`
+    : `<span class="rounded-full border border-line bg-background/60 px-2 py-0.5 text-[10px] font-bold uppercase tracking-wider text-white/80">Overview</span>`
+
+  // Banner: hero image where available, else a flag-forward gradient header
+  const header = country.imageUrl
+    ? `
+      <div class="relative h-28 w-full overflow-hidden">
+        <img src="${country.imageUrl}" alt="${country.name}" class="h-full w-full object-cover" />
+        <div class="absolute inset-0 bg-gradient-to-t from-[#0b0b0d] via-[#0b0b0d]/40 to-transparent"></div>
+        <div class="absolute bottom-3 left-4 right-4 flex items-end justify-between gap-2">
+          <div>
+            <h3 class="text-xl font-bold leading-tight text-white">${country.name}</h3>
+            <p class="text-xs text-white/70">${country.region}</p>
+          </div>
+          ${depthBadge}
+        </div>
+      </div>`
+    : `
+      <div class="flex items-center gap-3 px-5 pt-5">
+        <div class="flex h-11 w-11 items-center justify-center overflow-hidden rounded-full border border-line bg-surface-2">
+          <img src="https://flagcdn.com/w80/${flagCode}.png" alt="${country.name} flag" class="h-full w-full object-cover" />
+        </div>
+        <div class="flex-1">
+          <div class="flex items-center gap-2">
+            <h3 class="text-xl font-bold leading-tight text-foreground">${country.name}</h3>
+            ${depthBadge}
+          </div>
+          <p class="text-xs text-muted-foreground">${country.region}</p>
+        </div>
+      </div>`
+
+  const categoryChips = categories.length
+    ? `
+      <div class="mb-4">
+        <p class="overline mb-2">What you'll explore</p>
+        <div class="flex flex-wrap gap-1.5">
+          ${categories
+            .map(
+              (c) =>
+                `<span class="rounded-full border border-gold/25 bg-gold/10 px-2.5 py-0.5 text-[11px] capitalize text-gold">${c}</span>`
+            )
+            .join("")}
+        </div>
+      </div>`
+    : ""
 
   return `
-    <div class="p-5 w-80">
-      <button data-popup-close class="absolute top-3 right-3 text-muted-foreground hover:text-foreground transition-colors">
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="18" y1="6" x2="6" y2="18"></line>
-          <line x1="6" y1="6" x2="18" y2="18"></line>
-        </svg>
-      </button>
+    <div class="w-80 overflow-hidden rounded-2xl">
+      ${closeButton}
+      ${header}
 
-      <div class="flex items-center gap-3 mb-3">
-        <div class="w-10 h-10 rounded-full bg-surface-2 border border-line flex items-center justify-center overflow-hidden">
-          <img src="https://flagcdn.com/w40/${flagCode}.png" alt="${country.name} flag" class="w-full h-full object-cover" />
+      <div class="p-5">
+        <div class="mb-4 flex items-baseline gap-2">
+          <span class="text-3xl font-bold font-mono tracking-tight text-foreground">${(country.population / 1000000).toFixed(1)}M</span>
+          <span class="text-sm text-muted-foreground">people of African descent · ${country.percentage.toFixed(1)}%</span>
         </div>
-        <div>
-          <h3 class="text-xl font-bold text-foreground">${country.name}</h3>
-          <p class="text-xs text-muted-foreground">African diaspora population</p>
-        </div>
-      </div>
 
-      <div class="mb-4">
-        <div class="text-4xl font-bold text-foreground mb-1">
-          ${(country.population / 1000000).toFixed(1)}M
-          <span class="text-lg font-normal text-muted-foreground">people</span>
-        </div>
-        <p class="text-xs text-muted-foreground">(of African descent)</p>
-      </div>
+        ${categoryChips}
 
-      <div class="border-t border-line pt-4 space-y-3 mb-4">
-        <div class="flex items-start gap-2">
-          <svg class="w-4 h-4 text-emerald mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="2" y1="12" x2="22" y2="12"></line>
-            <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"></path>
-          </svg>
-          <div class="flex-1">
-            <p class="text-xs text-muted-foreground mb-0.5">Top origins:</p>
-            <p class="text-sm text-foreground font-medium">${origins}</p>
+        <div class="mb-4 space-y-2 border-t border-line pt-4">
+          <div>
+            <p class="overline mb-1">Top origins</p>
+            <p class="text-sm font-medium text-foreground">${origins}</p>
+          </div>
+          <div>
+            <p class="overline mb-1">Inside</p>
+            <p class="text-sm font-medium text-foreground">${highlightCount} cultural highlight${highlightCount === 1 ? "" : "s"}</p>
           </div>
         </div>
 
-        <div class="flex items-start gap-2">
-          <svg class="w-4 h-4 text-emerald mt-0.5 flex-shrink-0" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
-            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        <button
+          data-country-id="${country.id}"
+          class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 font-semibold text-primary-foreground transition-colors duration-200 hover:bg-gold-strong"
+        >
+          Explore ${country.name}
+          <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+            <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-          <div class="flex-1">
-            <p class="text-xs text-muted-foreground mb-0.5">Historic sites:</p>
-            <p class="text-sm text-foreground font-medium">${historicSites} locations</p>
-          </div>
-        </div>
+        </button>
       </div>
-
-      <button
-        data-country-id="${country.id}"
-        class="w-full py-3 px-4 bg-primary hover:bg-gold-strong text-primary-foreground font-semibold rounded-full transition-colors duration-200 flex items-center justify-center gap-2"
-      >
-        Explore country
-        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <line x1="5" y1="12" x2="19" y2="12"></line>
-          <polyline points="12 5 19 12 12 19"></polyline>
-        </svg>
-      </button>
     </div>
   `
 }
