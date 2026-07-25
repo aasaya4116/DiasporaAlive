@@ -4,6 +4,7 @@ import { useState } from "react"
 import { useReveal } from "@/hooks/use-reveal"
 import { MapView } from "@/components/map-view"
 import { FilterBar } from "@/components/filter-bar"
+import { DiasporaJourney } from "@/components/diaspora-journey"
 import { cn } from "@/lib/utils"
 
 interface MapSectionProps {
@@ -46,6 +47,12 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
           filters={selectedFilters}
           searchQuery={searchQuery}
           highlightedCountry={highlightedCountry}
+        />
+
+        <DiasporaJourney
+          activeCountryId={selectedLocation}
+          onStopChange={setSelectedLocation}
+          onStart={() => setSelectedFilters([])}
         />
       </div>
     </section>
