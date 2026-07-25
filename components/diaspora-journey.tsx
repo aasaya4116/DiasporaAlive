@@ -31,6 +31,9 @@ export function DiasporaJourney({ activeCountryId, onStopChange, onStart }: Dias
   const [playing, setPlaying] = useState(false)
   const [index, setIndex] = useState(0)
   const timerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
+  // The last country id the journey itself pushed to the map, so we can tell
+  // our own selection echoes apart from a genuine user pin-click.
+  const lastPushedRef = useRef<string | null>(null)
 
   const current = stops[index]
 
@@ -54,18 +57,21 @@ export function DiasporaJourney({ activeCountryId, onStopChange, onStart }: Dias
   // Drive the map whenever the active stop changes
   useEffect(() => {
     if (!open) return
+    lastPushedRef.current = current.id
     onStopChange(current.id)
   }, [open, index, current.id, onStopChange])
 
-  // Follow direct pin clicks that land on a journey country
+  // Follow *external* pin clicks only. We depend on activeCountryId (not index)
+  // and skip ids the journey pushed itself, so the panel and map can't oscillate.
   useEffect(() => {
     if (!open || !activeCountryId) return
+    if (activeCountryId === lastPushedRef.current) return
     const i = stops.findIndex((s) => s.id === activeCountryId)
-    if (i >= 0 && i !== index) {
+    if (i >= 0) {
       setIndex(i)
       setPlaying(false)
     }
-  }, [activeCountryId, open, index])
+  }, [activeCountryId, open])
 
   const start = () => {
     onStart?.()
