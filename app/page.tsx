@@ -5,10 +5,7 @@ import { Sidebar } from "@/components/sidebar"
 import { HeroSection } from "@/components/hero-section"
 import { MapSection } from "@/components/map-section"
 import { PopulationTable } from "@/components/population-table"
-import { WhySection } from "@/components/why-section"
 import { ExploreGrid } from "@/components/explore-grid"
-import { ItineraryCTA } from "@/components/itinerary-cta"
-import { Footer } from "@/components/footer"
 import { PageLoader } from "@/components/page-loader"
 
 function PageContent() {
@@ -29,11 +26,8 @@ function PageContent() {
         <HeroSection />
         <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
         <PopulationTable />
-        <WhySection />
         <ExploreGrid />
-        <ItineraryCTA />
       </main>
-      <Footer />
     </div>
   )
 }
