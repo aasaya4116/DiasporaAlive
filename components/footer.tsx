@@ -12,9 +12,7 @@ const exploreLinks = [
   { href: "/#map-section", label: "Interactive Map" },
   { href: "/timeline", label: "Timeline" },
   { href: "/stories", label: "Stories" },
-  { href: "/news", label: "News & Events" },
   { href: "/resources", label: "Resources" },
-  { href: "/plan", label: "Trip Planner" },
 ]
 
 export function Footer() {

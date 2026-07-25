@@ -18,8 +18,6 @@ const navLinks = [
   { id: "map", label: "Map", href: "#map-section" },
   { id: "timeline", label: "Timeline", href: "/timeline" },
   { id: "stories", label: "Stories", href: "/stories" },
-  { id: "news", label: "News", href: "/news" },
-  { id: "plan", label: "Trip Planner", href: "/plan" },
 ]
 
 const REGION_ORDER: CountryRegion[] = ["Americas", "Caribbean", "Europe"]
@@ -96,6 +94,23 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
     onSearch?.(value)
   }
 
+  const renderLink = (link: (typeof navLinks)[number]) => {
+    const active = isActive(link)
+    const cls = cn(
+      "px-3.5 py-2 rounded-full text-sm font-medium transition-colors duration-200",
+      active ? "text-gold bg-gold/10" : "text-muted-foreground hover:text-foreground"
+    )
+    return link.id === "map" ? (
+      <button key={link.id} onClick={goToMap} className={cls}>
+        {link.label}
+      </button>
+    ) : (
+      <Link key={link.id} href={link.href} className={cls}>
+        {link.label}
+      </Link>
+    )
+  }
+
   return (
     <>
       {/* Floating Glass Navigation */}
@@ -116,22 +131,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
 
           {/* Desktop Nav Links */}
           <div className="hidden md:flex items-center gap-1.5">
-            {navLinks.map((link) => {
-              const active = isActive(link)
-              const cls = cn(
-                "px-3.5 py-2 rounded-full text-sm font-medium transition-colors duration-200",
-                active ? "text-gold bg-gold/10" : "text-muted-foreground hover:text-foreground"
-              )
-              return link.id === "map" ? (
-                <button key={link.id} onClick={goToMap} className={cls}>
-                  {link.label}
-                </button>
-              ) : (
-                <Link key={link.id} href={link.href} className={cls}>
-                  {link.label}
-                </Link>
-              )
-            })}
+            {renderLink(navLinks[0])}
 
             {/* Countries mega-menu */}
             <div className="relative">
@@ -190,6 +190,8 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
                 </div>
               )}
             </div>
+
+            {navLinks.slice(1).map(renderLink)}
           </div>
 
           {/* Right side — Search + Mobile toggle */}
