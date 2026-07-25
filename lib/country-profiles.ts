@@ -450,6 +450,43 @@ export const countryProfiles: CountryProfile[] = [
     coordinates: { lat: 48.8566, lng: 2.3522 }, // Paris
     population: 3800000,
     percentage: 5.88,
+    overview:
+      "France holds one of Europe's largest African diaspora populations, shaped by centuries of colonial history in West and North Africa and the Caribbean. Communities with roots in Senegal, Mali, Algeria, Martinique, and Guadeloupe have profoundly influenced French music, cuisine, language, and intellectual life.",
+    statistics: [
+      { label: "Population of African Descent", value: "~5.9% (3.8M people)", icon: "users" },
+      { label: "Slavery Abolished (Second Abolition)", value: "April 27, 1848", icon: "calendar" },
+      { label: "Key Communities", value: "Paris, Marseille, Lyon", icon: "map" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Afro-French Music",
+        description:
+          "Zouk from the French Antilles, Afrobeat and coupé-décalé from West African communities, and a French hip-hop scene largely pioneered by artists of African descent have made Black music central to French popular culture.",
+        examples: ["Zouk", "Coupé-Décalé", "French Hip-Hop", "Kompa"],
+      },
+      {
+        category: "food",
+        title: "African & Antillean Cuisine",
+        description:
+          "West African and Caribbean restaurants and markets are woven into French city life, from Senegalese thieboudienne in Paris to Antillean accras and colombo across the country.",
+        examples: ["Mafé", "Thieboudienne", "Accras", "Colombo"],
+      },
+      {
+        category: "festivals",
+        title: "Carnaval Tropical de Paris",
+        description:
+          "Paris hosts its own tropical carnival each summer, led by Antillean and African communities with costumes, steel bands, and parade floats along the city's grand avenues.",
+        examples: ["Carnaval Tropical", "Fête de la Musique", "MOCA Festival"],
+      },
+      {
+        category: "language",
+        title: "Creole & Urban French",
+        description:
+          "Antillean Creole remains spoken in diaspora households, while African and Caribbean speech patterns have shaped urban French slang, from verlan to borrowings heard in music and daily life.",
+        examples: ["Antillean Creole", "Verlan", "Nouchi"],
+      },
+    ],
     history: `Unlike most Sub-Saharan immigration, immigrants from Africa to France after World War II were predominantly from the Northern African region. The French heavily depended on African troops from their colonies in the two World Wars. However, afterwards, most of the soldiers repatriated while only a small number stayed. In the post-war period, North African immigration to France regenerated due to the shortage of labor needed to rebuild war-torn infrastructure.
 
 At this time, many people from the African Diaspora had set up their lives in France. For a long time, the North African immigrants remained faceless and invisible in French society. But by the 1980s, the invisibility of the single male migrant workers of the 1950s and 1960s was strongly challenged by their descendants or so-called "Beur" who marked public space with various artistic, literary, political and social interventions.`,
@@ -636,6 +673,43 @@ At this time, many people from the African Diaspora had set up their lives in Fr
     coordinates: { lat: 55.3781, lng: -3.436 },
     population: 2080000,
     percentage: 3.19,
+    overview:
+      "Black British communities — with roots across the Caribbean and West Africa — have shaped the United Kingdom for generations, from the Windrush era onward. Their influence runs through British music, food, festivals, and language, with the largest communities in London, Birmingham, and Manchester.",
+    statistics: [
+      { label: "Black British Population", value: "~3% (2M+ people)", icon: "users" },
+      { label: "HMT Empire Windrush Arrives", value: "June 22, 1948", icon: "calendar" },
+      { label: "Largest Communities", value: "London, Birmingham, Manchester", icon: "map" },
+    ],
+    culturalAspects: [
+      {
+        category: "music",
+        title: "Black British Music",
+        description:
+          "From lovers rock and jungle to UK garage and grime, Black British artists have repeatedly invented genres that define British youth culture and export worldwide.",
+        examples: ["Grime", "Jungle", "Lovers Rock", "UK Garage"],
+      },
+      {
+        category: "festivals",
+        title: "Notting Hill Carnival",
+        description:
+          "Europe's largest street festival, born from London's Caribbean community in the 1960s, fills West London every August with mas bands, steel pan, and sound systems.",
+        examples: ["Notting Hill Carnival", "Leeds West Indian Carnival"],
+      },
+      {
+        category: "food",
+        title: "Caribbean & West African Cuisine",
+        description:
+          "Caribbean takeaways and West African kitchens are fixtures of British food culture, with jerk, jollof, and plantain crossing into the mainstream.",
+        examples: ["Jerk Chicken", "Jollof Rice", "Patties", "Plantain"],
+      },
+      {
+        category: "language",
+        title: "Multicultural London English",
+        description:
+          "Caribbean Patois brought by the Windrush generation deeply influenced Multicultural London English, the dialect that now colors British slang, music, and media.",
+        examples: ["MLE", "Jamaican Patois influence"],
+      },
+    ],
     history:
       "African people have been present in Britain since Roman times, with evidence dating to the 3rd century AD. The modern Black British population was significantly shaped by post-WWII immigration, particularly following the British Nationality Act of 1948, when Commonwealth citizens from Africa and the Caribbean came to help rebuild Britain. They contributed extensively to the NHS, Post Office, and British Railways during the economic boom of the 1950s-1960s.",
     culturalHighlights: [

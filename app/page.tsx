@@ -6,10 +6,7 @@ import { HeroSection } from "@/components/hero-section"
 import { MapSection } from "@/components/map-section"
 import { PopulationTable } from "@/components/population-table"
 import { WhySection } from "@/components/why-section"
-import { TimelinePreview } from "@/components/timeline-preview"
-import { StoriesPreview } from "@/components/stories-preview"
-import { NewsPreview } from "@/components/news-preview"
-import { ResourcesPreview } from "@/components/resources-preview"
+import { ExploreGrid } from "@/components/explore-grid"
 import { ItineraryCTA } from "@/components/itinerary-cta"
 import { Footer } from "@/components/footer"
 import { PageLoader } from "@/components/page-loader"
@@ -33,11 +30,8 @@ function PageContent() {
         <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
         <PopulationTable />
         <WhySection />
-        <NewsPreview />
+        <ExploreGrid />
         <ItineraryCTA />
-        <TimelinePreview />
-        <StoriesPreview />
-        <ResourcesPreview />
       </main>
       <Footer />
     </div>

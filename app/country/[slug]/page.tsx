@@ -1,5 +1,5 @@
 import { countryProfiles } from "@/lib/country-profiles"
-import { Globe, Users, TrendingUp, MapPin, ArrowLeft, Calendar } from "lucide-react"
+import { Globe, Users, TrendingUp, MapPin, ArrowLeft, ArrowRight, Calendar } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
@@ -16,6 +16,15 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
   if (!country) {
     notFound()
   }
+
+  const isInDepth = Boolean(country.statistics?.length || country.culturalAspects?.length)
+
+  const related = countryProfiles.filter((c) => c.region === country.region && c.id !== country.id).slice(0, 4)
+
+  const alphabetical = [...countryProfiles].sort((a, b) => a.name.localeCompare(b.name))
+  const position = alphabetical.findIndex((c) => c.id === country.id)
+  const prevCountry = alphabetical[(position - 1 + alphabetical.length) % alphabetical.length]
+  const nextCountry = alphabetical[(position + 1) % alphabetical.length]
 
   return (
     <div className="min-h-screen bg-background">
@@ -49,7 +58,18 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
               <Globe className="w-8 h-8 text-background" />
             </div>
             <div>
-              <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground mb-2">{country.name}</h1>
+              <div className="flex flex-wrap items-center gap-3 mb-2">
+                <h1 className="text-4xl md:text-5xl font-bold tracking-tight text-foreground">{country.name}</h1>
+                {isInDepth ? (
+                  <span className="rounded-full bg-emerald/10 border border-emerald/25 px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-emerald">
+                    In-Depth Profile
+                  </span>
+                ) : (
+                  <span className="rounded-full bg-secondary border border-line px-2.5 py-0.5 text-[10px] font-bold uppercase tracking-wider text-muted-foreground">
+                    Overview
+                  </span>
+                )}
+              </div>
               <p className="text-muted-foreground flex items-center gap-2">
                 <MapPin className="w-4 h-4" />
                 African Diaspora Community
@@ -175,7 +195,7 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
         )}
 
         {/* Cultural Highlights */}
-        <section>
+        <section className="mb-12">
           <span className="overline block mb-3">Culture</span>
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">Cultural Highlights</h2>
           <div className="grid grid-cols-1 gap-6">
@@ -190,6 +210,48 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
             ))}
           </div>
         </section>
+
+        {/* More in this region */}
+        {related.length > 0 && (
+          <section className="mb-12">
+            <span className="overline block mb-3">{country.region}</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">More in this region</h2>
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {related.map((c) => (
+                <Link
+                  key={c.id}
+                  href={`/country/${c.id}`}
+                  className="group rounded-lg border border-border bg-card p-5 transition hover:border-gold hover:-translate-y-0.5"
+                >
+                  <p className="font-semibold text-foreground group-hover:text-gold transition-colors mb-1">
+                    {c.name}
+                  </p>
+                  <p className="text-xs text-muted-foreground tabular-nums">
+                    {(c.population / 1000000).toFixed(1)}M · {c.percentage.toFixed(1)}%
+                  </p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Prev / next country */}
+        <nav className="flex items-center justify-between gap-4 border-t border-line-subtle pt-8">
+          <Link
+            href={`/country/${prevCountry.id}`}
+            className="group flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-foreground transition hover:border-gold hover:text-gold"
+          >
+            <ArrowLeft className="w-4 h-4 group-hover:-translate-x-1 transition-transform" />
+            {prevCountry.name}
+          </Link>
+          <Link
+            href={`/country/${nextCountry.id}`}
+            className="group flex items-center gap-2 rounded-full border border-line px-5 py-2.5 text-sm font-medium text-foreground transition hover:border-gold hover:text-gold"
+          >
+            {nextCountry.name}
+            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+          </Link>
+        </nav>
       </main>
     </div>
   )
