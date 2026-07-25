@@ -8,7 +8,6 @@ import { countryProfiles } from "@/lib/country-profiles"
 interface MapViewProps {
   selectedLocation: string | null
   onLocationSelect: (id: string | null) => void
-  filters: string[]
   searchQuery: string
   highlightedCountry?: string | null
 }
@@ -51,15 +50,6 @@ const countryFlags: Record<string, string> = {
   spain: "es",
   ecuador: "ec",
   "trinidad-tobago": "tt",
-}
-
-const FILTER_KEYWORDS: Record<string, string[]> = {
-  music: ["music", "dance", "rhythm", "samba", "song", "drum", "instrument", "jazz", "tempo", "bomba", "rumba"],
-  food: ["food", "cuisine", "dish", "cook", "recipe", "bean", "cacao", "sugar", "coffee", "taste", "pastry"],
-  religion: ["religion", "spiritual", "deity", "church", "god", "catholic", "candomble", "vodou", "santeria", "faith", "shaman"],
-  language: ["language", "speech", "creole", "patois", "french", "spanish", "english", "speak", "dialect"],
-  festivals: ["festival", "carnival", "celebration", "parade", "holiday", "event", "commemorating", "gathering"],
-  sites: ["site", "monument", "fortress", "museum", "historical", "building", "cemetery", "landmark", "park"],
 }
 
 function markerIconHtml() {
@@ -160,8 +150,9 @@ function popupHtml(country: (typeof countryProfiles)[number]) {
           </div>
         </div>
 
-        <button
+        <a
           data-country-id="${country.id}"
+          href="/country/${country.id}"
           class="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 font-semibold text-primary-foreground transition-colors duration-200 hover:bg-gold-strong"
         >
           Explore ${country.name}
@@ -169,13 +160,13 @@ function popupHtml(country: (typeof countryProfiles)[number]) {
             <line x1="5" y1="12" x2="19" y2="12"></line>
             <polyline points="12 5 19 12 12 19"></polyline>
           </svg>
-        </button>
+        </a>
       </div>
     </div>
   `
 }
 
-export function MapView({ selectedLocation, onLocationSelect, filters, searchQuery, highlightedCountry }: MapViewProps) {
+export function MapView({ selectedLocation, onLocationSelect, searchQuery, highlightedCountry }: MapViewProps) {
   const router = useRouter()
   const mapRef = useRef<HTMLDivElement | null>(null)
   const mapInstanceRef = useRef<Leaflet.Map | null>(null)
@@ -195,39 +186,18 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
   selectedRef.current = selectedCountry
 
   const filteredCountries = useMemo(() => {
+    if (!searchQuery) return countryProfiles
+    const q = searchQuery.toLowerCase()
     return countryProfiles.filter((country) => {
-      if (searchQuery) {
-        const q = searchQuery.toLowerCase()
-        const nameMatches = country.name.toLowerCase().includes(q)
-        const historyMatches = country.history.toLowerCase().includes(q)
-        const highlightMatches = country.culturalHighlights.some(
-          (h) => h.title.toLowerCase().includes(q) || h.description.toLowerCase().includes(q)
-        )
-        const originMatches = country.africanOrigins?.some((o) => o.toLowerCase().includes(q))
-        if (!nameMatches && !historyMatches && !highlightMatches && !originMatches) {
-          return false
-        }
-      }
-
-      if (filters && filters.length > 0) {
-        const matchesFilter = filters.some((filterId) => {
-          const activeKeywords = FILTER_KEYWORDS[filterId] || [filterId]
-          const inHistory = activeKeywords.some((keyword) => country.history.toLowerCase().includes(keyword))
-          const inHighlights = country.culturalHighlights.some((h) =>
-            activeKeywords.some(
-              (keyword) => h.title.toLowerCase().includes(keyword) || h.description.toLowerCase().includes(keyword)
-            )
-          )
-          return inHistory || inHighlights
-        })
-        if (!matchesFilter) {
-          return false
-        }
-      }
-
-      return true
+      const nameMatches = country.name.toLowerCase().includes(q)
+      const historyMatches = country.history.toLowerCase().includes(q)
+      const highlightMatches = country.culturalHighlights.some(
+        (h) => h.title.toLowerCase().includes(q) || h.description.toLowerCase().includes(q)
+      )
+      const originMatches = country.africanOrigins?.some((o) => o.toLowerCase().includes(q))
+      return nameMatches || historyMatches || highlightMatches || originMatches
     })
-  }, [searchQuery, filters])
+  }, [searchQuery])
 
   // Init map once
   useEffect(() => {
@@ -303,6 +273,10 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
         maxWidth: 320,
         className: "country-info-popup",
         closeButton: false,
+        autoPan: true,
+        autoPanPaddingTopLeft: L.point(24, 88),
+        autoPanPaddingBottomRight: L.point(24, 24),
+        keepInView: true,
       })
 
       marker.on("click", () => {
@@ -312,10 +286,14 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
       marker.on("popupopen", (e) => {
         const popupEl = e.popup.getElement()
         if (!popupEl) return
-        popupEl.querySelector("[data-popup-close]")?.addEventListener("click", () => {
+        popupEl.querySelector("[data-popup-close]")?.addEventListener("click", (evt) => {
+          evt.preventDefault()
           map.closePopup()
         })
+        // The Explore control is a real <a href> (always navigates); enhance to
+        // client-side routing when JS is wired.
         popupEl.querySelector<HTMLElement>("[data-country-id]")?.addEventListener("click", (evt) => {
+          evt.preventDefault()
           const id = (evt.currentTarget as HTMLElement).getAttribute("data-country-id")
           if (id) router.push(`/country/${id}`)
         })
@@ -415,11 +393,24 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
       duration: 1.5,
     })
 
-    popupTimeoutRef.current = setTimeout(() => {
+    // Open the card once the camera settles so autoPan can fit it fully;
+    // fall back to a timeout in case moveend never fires (e.g. no movement).
+    let opened = false
+    const openPopup = () => {
+      if (opened) return
+      opened = true
+      map.off("moveend", openPopup)
+      if (popupTimeoutRef.current) {
+        clearTimeout(popupTimeoutRef.current)
+        popupTimeoutRef.current = null
+      }
       marker.openPopup()
-    }, 1000)
+    }
+    map.once("moveend", openPopup)
+    popupTimeoutRef.current = setTimeout(openPopup, 1800)
 
     return () => {
+      map.off("moveend", openPopup)
       if (popupTimeoutRef.current) {
         clearTimeout(popupTimeoutRef.current)
         popupTimeoutRef.current = null
@@ -437,11 +428,9 @@ export function MapView({ selectedLocation, onLocationSelect, filters, searchQue
           <div className="glass-panel rounded-xl px-8 py-6 text-center max-w-sm">
             <p className="overline mb-2">No Matches</p>
             <p className="text-sm font-medium text-foreground mb-1">
-              {searchQuery ? `No countries match "${searchQuery}"` : "No countries match these filters"}
+              {`No countries match "${searchQuery}"`}
             </p>
-            <p className="text-xs text-muted-foreground">
-              Try a different search term or clear the filters above
-            </p>
+            <p className="text-xs text-muted-foreground">Try a different search term</p>
           </div>
         </div>
       )}
