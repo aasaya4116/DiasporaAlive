@@ -1,0 +1,22 @@
+// Flag emoji per country id — presentational, shared by the nav and marquee.
+export const COUNTRY_FLAG: Record<string, string> = {
+  brazil: "🇧🇷",
+  usa: "🇺🇸",
+  mexico: "🇲🇽",
+  colombia: "🇨🇴",
+  venezuela: "🇻🇪",
+  peru: "🇵🇪",
+  canada: "🇨🇦",
+  ecuador: "🇪🇨",
+  jamaica: "🇯🇲",
+  haiti: "🇭🇹",
+  cuba: "🇨🇺",
+  "dominican-republic": "🇩🇴",
+  "puerto-rico": "🇵🇷",
+  "trinidad-tobago": "🇹🇹",
+  france: "🇫🇷",
+  germany: "🇩🇪",
+  uk: "🇬🇧",
+  italy: "🇮🇹",
+  spain: "🇪🇸",
+}

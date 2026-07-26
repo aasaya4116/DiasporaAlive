@@ -6,6 +6,9 @@ import { HeroSection } from "@/components/hero-section"
 import { MapSection } from "@/components/map-section"
 import { PopulationTable } from "@/components/population-table"
 import { ExploreGrid } from "@/components/explore-grid"
+import { CountryMarquee } from "@/components/country-marquee"
+import { FeaturedCountry } from "@/components/featured-country"
+import { ClosingCTA } from "@/components/closing-cta"
 import { PageLoader } from "@/components/page-loader"
 
 function PageContent() {
@@ -24,9 +27,12 @@ function PageContent() {
 
       <main>
         <HeroSection />
+        <CountryMarquee />
         <MapSection searchQuery={searchQuery} highlightedCountry={selectedCountry} />
+        <FeaturedCountry />
         <PopulationTable />
         <ExploreGrid />
+        <ClosingCTA />
       </main>
     </div>
   )

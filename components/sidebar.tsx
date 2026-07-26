@@ -6,6 +6,7 @@ import Link from "next/link"
 import { usePathname, useRouter } from "next/navigation"
 import { useState, useEffect } from "react"
 import { countryProfiles, type CountryRegion } from "@/lib/country-profiles"
+import { COUNTRY_FLAG as FLAG } from "@/lib/flags"
 
 interface SidebarProps {
   activeSection: string
@@ -26,28 +27,6 @@ const regionGroups = REGION_ORDER.map((region) => ({
   region,
   countries: countryProfiles.filter((c) => c.region === region),
 }))
-
-const FLAG: Record<string, string> = {
-  brazil: "🇧🇷",
-  usa: "🇺🇸",
-  mexico: "🇲🇽",
-  colombia: "🇨🇴",
-  venezuela: "🇻🇪",
-  peru: "🇵🇪",
-  canada: "🇨🇦",
-  ecuador: "🇪🇨",
-  jamaica: "🇯🇲",
-  haiti: "🇭🇹",
-  cuba: "🇨🇺",
-  "dominican-republic": "🇩🇴",
-  "puerto-rico": "🇵🇷",
-  "trinidad-tobago": "🇹🇹",
-  france: "🇫🇷",
-  germany: "🇩🇪",
-  uk: "🇬🇧",
-  italy: "🇮🇹",
-  spain: "🇪🇸",
-}
 
 export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSearch }: SidebarProps) {
   const pathname = usePathname()

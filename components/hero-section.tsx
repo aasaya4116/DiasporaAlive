@@ -75,7 +75,7 @@ export function HeroSection() {
             Trace the African
           </span>
           <span
-            className="block text-6xl sm:text-7xl md:text-8xl lg:text-9xl font-bold tracking-tighter leading-none"
+            className="block font-serif italic text-6xl sm:text-7xl md:text-8xl lg:text-9xl leading-none"
             style={{
               backgroundImage: "linear-gradient(90deg, #ffffff 0%, #9a9cae 100%)",
               WebkitBackgroundClip: "text",
