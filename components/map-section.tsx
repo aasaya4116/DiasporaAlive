@@ -3,7 +3,8 @@
 import { useState } from "react"
 import { useReveal } from "@/hooks/use-reveal"
 import { MapView } from "@/components/map-view"
-import { DiasporaJourney } from "@/components/diaspora-journey"
+import { DiasporaJourney, CURATED_STOPS, type JourneyStop } from "@/components/diaspora-journey"
+import { TraceBox } from "@/components/trace-box"
 import { cn } from "@/lib/utils"
 
 interface MapSectionProps {
@@ -11,9 +12,18 @@ interface MapSectionProps {
   highlightedCountry?: string | null
 }
 
+interface ActiveJourney {
+  stops: JourneyStop[]
+  intro: string | null
+}
+
 export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps) {
   const [selectedLocation, setSelectedLocation] = useState<string | null>(null)
+  const [journey, setJourney] = useState<ActiveJourney | null>(null)
   const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
+
+  // Remount the journey per distinct itinerary so it always starts fresh at stop 0.
+  const journeyKey = journey?.stops.map((s) => s.id).join("-") ?? ""
 
   return (
     <section
@@ -37,7 +47,21 @@ export function MapSection({ searchQuery, highlightedCountry }: MapSectionProps)
           highlightedCountry={highlightedCountry}
         />
 
-        <DiasporaJourney activeCountryId={selectedLocation} onStopChange={setSelectedLocation} />
+        {journey ? (
+          <DiasporaJourney
+            key={journeyKey}
+            stops={journey.stops}
+            intro={journey.intro}
+            activeCountryId={selectedLocation}
+            onStopChange={setSelectedLocation}
+            onClose={() => setJourney(null)}
+          />
+        ) : (
+          <TraceBox
+            onTrace={(r) => setJourney({ stops: r.stops, intro: r.intro })}
+            onStartCurated={() => setJourney({ stops: CURATED_STOPS, intro: null })}
+          />
+        )}
       </div>
     </section>
   )
