@@ -30,7 +30,11 @@ export function TraceBox({ onTrace, onStartCurated }: TraceBoxProps) {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ query: q }),
       })
-      if (!res.ok) throw new Error(String(res.status))
+      if (!res.ok) {
+        const body = await res.json().catch(() => null)
+        setError(body?.error ?? "Something went wrong. Please try again.")
+        return
+      }
       const data = (await res.json()) as TraceResult
       if (!data.stops?.length) {
         setError("No matches in the collection — try another theme.")
