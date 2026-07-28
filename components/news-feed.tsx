@@ -1,6 +1,6 @@
 "use client"
 
-import { Calendar, MapPin, ChevronRight } from "lucide-react"
+import { Calendar, MapPin } from "lucide-react"
 import { useState, useEffect } from "react"
 import { cn } from "@/lib/utils"
 import { newsCategories, newsItems } from "@/lib/content"
@@ -103,14 +103,6 @@ export function NewsFeed() {
                     {news.location}
                   </div>
                 </div>
-
-                <a
-                  href={news.link}
-                  className="inline-flex items-center gap-2 text-sm font-medium text-gold hover:text-gold-strong transition-colors duration-200"
-                >
-                  Read more
-                  <ChevronRight className="h-4 w-4 group-hover:translate-x-1 transition-transform duration-200" />
-                </a>
               </div>
             </article>
           ))}

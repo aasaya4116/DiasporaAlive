@@ -122,7 +122,7 @@ export const countryProfiles: CountryProfile[] = [
           "Rio's carnival is the most known and famous carnival in the world, with over 1 million visitors on an annual basis. Brazilian carnival is an elaborate display of samba music, traditional dance, and colorful costumes dawned by revelers. Filled with samba music, a Brazilian-based music and dance genre originating from West African religious traditions, Carnival serves even more Brazilians and visitors in Bahia and Pernambuco. A product of Portuguese colonialist culture and their former African slaves, Carnival presents a fulfilling opportunity to experience the African diaspora in Brazil.",
       },
       {
-        title: "Museu Afro-Brasileiro (Salvador, Bahia)",
+        title: "Museu Afro Brasil (São Paulo)",
         description:
           "Museu Afro Brasil is dedicated to the preservation and exhibition of items and pieces that have undoubtedly shaped Afro Brasilian culture. Based in Ibirapuera Park (Sao Paulo), the museum houses over 6,000 works that all share in contribution, at some level, to the Afro Brasilian experience. The facility not only serves as a permanent exhibition of these pieces, artifacts, and documents, it also hosts theater showings, and temporary exhibits. Explore the Candomble exhibit - Candomble is an Afro-Brazilian religion that blends the spiritual beliefs of the indigenous people of African nations with Catholicism.",
       },

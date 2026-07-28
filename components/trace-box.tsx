@@ -14,13 +14,15 @@ interface TraceBoxProps {
   onStartCurated: () => void
 }
 
+const EXAMPLES = ["Afro-Latin rhythms", "Where did the Yoruba go?", "Carnival traditions"]
+
 export function TraceBox({ onTrace, onStartCurated }: TraceBoxProps) {
   const [query, setQuery] = useState("")
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  const submit = async () => {
-    const q = query.trim()
+  const runTrace = async (raw: string) => {
+    const q = raw.trim()
     if (!q || loading) return
     setLoading(true)
     setError(null)
@@ -60,13 +62,13 @@ export function TraceBox({ onTrace, onStartCurated }: TraceBoxProps) {
         <input
           value={query}
           onChange={(e) => setQuery(e.target.value)}
-          onKeyDown={(e) => e.key === "Enter" && submit()}
+          onKeyDown={(e) => e.key === "Enter" && runTrace(query)}
           disabled={loading}
           placeholder="A theme, an era, a culture…"
           className="flex-1 rounded-full border border-line bg-surface-2 px-4 py-2.5 text-sm text-foreground outline-none transition-colors placeholder:text-muted-foreground/50 focus:border-gold disabled:opacity-60"
         />
         <button
-          onClick={submit}
+          onClick={() => runTrace(query)}
           disabled={loading || !query.trim()}
           aria-label="Trace"
           className="flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-gold text-background transition hover:opacity-90 disabled:opacity-40"
@@ -78,14 +80,26 @@ export function TraceBox({ onTrace, onStartCurated }: TraceBoxProps) {
       {error ? (
         <p className="mt-2 px-1 text-xs text-destructive">{error}</p>
       ) : (
-        <button
-          onClick={onStartCurated}
-          disabled={loading}
-          className="mt-2 flex items-center gap-1.5 px-1 text-xs text-muted-foreground transition-colors hover:text-gold disabled:opacity-60"
-        >
-          <Route className="h-3.5 w-3.5" />
-          or take the guided journey
-        </button>
+        <div className="mt-2.5 flex flex-wrap gap-1.5 px-1">
+          {EXAMPLES.map((ex) => (
+            <button
+              key={ex}
+              onClick={() => runTrace(ex)}
+              disabled={loading}
+              className="rounded-full border border-line px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-gold hover:text-gold disabled:opacity-60"
+            >
+              {ex}
+            </button>
+          ))}
+          <button
+            onClick={onStartCurated}
+            disabled={loading}
+            className="flex items-center gap-1 rounded-full border border-line px-2.5 py-1 text-[11px] text-muted-foreground transition-colors hover:border-gold hover:text-gold disabled:opacity-60"
+          >
+            <Route className="h-3 w-3" />
+            Guided tour
+          </button>
+        </div>
       )}
     </div>
   )

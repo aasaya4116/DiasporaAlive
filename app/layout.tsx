@@ -19,11 +19,26 @@ const dmSerif = DM_Serif_Display({
   style: ["normal", "italic"],
 })
 
+const description =
+  "Trace the global impact of African diaspora cultures on an interactive map — music, cuisine, religion, language, and festivals across the Americas, Caribbean, and Europe, with an AI guide that curates journeys through the history."
+
 export const metadata: Metadata = {
-  title: "Diaspora Alive - Interactive African Diaspora Culture Map",
-  description:
-    "Explore the global impact of African diaspora cultures through an interactive world map showcasing music, cuisine, religion, language, and festivals across the Americas and Caribbean.",
-  generator: "v0.app",
+  metadataBase: new URL("https://diaspora-alive.vercel.app"),
+  title: "Diaspora Alive — Interactive African Diaspora Culture Map",
+  description,
+  applicationName: "Diaspora Alive",
+  openGraph: {
+    title: "Diaspora Alive",
+    description,
+    url: "/",
+    siteName: "Diaspora Alive",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Diaspora Alive",
+    description,
+  },
   icons: {
     icon: [
       {
