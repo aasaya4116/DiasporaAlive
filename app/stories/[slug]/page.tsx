@@ -29,7 +29,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
       <header className="glass-nav sticky top-0 z-50">
         <div className="container mx-auto flex items-center justify-between px-6 py-4">
           <Link
-            href="/topics"
+            href="/stories"
             className="inline-flex items-center gap-2 text-gold transition-colors hover:text-gold-strong"
           >
             <ArrowLeft className="h-4 w-4" />
@@ -40,7 +40,7 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
               Home
             </Link>
             <span className="text-ink-3">/</span>
-            <Link href="/topics" className="transition-colors hover:text-gold">
+            <Link href="/stories" className="transition-colors hover:text-gold">
               Topics
             </Link>
             <span className="text-ink-3">/</span>

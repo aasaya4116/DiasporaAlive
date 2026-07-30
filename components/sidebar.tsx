@@ -18,7 +18,7 @@ interface SidebarProps {
 const navLinks = [
   { id: "map", label: "Map", href: "#map-section" },
   { id: "timeline", label: "Timeline", href: "/timeline" },
-  { id: "stories", label: "Stories", href: "/stories" },
+  { id: "stories", label: "Topics", href: "/stories" },
 ]
 
 const REGION_ORDER: CountryRegion[] = ["Americas", "Caribbean", "Europe"]

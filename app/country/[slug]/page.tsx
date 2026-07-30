@@ -233,7 +233,7 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
               {relatedTopics.map((t) => (
                 <Link
                   key={t.id}
-                  href={`/topics/${t.id}`}
+                  href={`/stories/${t.id}`}
                   className="group rounded-lg border border-border bg-card p-6 transition hover:border-gold hover:-translate-y-0.5"
                 >
                   <p className="font-semibold text-foreground group-hover:text-gold transition-colors mb-1">{t.title}</p>

@@ -1,12 +1,12 @@
 "use client"
 
 import { useReveal } from "@/hooks/use-reveal"
-import { Calendar, Quote, BookOpen, Library, ArrowRight } from "lucide-react"
+import { Calendar, BookOpen, Library, ArrowRight } from "lucide-react"
 import Link from "next/link"
 
 const destinations = [
   {
-    href: "/topics",
+    href: "/stories",
     icon: Library,
     title: "Research Topics",
     description: "Cross-cutting histories and movements across the diaspora, with sources.",
@@ -16,12 +16,6 @@ const destinations = [
     icon: Calendar,
     title: "Historical Timeline",
     description: "Pivotal moments in diaspora history, from the 1500s to the independence era.",
-  },
-  {
-    href: "/stories",
-    icon: Quote,
-    title: "Diaspora Voices",
-    description: "Personal stories, plus news and events from across the diaspora.",
   },
   {
     href: "/resources",

@@ -1,4 +1,4 @@
-// Single source of truth for timeline / stories / news / resources content.
+// Single source of truth for timeline / news / resources content.
 // Home previews render slices of these arrays; subpages render them in full.
 
 export interface TimelineEvent {
@@ -44,41 +44,6 @@ export const timelineEvents: TimelineEvent[] = [
     title: "African Independence Movements",
     description: "Wave of independence across African nations, strengthening diaspora connections",
     region: "Africa",
-  },
-]
-
-export interface Story {
-  id: string
-  name: string
-  location: string
-  heritage: string
-  excerpt: string
-}
-
-export const stories: Story[] = [
-  {
-    id: "1",
-    name: "Maria Santos",
-    location: "São Paulo, Brazil",
-    heritage: "Angolan descent",
-    excerpt:
-      "Growing up in Salvador, I always felt the rhythm of Africa in our samba circles. It wasn't until I visited Luanda that I understood the depth of that connection...",
-  },
-  {
-    id: "2",
-    name: "Jean-Pierre Toussaint",
-    location: "Port-au-Prince, Haiti",
-    heritage: "Beninese & Congolese roots",
-    excerpt:
-      "The drums speak a language my ancestors taught us. Every Vodou ceremony is a conversation across centuries, a bridge between continents...",
-  },
-  {
-    id: "3",
-    name: "Keisha Williams",
-    location: "New Orleans, USA",
-    heritage: "West African heritage",
-    excerpt:
-      "When I tasted my grandmother's gumbo, I tasted centuries. The okra, the spices, the care—it all traced back to Nigeria. Food became my map home...",
   },
 ]
 
