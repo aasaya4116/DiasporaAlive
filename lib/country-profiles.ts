@@ -32,6 +32,10 @@ export interface CountryProfile {
   overview?: string
   statistics?: CountryStatistic[]
   culturalAspects?: CulturalAspect[]
+  // Deep research (Markdown section bodies), citations, and related topic ids
+  sections?: Array<{ heading: string; body: string }>
+  sources?: string[]
+  topics?: string[]
 }
 
 export const countryProfiles: CountryProfile[] = [
@@ -290,6 +294,22 @@ export const countryProfiles: CountryProfile[] = [
       },
     ],
     africanOrigins: ["Nigeria", "Angola", "Republic of Congo", "West Africa"],
+    topics: ["afro-caribbeans"],
+    sources: ["heuman-2013", "blackburn-2013", "mpi-caribbean-2025"],
+    sections: [
+      {
+        heading: "Roots in Slavery and Resistance",
+        body: "Under British rule from 1655, Jamaica became one of the Caribbean's largest sugar colonies, and enslaved Africans quickly formed the overwhelming majority of its population. Because that majority was so large and the plantation regime so brutal, **African cultural forms survived with unusual strength** — in language, spiritual practice, foodways, and music — laying the groundwork for a society that remained profoundly African in character.",
+      },
+      {
+        heading: "Maroons and the Fight for Freedom",
+        body: "Escaped and self-liberated Africans built independent **Maroon** communities in Jamaica's mountainous interior, waging a long guerrilla resistance that forced the British to sign treaties recognizing their autonomy in 1739. Towns such as **Accompong** preserve that legacy today, and the Maroon tradition of resistance runs through the whole of Jamaican cultural memory.",
+      },
+      {
+        heading: "Rastafari and Global Cultural Reach",
+        body: "In the 1930s the **Rastafari** movement emerged in Jamaica, drawing on the pan-African teachings of **Marcus Garvey** and a reverence for Ethiopia. Its spiritual and political vision, carried worldwide through **reggae** music, made a small island one of the twentieth century's most influential cultural exporters — alongside the living everyday inheritance of Jamaican Patois.",
+      },
+    ],
   },
   {
     id: "colombia",

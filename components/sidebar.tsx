@@ -10,7 +10,7 @@ import { COUNTRY_FLAG as FLAG } from "@/lib/flags"
 
 interface SidebarProps {
   activeSection: string
-  onSectionChange: (section: string) => void
+  onSectionChange?: (section: string) => void
   onCountryHover?: (countryId: string | null) => void
   onSearch?: (query: string) => void
 }
@@ -42,7 +42,7 @@ export function Sidebar({ activeSection, onSectionChange, onCountryHover, onSear
 
   // Works from any page: smooth-scroll on home, navigate home otherwise
   const goToMap = () => {
-    onSectionChange("map")
+    onSectionChange?.("map")
     if (pathname === "/") {
       document.getElementById("map-section")?.scrollIntoView({ behavior: "smooth" })
     } else {

@@ -2,6 +2,9 @@ import { countryProfiles } from "@/lib/country-profiles"
 import { Globe, Users, TrendingUp, MapPin, ArrowLeft, ArrowRight, Calendar } from "lucide-react"
 import Link from "next/link"
 import { notFound } from "next/navigation"
+import { topicsForCountry } from "@/lib/topics"
+import { Markdown } from "@/components/markdown"
+import { Bibliography } from "@/components/bibliography"
 
 export function generateStaticParams() {
   return countryProfiles.map((country) => ({
@@ -20,6 +23,7 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
   const isInDepth = Boolean(country.statistics?.length || country.culturalAspects?.length)
 
   const related = countryProfiles.filter((c) => c.region === country.region && c.id !== country.id).slice(0, 4)
+  const relatedTopics = topicsForCountry(country.id)
 
   const alphabetical = [...countryProfiles].sort((a, b) => a.name.localeCompare(b.name))
   const position = alphabetical.findIndex((c) => c.id === country.id)
@@ -116,7 +120,16 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
           <span className="overline block mb-3">History</span>
           <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">Historical Context</h2>
           <div className="rounded-lg border border-border bg-card p-8">
-            <p className="text-muted-foreground leading-relaxed text-lg">{country.history}</p>
+            {country.sections && country.sections.length > 0 ? (
+              country.sections.map((s, i) => (
+                <div key={i} className={i > 0 ? "mt-6" : ""}>
+                  <h3 className="mb-2 text-lg font-semibold text-foreground">{s.heading}</h3>
+                  <Markdown>{s.body}</Markdown>
+                </div>
+              ))
+            ) : (
+              <p className="text-muted-foreground leading-relaxed text-lg">{country.history}</p>
+            )}
           </div>
         </section>
 
@@ -210,6 +223,29 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
             ))}
           </div>
         </section>
+
+        {/* Related Topics */}
+        {relatedTopics.length > 0 && (
+          <section className="mb-12">
+            <span className="overline block mb-3">Explore Further</span>
+            <h2 className="text-2xl md:text-3xl font-bold tracking-tight text-foreground mb-6">Related Topics</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {relatedTopics.map((t) => (
+                <Link
+                  key={t.id}
+                  href={`/topics/${t.id}`}
+                  className="group rounded-lg border border-border bg-card p-6 transition hover:border-gold hover:-translate-y-0.5"
+                >
+                  <p className="font-semibold text-foreground group-hover:text-gold transition-colors mb-1">{t.title}</p>
+                  <p className="text-sm text-muted-foreground line-clamp-2">{t.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
+
+        {/* Bibliography */}
+        {country.sources && country.sources.length > 0 && <Bibliography ids={country.sources} />}
 
         {/* More in this region */}
         {related.length > 0 && (
