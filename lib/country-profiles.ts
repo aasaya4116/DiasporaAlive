@@ -1,3 +1,5 @@
+import type { MediaItem } from "@/lib/media"
+
 export interface CountryStatistic {
   label: string
   value: string
@@ -36,6 +38,7 @@ export interface CountryProfile {
   sections?: Array<{ heading: string; body: string }>
   sources?: string[]
   topics?: string[]
+  media?: MediaItem[]
 }
 
 export const countryProfiles: CountryProfile[] = [
@@ -147,6 +150,14 @@ export const countryProfiles: CountryProfile[] = [
       },
     ],
     africanOrigins: ["Angola", "Congo", "Nigeria (Yoruba)", "Nigeria (Igbo)", "Benin (Fon)", "Ghana (Ashanti)"],
+    media: [
+      {
+        title: "The African roots of Afro-Brazilian culture",
+        url: "https://www.instagram.com/reels/DUOVZDriLTo/",
+        platform: "instagram",
+        creator: "via Instagram",
+      },
+    ],
   },
   {
     id: "mexico",

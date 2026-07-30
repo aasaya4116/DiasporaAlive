@@ -5,6 +5,7 @@ import { notFound } from "next/navigation"
 import { topicsForCountry } from "@/lib/topics"
 import { Markdown } from "@/components/markdown"
 import { Bibliography } from "@/components/bibliography"
+import { MediaSection } from "@/components/media-section"
 
 export function generateStaticParams() {
   return countryProfiles.map((country) => ({
@@ -223,6 +224,9 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
             ))}
           </div>
         </section>
+
+        {/* Watch */}
+        <MediaSection items={country.media} />
 
         {/* Related Topics */}
         {relatedTopics.length > 0 && (

@@ -6,6 +6,7 @@ import { countryProfiles } from "@/lib/country-profiles"
 import { Footer } from "@/components/footer"
 import { Markdown } from "@/components/markdown"
 import { Bibliography } from "@/components/bibliography"
+import { MediaSection } from "@/components/media-section"
 
 export function generateStaticParams() {
   return topics.map((t) => ({ slug: t.id }))
@@ -91,6 +92,9 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
             </div>
           </section>
         )}
+
+        {/* Watch */}
+        <MediaSection items={topic.media} />
 
         {/* Bibliography */}
         {topic.sources && topic.sources.length > 0 && <Bibliography ids={topic.sources} />}

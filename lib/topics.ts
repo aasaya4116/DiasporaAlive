@@ -3,6 +3,8 @@
 // `sources` reference lib/sources.ts. This is a starter entry — expand/verify
 // the prose with your own research.
 
+import type { MediaItem } from "@/lib/media"
+
 export interface ContentSection {
   heading: string
   body: string
@@ -16,6 +18,7 @@ export interface Topic {
   countries: string[]
   relatedTopics?: string[]
   sources?: string[]
+  media?: MediaItem[]
   author?: string
   year?: number | string
 }
