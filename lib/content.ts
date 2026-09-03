@@ -51,6 +51,13 @@ export const timelineEvents: TimelineEvent[] = [
     topicId: "haitian-revolution",
   },
   {
+    year: "1803",
+    title: "Haitian Victory Reshapes North America",
+    description: "France's failure in Saint-Domingue helps prompt the Louisiana sale, expanding the United States and the territory available to slavery.",
+    region: "Haiti → Louisiana",
+    topicId: "haitian-revolution",
+  },
+  {
     year: "1804",
     title: "Haiti Declares Independence",
     description: "Jean-Jacques Dessalines declares Haiti independent after revolutionary forces defeat Napoleon's expedition.",

@@ -656,6 +656,25 @@ At this time, many people from the African Diaspora had set up their lives in Fr
     imageUrl: "/new-orleans-jazz-musicians-brass-band-french-quart.jpg",
     overview:
       "The United States is home to one of the largest African diaspora populations in the world. New Orleans in particular is the birthplace of jazz and a unique melting pot of African, Caribbean, and European cultures, where the African American community created revolutionary art forms that transformed global music.",
+    topics: ["afro-caribbeans", "haitian-revolution"],
+    sources: ["dubois-garrigus-2017"],
+    sections: [
+      {
+        heading: "Haiti and the Early United States",
+        body: "The Haitian Revolution confronted the young United States with two opposing possibilities. It offered enslaved people proof that plantation slavery could be defeated, while American officials and slaveholders feared that revolutionary ideas would travel through ports and communities. President John Adams supported commerce and cooperation with Toussaint Louverture, including American naval assistance during Louverture's conflict with André Rigaud. Thomas Jefferson instead treated independent Haiti as a threat to the plantation order and pursued diplomatic isolation. The United States did not formally recognize Haiti until 1862.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–26" }],
+      },
+      {
+        heading: "Refugees Reshape American Cities",
+        body: "Between the 1790s and 1810, successive migrations brought white planters, free people of color, and enslaved people from Saint-Domingue through Cuba and into the United States. Philadelphia, Charleston, New Orleans, and Louisiana became important destinations. These movements carried capital, labor, political ideas, and Caribbean cultural practices into American cities while complicating existing racial and social boundaries.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–26" }],
+      },
+      {
+        heading: "Haiti and the Louisiana Purchase",
+        body: "Napoleon's military failure in Saint-Domingue helped persuade him to abandon a wider French empire in North America and sell Louisiana in 1803. The purchase nearly doubled the territory claimed by the United States. Haiti's struggle for freedom therefore helped enable American expansion—but that expansion also opened vast new territory to the growth of slavery.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "p. 29" }],
+      },
+    ],
     statistics: [
       { label: "African American Population (New Orleans)", value: "~59% (220,000 people)", icon: "users" },
       { label: "Jazz Originated", value: "Early 1900s", icon: "calendar" },

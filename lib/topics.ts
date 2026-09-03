@@ -14,6 +14,44 @@ export interface ContentSection {
   }>
 }
 
+export interface TopicMetric {
+  value: string
+  label: string
+  source: string
+}
+
+export interface TopicCostOfSugar {
+  introduction: string
+  wealth: TopicMetric[]
+  humanCost: TopicMetric[]
+  note: string
+}
+
+export interface TopicStoryCard {
+  id: string
+  eyebrow: string
+  title: string
+  body: string
+}
+
+export interface TopicChapter {
+  id: string
+  number: string
+  title: string
+  period: string
+  eyebrow: string
+  summary: string
+  sectionIndexes: number[]
+  storyCards?: TopicStoryCard[]
+}
+
+export interface TopicExhibit {
+  duration: string
+  primaryCountryId: string
+  costOfSugar: TopicCostOfSugar
+  chapters: TopicChapter[]
+}
+
 export interface Topic {
   id: string
   title: string
@@ -25,6 +63,7 @@ export interface Topic {
   media?: MediaItem[]
   author?: string
   year?: number | string
+  exhibit?: TopicExhibit
 }
 
 export const topics: Topic[] = [
@@ -67,6 +106,84 @@ export const topics: Topic[] = [
     countries: ["haiti", "dominican-republic", "france", "usa", "cuba", "jamaica"],
     relatedTopics: ["afro-caribbeans"],
     sources: ["dubois-garrigus-2017"],
+    exhibit: {
+      duration: "7-minute overview",
+      primaryCountryId: "haiti",
+      costOfSugar: {
+        introduction:
+          "Saint-Domingue's wealth and its human destruction were not separate stories. They were the same system viewed from opposite sides.",
+        wealth: [
+          { value: "40%", label: "of Europe's sugar came from Saint-Domingue", source: "p. 2" },
+          { value: "60%", label: "of Europe's coffee came from the colony", source: "p. 2" },
+        ],
+        humanCost: [
+          { value: "~500K", label: "enslaved people lived in Saint-Domingue by 1790", source: "p. 7" },
+          { value: "5–10%", label: "of enslaved plantation workers died each year", source: "p. 7" },
+          { value: "⅓–½", label: "of survivors of the Atlantic crossing died within several years of arrival", source: "p. 2" },
+          { value: "Up to ⅔", label: "of the enslaved population was African-born", source: "p. 7" },
+        ],
+        note:
+          "These are historical estimates. They reveal the scale and operating logic of the plantation system, but no measurement can contain the individual lives, violence, and loss behind the totals.",
+      },
+      chapters: [
+        {
+          id: "before-the-revolution",
+          number: "01",
+          title: "Before the Revolution",
+          period: "Before 1791",
+          eyebrow: "The conditions",
+          summary:
+            "The wealth, violence, African knowledge, and political divisions that made Saint-Domingue both extraordinarily profitable and profoundly unstable.",
+          sectionIndexes: [0, 1],
+        },
+        {
+          id: "revolution-and-emancipation",
+          number: "02",
+          title: "Revolution & Emancipation",
+          period: "1791–1801",
+          eyebrow: "The transformation",
+          summary:
+            "A coordinated uprising forced revolutionary France to confront whether liberty and citizenship could coexist with colonial slavery.",
+          sectionIndexes: [2, 3, 4],
+        },
+        {
+          id: "independence-and-legacy",
+          number: "03",
+          title: "Independence & Legacy",
+          period: "1802–present",
+          eyebrow: "The victory and its reach",
+          summary:
+            "France's defeat created Haiti and reshaped migration, diplomacy, territorial expansion, and the politics of slavery across the Atlantic.",
+          sectionIndexes: [5, 6, 7],
+          storyCards: [
+            {
+              id: "ideas-and-fear",
+              eyebrow: "Ideas cross the Atlantic",
+              title: "Inspiration and fear",
+              body: "News from Saint-Domingue moved through American ports and newspapers. The revolution offered enslaved people proof that plantation slavery could be defeated, while officials and slaveholders feared that its example would spread through the American South.",
+            },
+            {
+              id: "refugee-movements",
+              eyebrow: "1791–1810",
+              title: "Refugees reshape American cities",
+              body: "Successive migrations brought white planters, free people of color, and enslaved people from Saint-Domingue through Cuba and into Philadelphia, Charleston, New Orleans, and Louisiana. These arrivals altered local culture, labor, racial politics, and connections to the Caribbean.",
+            },
+            {
+              id: "adams-and-jefferson",
+              eyebrow: "Two American responses",
+              title: "Adams, Jefferson, and Louverture",
+              body: "John Adams supported commerce and cooperation with Toussaint Louverture, including American naval assistance during Louverture's conflict with André Rigaud. Thomas Jefferson viewed revolutionary Haiti as a danger to the plantation order and pursued diplomatic isolation after independence. The United States did not recognize Haiti until 1862.",
+            },
+            {
+              id: "louisiana-purchase",
+              eyebrow: "1803",
+              title: "Haiti and the Louisiana Purchase",
+              body: "Napoleon's military failure in Saint-Domingue helped convince him to abandon his wider American ambitions and sell Louisiana. The purchase expanded the United States dramatically—and opened new territory to the expansion of slavery.",
+            },
+          ],
+        },
+      ],
+    },
     sections: [
       {
         heading: "The Plantation Colony Behind the Revolution",
@@ -97,6 +214,11 @@ export const topics: Topic[] = [
         heading: "Napoleon, War, and Haitian Independence",
         body: "Napoleon Bonaparte's government moved to reassert metropolitan control over the Caribbean and restore slavery where it could. A French expedition led by Charles-Victor-Emmanuel Leclerc reached Saint-Domingue in 1802. Louverture was arrested and deported to France, where he died in prison, but resistance continued—intensifying after France restored slavery in Guadeloupe. Jean-Jacques Dessalines and other leaders united forces against the expedition, defeated the French army, and declared the independence of Haiti on January 1, 1804.",
         citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 27–30" }],
+      },
+      {
+        heading: "The Haitian Revolution and the United States",
+        body: "The United States was closely entangled with the revolution through commerce, migration, diplomacy, and slavery. News from Saint-Domingue inspired enslaved people and alarmed slaveholders. Refugees reached cities including Philadelphia, Charleston, and New Orleans, while American policy shifted from John Adams's cooperation with Toussaint Louverture to Thomas Jefferson's effort to isolate independent Haiti. France's defeat also helped produce the Louisiana Purchase, expanding the United States and creating new territory for the expansion of slavery.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–26, 29" }],
       },
       {
         heading: "An Atlantic Revolution with an Unfinished Legacy",

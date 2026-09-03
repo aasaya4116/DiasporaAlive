@@ -8,6 +8,7 @@ import { Markdown } from "@/components/markdown"
 import { Bibliography } from "@/components/bibliography"
 import { MediaSection } from "@/components/media-section"
 import { SectionCitations } from "@/components/section-citations"
+import { ResearchExhibit } from "@/components/research-exhibit"
 
 export function generateStaticParams() {
   return topics.map((t) => ({ slug: t.id }))
@@ -54,33 +55,46 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
         </div>
       </header>
 
-      <main className="container mx-auto max-w-3xl px-6 py-12">
-        <div className="mb-8">
-          <span className="overline mb-3 block">Research Topic</span>
-          <h1 className="mb-4 text-4xl md:text-5xl font-bold tracking-tight text-foreground">{topic.title}</h1>
-          <p className="text-lg leading-relaxed text-muted-foreground">{topic.summary}</p>
-          {(topic.author || topic.year) && (
-            <p className="mt-4 text-sm text-ink-3">
-              {topic.author}
-              {topic.author && topic.year ? " · " : ""}
-              {topic.year}
-            </p>
-          )}
-        </div>
-
-        {/* Article */}
-        <article className="mb-12 rounded-lg border border-border bg-card p-8">
-          {topic.sections.map((s, i) => (
-            <div key={i} className={i > 0 ? "mt-8" : ""}>
-              <h2 className="mb-3 text-xl font-bold text-foreground">{s.heading}</h2>
-              <Markdown>{s.body}</Markdown>
-              <SectionCitations citations={s.citations} />
+      <main className="container mx-auto max-w-6xl px-6 py-12">
+        {topic.exhibit ? (
+          <ResearchExhibit
+            title={topic.title}
+            summary={topic.summary}
+            author={topic.author}
+            year={topic.year}
+            sections={topic.sections}
+            exhibit={topic.exhibit}
+          />
+        ) : (
+          <div className="mx-auto max-w-3xl">
+            <div className="mb-8">
+              <span className="overline mb-3 block">Research Topic</span>
+              <h1 className="mb-4 text-4xl font-bold tracking-tight text-foreground md:text-5xl">{topic.title}</h1>
+              <p className="text-lg leading-relaxed text-muted-foreground">{topic.summary}</p>
+              {(topic.author || topic.year) && (
+                <p className="mt-4 text-sm text-ink-3">
+                  {topic.author}
+                  {topic.author && topic.year ? " · " : ""}
+                  {topic.year}
+                </p>
+              )}
             </div>
-          ))}
-        </article>
 
-        {relatedTopics.length > 0 && (
-          <section className="mb-12">
+            <article className="mb-12 rounded-lg border border-border bg-card p-8">
+              {topic.sections.map((s, i) => (
+                <div key={i} className={i > 0 ? "mt-8" : ""}>
+                  <h2 className="mb-3 text-xl font-bold text-foreground">{s.heading}</h2>
+                  <Markdown>{s.body}</Markdown>
+                  <SectionCitations citations={s.citations} />
+                </div>
+              ))}
+            </article>
+          </div>
+        )}
+
+        <div className="mx-auto max-w-3xl">
+          {relatedTopics.length > 0 && (
+            <section className="mb-12">
             <span className="overline mb-3 block">Continue Researching</span>
             <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">Related Topics</h2>
             <div className="grid gap-4 sm:grid-cols-2">
@@ -97,12 +111,12 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
                 </Link>
               ))}
             </div>
-          </section>
-        )}
+            </section>
+          )}
 
         {/* Related countries */}
-        {relatedCountries.length > 0 && (
-          <section className="mb-12">
+          {relatedCountries.length > 0 && (
+            <section className="mb-12">
             <span className="overline mb-3 block">On the Map</span>
             <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">Related Countries</h2>
             <div className="flex flex-wrap gap-2">
@@ -116,14 +130,15 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
                 </Link>
               ))}
             </div>
-          </section>
-        )}
+            </section>
+          )}
 
         {/* Watch */}
-        <MediaSection items={topic.media} />
+          <MediaSection items={topic.media} />
 
         {/* Bibliography */}
-        {topic.sources && topic.sources.length > 0 && <Bibliography ids={topic.sources} />}
+          {topic.sources && topic.sources.length > 0 && <Bibliography ids={topic.sources} />}
+        </div>
       </main>
       <Footer />
     </div>
