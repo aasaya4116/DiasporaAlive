@@ -7,6 +7,7 @@ import { Footer } from "@/components/footer"
 import { Markdown } from "@/components/markdown"
 import { Bibliography } from "@/components/bibliography"
 import { MediaSection } from "@/components/media-section"
+import { SectionCitations } from "@/components/section-citations"
 
 export function generateStaticParams() {
   return topics.map((t) => ({ slug: t.id }))
@@ -23,6 +24,9 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
   const relatedCountries = topic.countries
     .map((id) => countryProfiles.find((c) => c.id === id))
     .filter((c): c is (typeof countryProfiles)[number] => Boolean(c))
+  const relatedTopics = (topic.relatedTopics ?? [])
+    .map((id) => topics.find((candidate) => candidate.id === id))
+    .filter((candidate): candidate is (typeof topics)[number] => Boolean(candidate))
 
   return (
     <div className="min-h-screen bg-background">
@@ -70,9 +74,31 @@ export default async function TopicPage({ params }: { params: Promise<{ slug: st
             <div key={i} className={i > 0 ? "mt-8" : ""}>
               <h2 className="mb-3 text-xl font-bold text-foreground">{s.heading}</h2>
               <Markdown>{s.body}</Markdown>
+              <SectionCitations citations={s.citations} />
             </div>
           ))}
         </article>
+
+        {relatedTopics.length > 0 && (
+          <section className="mb-12">
+            <span className="overline mb-3 block">Continue Researching</span>
+            <h2 className="mb-6 text-2xl font-bold tracking-tight text-foreground">Related Topics</h2>
+            <div className="grid gap-4 sm:grid-cols-2">
+              {relatedTopics.map((relatedTopic) => (
+                <Link
+                  key={relatedTopic.id}
+                  href={`/stories/${relatedTopic.id}`}
+                  className="group rounded-lg border border-border bg-card p-5 transition hover:-translate-y-0.5 hover:border-gold"
+                >
+                  <p className="mb-1 font-semibold text-foreground transition-colors group-hover:text-gold">
+                    {relatedTopic.title}
+                  </p>
+                  <p className="line-clamp-2 text-sm text-muted-foreground">{relatedTopic.summary}</p>
+                </Link>
+              ))}
+            </div>
+          </section>
+        )}
 
         {/* Related countries */}
         {relatedCountries.length > 0 && (

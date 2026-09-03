@@ -1,4 +1,5 @@
 import type { MediaItem } from "@/lib/media"
+import type { ContentSection } from "@/lib/topics"
 
 export interface CountryStatistic {
   label: string
@@ -35,7 +36,7 @@ export interface CountryProfile {
   statistics?: CountryStatistic[]
   culturalAspects?: CulturalAspect[]
   // Deep research (Markdown section bodies), citations, and related topic ids
-  sections?: Array<{ heading: string; body: string }>
+  sections?: ContentSection[]
   sources?: string[]
   topics?: string[]
   media?: MediaItem[]
@@ -408,6 +409,30 @@ export const countryProfiles: CountryProfile[] = [
     imageUrl: "/haitian-vodou-ceremony-colorful-spiritual-celebrat.jpg",
     overview:
       "Haiti is the world's first Black republic and the site of the only successful slave-led revolution in history. With 95% of its population of African descent, Haiti maintains the strongest African cultural continuity in the Americas.",
+    topics: ["afro-caribbeans", "haitian-revolution"],
+    sources: ["dubois-garrigus-2017"],
+    sections: [
+      {
+        heading: "Before Haiti: Saint-Domingue",
+        body: "On the eve of revolution, Saint-Domingue was France's richest plantation colony and one of the Atlantic world's largest producers of sugar and coffee. Its wealth rested on a brutal labor system imposed on roughly half a million enslaved people, most of whom were African-born. They carried cultural knowledge, religious traditions, and military experience from West and west-central Africa into a colony already divided among wealthy planters, poorer whites, royal officials, and free people of color demanding an end to racial discrimination. Those pressures—and networks of resistance created by enslaved people—formed the world from which the Haitian Revolution emerged.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 1–15" }],
+      },
+      {
+        heading: "The Revolution That Created Haiti",
+        body: "The revolution began with a coordinated uprising in northern Saint-Domingue in August 1791. Enslaved people attacked the plantation system while free people of color challenged colonial restrictions on citizenship. Their struggles forced French officials to confront the contradiction between revolutionary liberty and colonial slavery. Emancipation was proclaimed in Saint-Domingue in 1793 and extended across the French colonies by the National Convention in 1794.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 16–20" }],
+      },
+      {
+        heading: "From Emancipation to Independence",
+        body: "Toussaint Louverture defended emancipation and built an increasingly autonomous government, but Napoleon's 1802 expedition sought to restore French control. Louverture was captured and died in France; resistance continued under Jean-Jacques Dessalines and other leaders, especially after France restored slavery in Guadeloupe. Their victory culminated in Haiti's declaration of independence on January 1, 1804—the creation of the first independent Black republic in the Americas.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 22–30" }],
+      },
+      {
+        heading: "A Revolution Beyond Haiti",
+        body: "Haiti's revolution reshaped the Atlantic world. It inspired enslaved and free Black communities, alarmed slaveholding governments, influenced migration across the Caribbean and the United States, and helped set the conditions for the Louisiana Purchase. Haiti's independence also came under sustained foreign pressure, including the indemnity imposed by France in 1825. Even so, the revolution established a lasting claim that people held in slavery could defeat an empire and define freedom for themselves.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–31" }],
+      },
+    ],
     statistics: [
       { label: "Population of African Descent", value: "~95% (10.5M people)", icon: "users" },
       { label: "Revolution Success", value: "January 1, 1804", icon: "calendar" },

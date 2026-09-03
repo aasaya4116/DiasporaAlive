@@ -6,6 +6,7 @@ export interface TimelineEvent {
   title: string
   description: string
   region: string
+  topicId?: string
 }
 
 export const timelineEvents: TimelineEvent[] = [
@@ -24,8 +25,37 @@ export const timelineEvents: TimelineEvent[] = [
   {
     year: "1791",
     title: "Haitian Revolution Begins",
-    description: "Enslaved Africans in Saint-Domingue rise up, leading to first independent Black republic",
+    description: "A coordinated uprising in northern Saint-Domingue challenges the plantation system and colonial rule.",
+    region: "Saint-Domingue (Haiti)",
+    topicId: "haitian-revolution",
+  },
+  {
+    year: "1793",
+    title: "Emancipation Proclaimed in Saint-Domingue",
+    description: "French commissioners proclaim freedom as formerly enslaved people turn emancipation into a military and political reality.",
+    region: "French Caribbean",
+    topicId: "haitian-revolution",
+  },
+  {
+    year: "1794",
+    title: "France Abolishes Colonial Slavery",
+    description: "The National Convention extends abolition across the French colonies, though freedom remains unevenly enforced.",
+    region: "France and its Caribbean colonies",
+    topicId: "haitian-revolution",
+  },
+  {
+    year: "1802",
+    title: "Napoleon Sends an Expedition to Saint-Domingue",
+    description: "French forces seek to restore metropolitan control; Toussaint Louverture is captured, but resistance intensifies.",
+    region: "Saint-Domingue and Guadeloupe",
+    topicId: "haitian-revolution",
+  },
+  {
+    year: "1804",
+    title: "Haiti Declares Independence",
+    description: "Jean-Jacques Dessalines declares Haiti independent after revolutionary forces defeat Napoleon's expedition.",
     region: "Haiti",
+    topicId: "haitian-revolution",
   },
   {
     year: "1834",

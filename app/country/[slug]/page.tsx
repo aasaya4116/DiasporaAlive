@@ -6,6 +6,7 @@ import { topicsForCountry } from "@/lib/topics"
 import { Markdown } from "@/components/markdown"
 import { Bibliography } from "@/components/bibliography"
 import { MediaSection } from "@/components/media-section"
+import { SectionCitations } from "@/components/section-citations"
 
 export function generateStaticParams() {
   return countryProfiles.map((country) => ({
@@ -126,6 +127,7 @@ export default async function CountryProfilePage({ params }: { params: Promise<{
                 <div key={i} className={i > 0 ? "mt-6" : ""}>
                   <h3 className="mb-2 text-lg font-semibold text-foreground">{s.heading}</h3>
                   <Markdown>{s.body}</Markdown>
+                  <SectionCitations citations={s.citations} />
                 </div>
               ))
             ) : (

@@ -3,6 +3,7 @@
 import { useReveal } from "@/hooks/use-reveal"
 import { Calendar, MapPin } from "lucide-react"
 import { timelineEvents } from "@/lib/content"
+import Link from "next/link"
 
 export function TimelineSection() {
   const { ref: sectionRef, visible: isVisible } = useReveal<HTMLElement>()
@@ -52,6 +53,14 @@ export function TimelineSection() {
                       <MapPin className="w-4 h-4" />
                       <span>{event.region}</span>
                     </div>
+                    {event.topicId && (
+                      <Link
+                        href={`/stories/${event.topicId}`}
+                        className="mt-4 inline-flex text-sm font-medium text-gold transition-colors hover:text-gold-strong"
+                      >
+                        Read the research →
+                      </Link>
+                    )}
                   </div>
                 </div>
 

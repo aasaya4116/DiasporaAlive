@@ -12,6 +12,13 @@ export interface Source {
 }
 
 export const sources: Record<string, Source> = {
+  "dubois-garrigus-2017": {
+    id: "dubois-garrigus-2017",
+    authors: "Dubois, Laurent, and John D. Garrigus",
+    title: "Slave Revolution in the Caribbean, 1789–1804: A Brief History with Documents",
+    publisher: "Bedford/St. Martin's (2nd ed.)",
+    year: 2017,
+  },
   "heuman-2013": {
     id: "heuman-2013",
     authors: "Heuman, Gad",
