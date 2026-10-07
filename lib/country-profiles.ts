@@ -428,9 +428,14 @@ export const countryProfiles: CountryProfile[] = [
         citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 22–30" }],
       },
       {
+        heading: "The Haitian Revolution and the United States",
+        body: "The revolution unfolded through commercial and political networks that closely connected the French Caribbean to the United States. News from Saint-Domingue inspired enslaved people and frightened American slaveholders, while successive migrations beginning in 1791 brought thousands of refugees—including white planters, free people of color, and enslaved people—to ports such as Philadelphia, Charleston, and New Orleans. President John Adams pursued trade and cooperation with Toussaint Louverture: the United States sent an envoy, American naval ships assisted Louverture against André Rigaud, and merchants supplied provisions and military goods. Thomas Jefferson reversed that approach. Viewing Haiti as a threat to the United States' plantation society, his administration imposed diplomatic isolation after independence and supported an early economic boycott. African American abolitionists nevertheless celebrated Haiti as an enduring symbol of Black victory and dignity.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–26" }],
+      },
+      {
         heading: "A Revolution Beyond Haiti",
-        body: "Haiti's revolution reshaped the Atlantic world. It inspired enslaved and free Black communities, alarmed slaveholding governments, influenced migration across the Caribbean and the United States, and helped set the conditions for the Louisiana Purchase. Haiti's independence also came under sustained foreign pressure, including the indemnity imposed by France in 1825. Even so, the revolution established a lasting claim that people held in slavery could defeat an empire and define freedom for themselves.",
-        citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–31" }],
+        body: "Haiti's revolution reshaped the Atlantic world. The defeat of Napoleon's expedition forced France to abandon its plans for an expanded American empire. Without Saint-Domingue, Napoleon concluded that Louisiana had little value and offered the entire territory to the United States. The victory won by formerly enslaved soldiers and officers therefore helped make the Louisiana Purchase possible, dramatically expanding the United States while also opening new territory to the expansion of its slave system. Haiti's independence established a lasting claim that people held in slavery could defeat an empire and define freedom for themselves.",
+        citations: [{ sourceId: "dubois-garrigus-2017", locator: "p. 29" }],
       },
     ],
     statistics: [

@@ -160,25 +160,25 @@ export const topics: Topic[] = [
               id: "ideas-and-fear",
               eyebrow: "Ideas cross the Atlantic",
               title: "Inspiration and fear",
-              body: "News from Saint-Domingue moved through American ports and newspapers. The revolution offered enslaved people proof that plantation slavery could be defeated, while officials and slaveholders feared that its example would spread through the American South.",
+              body: "Communication between North America and the Caribbean carried news of the revolution quickly. Its success offered enslaved people proof that slavery could be defeated, while slaveholders and local officials—particularly in the southern states—treated that news as subversive and tried to suppress it.",
             },
             {
               id: "refugee-movements",
               eyebrow: "1791–1810",
               title: "Refugees reshape American cities",
-              body: "Successive migrations brought white planters, free people of color, and enslaved people from Saint-Domingue through Cuba and into Philadelphia, Charleston, New Orleans, and Louisiana. These arrivals altered local culture, labor, racial politics, and connections to the Caribbean.",
+              body: "Successive migrations in 1791, 1793, 1803, and 1809–1810 brought thousands of refugees from the French Caribbean to U.S. ports. Most were white planters, but as many as one-third were of African descent, including both enslaved people and free people of color. Their arrival shaped Philadelphia, Charleston, New Orleans, and the racial politics of the communities where they settled.",
             },
             {
               id: "adams-and-jefferson",
               eyebrow: "Two American responses",
               title: "Adams, Jefferson, and Louverture",
-              body: "John Adams supported commerce and cooperation with Toussaint Louverture, including American naval assistance during Louverture's conflict with André Rigaud. Thomas Jefferson viewed revolutionary Haiti as a danger to the plantation order and pursued diplomatic isolation after independence. The United States did not recognize Haiti until 1862.",
+              body: "John Adams supported commerce with Saint-Domingue, sent an envoy to Toussaint Louverture, and allowed U.S. naval ships to assist him against André Rigaud by blockading Les Cayes. American traders also supplied provisions and military goods. Thomas Jefferson reversed that policy, regarding Haiti as a danger to the United States' plantation society. After independence, his administration pursued diplomatic isolation and an economic boycott; formal recognition did not come until 1862.",
             },
             {
               id: "louisiana-purchase",
               eyebrow: "1803",
               title: "Haiti and the Louisiana Purchase",
-              body: "Napoleon's military failure in Saint-Domingue helped convince him to abandon his wider American ambitions and sell Louisiana. The purchase expanded the United States dramatically—and opened new territory to the expansion of slavery.",
+              body: "After the defeat of his forces in Saint-Domingue, Napoleon abandoned his plan for an expanded French empire in the Americas. Believing Louisiana had little value without Saint-Domingue, he offered the entire territory to the United States. The victory of formerly enslaved soldiers thus helped enable a massive expansion of the United States—and of its slave system.",
             },
           ],
         },
@@ -217,7 +217,7 @@ export const topics: Topic[] = [
       },
       {
         heading: "The Haitian Revolution and the United States",
-        body: "The United States was closely entangled with the revolution through commerce, migration, diplomacy, and slavery. News from Saint-Domingue inspired enslaved people and alarmed slaveholders. Refugees reached cities including Philadelphia, Charleston, and New Orleans, while American policy shifted from John Adams's cooperation with Toussaint Louverture to Thomas Jefferson's effort to isolate independent Haiti. France's defeat also helped produce the Louisiana Purchase, expanding the United States and creating new territory for the expansion of slavery.",
+        body: "The United States was closely entangled with the revolution through commerce, migration, diplomacy, and slavery. News from Saint-Domingue inspired enslaved people and alarmed slaveholders, while successive migrations brought thousands of refugees to Philadelphia, Charleston, New Orleans, and other American ports. John Adams supported commerce and cooperation with Toussaint Louverture, including an American envoy, naval assistance against André Rigaud, and supplies from U.S. merchants. Thomas Jefferson reversed that policy, viewing Haiti as a threat to the plantation order and pursuing diplomatic isolation and an economic boycott after independence. The defeat of Napoleon's expedition also helped produce the Louisiana Purchase: France abandoned its wider American ambitions, and the United States gained vast new territory in which slavery would expand.",
         citations: [{ sourceId: "dubois-garrigus-2017", locator: "pp. 25–26, 29" }],
       },
       {
